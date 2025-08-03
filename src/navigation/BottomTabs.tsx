@@ -5,8 +5,8 @@ import HomeScreen from "../screens/HomeScreen";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Feather from "@expo/vector-icons/Feather";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import FavouriteScreen from "./FavouriteScreen";
-import AllExercisesScreen from "./AllExercisesScreen";
+import FavouriteScreen from "../screens/FavouriteScreen";
+import AllExercisesScreen from "../screens/AllExercisesScreen";
 
 const Tab = createBottomTabNavigator();
 
