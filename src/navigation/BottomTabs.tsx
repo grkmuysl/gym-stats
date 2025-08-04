@@ -24,7 +24,7 @@ const BottomTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Favourites"
+        name="Favorites"
         component={FavouriteScreen}
         options={{
           tabBarIcon: () => (

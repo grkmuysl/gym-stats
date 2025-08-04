@@ -6,6 +6,7 @@ import { s } from "react-native-size-matters";
 import { useFavorites } from "../context/FavouritesContext";
 import { FlatList } from "react-native-gesture-handler";
 import Exercise from "../components/Exercise";
+import EmptyFavoritesScreen from "./EmptyFavoritesScreen";
 
 const FavouriteScreen = () => {
   const { favorites } = useFavorites();
@@ -14,7 +15,7 @@ const FavouriteScreen = () => {
     <View style={styles.container}>
       <Header />
       {isFavoritesEmpty ? (
-        <Text style={{ color: "white" }}>empty</Text>
+        <EmptyFavoritesScreen />
       ) : (
         <FlatList
           data={favorites}
