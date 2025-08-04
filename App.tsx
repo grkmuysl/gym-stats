@@ -4,6 +4,7 @@ import StackNavigation from "./src/navigation/StackNavigation";
 import { useEffect, useState } from "react";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
+import { FavoritesProvider } from "./src/context/FavouritesContext";
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -29,9 +30,11 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <StackNavigation />
-    </NavigationContainer>
+    <FavoritesProvider>
+      <NavigationContainer>
+        <StackNavigation />
+      </NavigationContainer>
+    </FavoritesProvider>
   );
 }
 
