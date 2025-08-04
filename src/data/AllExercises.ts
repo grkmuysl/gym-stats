@@ -1,4 +1,4 @@
-export const AllExercises = [
+export const allChestExercises = [
   {
     name: "Bench Press",
     subtitle: "A compound exercise for building chest strength",
@@ -34,6 +34,9 @@ export const AllExercises = [
     id: "4",
     difficulty: "Intermediate",
   },
+];
+
+export const allBackExercises = [
   {
     name: "Pull-Ups",
     subtitle: "A challenging back and arm strength exercise",
@@ -69,6 +72,9 @@ export const AllExercises = [
     id: "9",
     difficulty: "Intermediate",
   },
+];
+
+export const allShoulderExercises = [
   {
     name: "Overhead Press",
     subtitle: "Builds shoulder strength and stability",
@@ -97,6 +103,9 @@ export const AllExercises = [
     id: "13",
     difficulty: "Beginner",
   },
+];
+
+export const allLegExercises = [
   {
     name: "Squat",
     subtitle: "A fundamental lower body strength exercise",
@@ -125,6 +134,9 @@ export const AllExercises = [
     id: "17",
     difficulty: "Advanced",
   },
+];
+
+export const allBicepsExercises = [
   {
     name: "Barbell Curl",
     subtitle: "Builds bicep strength with barbell resistance",
@@ -146,6 +158,9 @@ export const AllExercises = [
     id: "20",
     difficulty: "Beginner",
   },
+];
+
+export const allTricepsExercises = [
   {
     name: "Tricep Dips",
     subtitle: "Strengthens triceps using body weight",
@@ -160,6 +175,9 @@ export const AllExercises = [
     id: "22",
     difficulty: "Advanced",
   },
+];
+
+export const allAbsExercises = [
   {
     name: "Plank",
     subtitle: "A core stability exercise for abs and lower back",
