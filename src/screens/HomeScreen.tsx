@@ -8,8 +8,6 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Header />
-      <Exercise title="Push-Up" subTitle="A basic upper body exercise" />
-      <Exercise title="Bench Press" subTitle="A basic upper body exercise" />
     </View>
   );
 };
