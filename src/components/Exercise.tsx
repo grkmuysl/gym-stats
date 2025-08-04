@@ -4,17 +4,21 @@ import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../styles/colors";
 import AppButton from "./Button/AppButton";
 
-interface ExerciseProps {
-  title: string;
-  subTitle: string;
+interface ExerciseItem {
+  name: string;
+  subtitle: string;
 }
 
-const Exercise: FC<ExerciseProps> = ({ title, subTitle }) => {
+interface ExerciseProps {
+  ExerciseItem: ExerciseItem;
+}
+
+const Exercise: FC<ExerciseProps> = ({ ExerciseItem }) => {
   return (
     <View style={styles.container}>
       <View style={styles.leftDetail}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subTitle}>{subTitle}</Text>
+        <Text style={styles.title}>{ExerciseItem.name}</Text>
+        <Text style={styles.subTitle}>{ExerciseItem.subtitle}</Text>
       </View>
       <View>
         <AppButton
@@ -32,7 +36,7 @@ export default Exercise;
 
 const styles = StyleSheet.create({
   container: {
-    width: "90%",
+    width: "100%",
     height: vs(76),
     borderRadius: s(16),
     backgroundColor: AppColors.grayBgColor,
