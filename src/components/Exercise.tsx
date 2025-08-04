@@ -3,17 +3,23 @@ import React, { FC } from "react";
 import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../styles/colors";
 import AppButton from "./Button/AppButton";
+import { ExerciseItem, useFavorites } from "../context/FavouritesContext";
 
-interface ExerciseItem {
-  name: string;
-  subtitle: string;
-}
+const Exercise: React.FC<{ ExerciseItem: ExerciseItem }> = ({
+  ExerciseItem,
+}) => {
+  const { favorites, addFavorite, removeFavorite } = useFavorites();
 
-interface ExerciseProps {
-  ExerciseItem: ExerciseItem;
-}
+  const isFavorite = favorites.some((item) => item.id === ExerciseItem.id);
 
-const Exercise: FC<ExerciseProps> = ({ ExerciseItem }) => {
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      removeFavorite(ExerciseItem.id);
+    } else {
+      addFavorite(ExerciseItem);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.leftDetail}>
@@ -22,10 +28,8 @@ const Exercise: FC<ExerciseProps> = ({ ExerciseItem }) => {
       </View>
       <View>
         <AppButton
-          title="Add to Favourites"
-          onPress={() => {
-            console.log("favorilendi");
-          }}
+          title={isFavorite ? "Remove Favorites" : "Add to Favorites"}
+          onPress={toggleFavorite}
         />
       </View>
     </View>
