@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { FC } from "react";
 import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../styles/colors";
 import AppButton from "./Button/AppButton";
 import { ExerciseItem, useFavorites } from "../context/FavouritesContext";
+import { useNavigation } from "@react-navigation/native";
 
 const Exercise: React.FC<{ ExerciseItem: ExerciseItem }> = ({
   ExerciseItem,
@@ -11,6 +12,8 @@ const Exercise: React.FC<{ ExerciseItem: ExerciseItem }> = ({
   const { favorites, addFavorite, removeFavorite } = useFavorites();
 
   const isFavorite = favorites.some((item) => item.id === ExerciseItem.id);
+
+  const navigation = useNavigation();
 
   const toggleFavorite = () => {
     if (isFavorite) {
@@ -20,8 +23,12 @@ const Exercise: React.FC<{ ExerciseItem: ExerciseItem }> = ({
     }
   };
 
+  const goToDetailScreen = () => {
+    navigation.navigate("DetailScreen");
+  };
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={goToDetailScreen}>
       <View style={styles.leftDetail}>
         <Text style={styles.title}>{ExerciseItem.name}</Text>
         <Text style={styles.subTitle}>{ExerciseItem.subtitle}</Text>
@@ -32,7 +39,7 @@ const Exercise: React.FC<{ ExerciseItem: ExerciseItem }> = ({
           onPress={toggleFavorite}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
