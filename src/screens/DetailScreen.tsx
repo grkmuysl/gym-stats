@@ -1,16 +1,20 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { AppColors } from "../styles/colors";
-import Header from "../components/Header";
 import GoBackButton from "../components/Button/GoBackButton";
 import PrevRecords from "../components/PrevRecords";
+import { s, vs } from "react-native-size-matters";
 
-const DetailScreen = () => {
+const DetailScreen = ({ route }) => {
+  console.log(route.params);
   return (
     <View style={styles.container}>
-      <Header />
       <GoBackButton style={styles.goBackBtn} size={24} />
+
+      <Text style={styles.pageTitle}>{route.params.name}</Text>
+
       <View style={styles.innerContainer}>
+        <Text style={styles.innerTitle}>Prev Records</Text>
         <PrevRecords />
       </View>
     </View>
@@ -30,7 +34,21 @@ const styles = StyleSheet.create({
     left: 12,
   },
   innerContainer: {
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
+  },
+  innerTitle: {
+    color: AppColors.whiteColor,
+    fontFamily: "Roboto-Regular",
+    fontSize: s(18),
+    left: 10,
+    marginTop: vs(16),
+    alignSelf: "flex-start",
+  },
+  pageTitle: {
+    color: AppColors.whiteColor,
+    fontFamily: "Roboto-SemiBold",
+    fontSize: s(22),
+    alignSelf: "center",
   },
 });

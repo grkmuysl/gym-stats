@@ -24,7 +24,7 @@ const Exercise: React.FC<{ ExerciseItem: ExerciseItem }> = ({
   };
 
   const goToDetailScreen = () => {
-    navigation.navigate("DetailScreen");
+    navigation.navigate("DetailScreen", ExerciseItem);
   };
 
   return (
