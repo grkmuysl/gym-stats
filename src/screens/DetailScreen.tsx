@@ -2,11 +2,14 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { AppColors } from "../styles/colors";
 import GoBackButton from "../components/Button/GoBackButton";
-import PrevRecords from "../components/PrevRecords";
+import PrevRecords from "../components/DetailPageComponents/PrevRecords";
 import { s, vs } from "react-native-size-matters";
+import LastChanges from "../components/DetailPageComponents/LastChanges";
 
 const DetailScreen = ({ route }) => {
   console.log(route.params);
+
+  const data = [100.32, 120.21, 90.52, 110.12];
   return (
     <View style={styles.container}>
       <GoBackButton style={styles.goBackBtn} size={24} />
@@ -16,6 +19,8 @@ const DetailScreen = ({ route }) => {
       <View style={styles.innerContainer}>
         <Text style={styles.innerTitle}>Prev Records</Text>
         <PrevRecords />
+
+        <LastChanges data={data} />
       </View>
     </View>
   );

@@ -1,6 +1,6 @@
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import Exercise from "../components/Exercise";
+import Exercise from "../components/Exercise/Exercise";
 import { AppColors } from "../styles/colors";
 import Header from "../components/Header";
 
