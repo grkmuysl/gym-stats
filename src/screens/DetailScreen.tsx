@@ -74,8 +74,9 @@ const styles = StyleSheet.create({
   pageTitle: {
     color: AppColors.whiteColor,
     fontFamily: "Roboto-SemiBold",
-    fontSize: s(22),
+    fontSize: s(18),
     alignSelf: "center",
+    marginTop: vs(4),
   },
   title: {
     fontFamily: "Roboto-Regular",
