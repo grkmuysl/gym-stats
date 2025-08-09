@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { FC } from "react";
 import { s, vs } from "react-native-size-matters";
-import { AppColors } from "../styles/colors";
-import AppButton from "./Button/AppButton";
-import { ExerciseItem, useFavorites } from "../context/FavouritesContext";
+import { AppColors } from "../../styles/colors";
+import AppButton from "../Button/AppButton";
+import { ExerciseItem, useFavorites } from "../../context/FavouritesContext";
 import { useNavigation } from "@react-navigation/native";
 
 const Exercise: React.FC<{ ExerciseItem: ExerciseItem }> = ({

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import { LineChart } from "react-native-gifted-charts";
-import { AppColors } from "../styles/colors";
+import { AppColors } from "../../styles/colors";
 import { s, vs } from "react-native-size-matters";
 
 const AppLineChart = ({ data }) => {

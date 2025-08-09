@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import { s } from "react-native-size-matters";
 import { useFavorites } from "../context/FavouritesContext";
 import { FlatList } from "react-native-gesture-handler";
-import Exercise from "../components/Exercise";
+import Exercise from "../components/Exercise/Exercise";
 import EmptyFavoritesScreen from "./EmptyFavoritesScreen";
 
 const FavouriteScreen = () => {
