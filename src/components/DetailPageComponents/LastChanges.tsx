@@ -23,7 +23,6 @@ const LastChanges = ({ data }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Last Changes</Text>
       <View style={styles.innerContainer}>
         <View>
           <Text style={isPositive ? styles.positive : styles.negative}>
@@ -78,13 +77,9 @@ const styles = StyleSheet.create({
     height: vs(128),
     width: s(316),
     borderRadius: s(12),
-    marginTop: vs(16),
+    marginTop: vs(12),
     padding: s(12),
-  },
-  title: {
-    fontFamily: "Roboto-SemiBold",
-    fontSize: s(14),
-    color: AppColors.whiteColor,
+    marginBottom: vs(16),
   },
 
   innerContainer: {
