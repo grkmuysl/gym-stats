@@ -4,6 +4,10 @@ export const AppColors = {
   limeGreenColor: "#0df93e",
   whiteColor: "#ffffff",
   lightGray: "#b2afafff",
-  greenColor: "#28ce2bff",
-  redColor: "#f23f3fff",
+  greenColor: "#27ae60",
+  redColor: "#e74c3c",
+  orangeColor: "#f39c12",
+  darkOrangeColor: "#e67e22",
+  blueColor: "#3498db",
+  purpleColor: "#8e44ad",
 };
