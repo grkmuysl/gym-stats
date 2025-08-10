@@ -42,3 +42,65 @@ export const useBMICalculator = () => {
 
   return { getBMI };
 };
+
+export const calculateBodyScoreLinear = (bmi: number): number => {
+  if (bmi <= 0) return 0;
+
+  const optimalMin = 20;
+  const optimalMax = 25;
+  const optimalMid = 22.5;
+
+  if (bmi >= optimalMin && bmi <= optimalMax) {
+    const distance = Math.abs(bmi - optimalMid);
+    return Math.round(100 - distance * 6);
+  } else if (bmi < optimalMin) {
+    if (bmi < 16) return 5;
+    return Math.round(((bmi - 16) / (optimalMin - 16)) * 80 + 5);
+  } else {
+    if (bmi > 45) return 5;
+    return Math.round(85 - ((bmi - optimalMax) / (45 - optimalMax)) * 80);
+  }
+};
+
+export const calculateAdvancedBodyScore = (
+  bmi: number,
+  age?: number,
+  gender?: "male" | "female"
+): number => {
+  let baseScore = calculateBodyScoreLinear(bmi);
+
+  if (age) {
+    if (age >= 18 && age <= 30) {
+    } else if (age > 30 && age <= 50) {
+      baseScore += 2;
+    } else if (age > 50) {
+      baseScore += 5;
+    }
+  }
+
+  if (gender === "female") {
+    if (bmi >= 18.5 && bmi <= 26) {
+      baseScore += 2;
+    }
+  }
+
+  return Math.min(100, Math.max(5, Math.round(baseScore)));
+};
+
+export const getBodyScoreDescription = (score: number): string => {
+  if (score >= 90) return "Perfect";
+  if (score >= 80) return "Very Good";
+  if (score >= 70) return "Good";
+  if (score >= 60) return "Normal";
+  if (score >= 20) return "Bad";
+  return "Very Bad";
+};
+
+export const getBodyScoreEmoji = (score: number): string => {
+  if (score >= 90) return "😍";
+  if (score >= 80) return "😊";
+  if (score >= 70) return "🙂";
+  if (score >= 60) return "😐";
+  if (score >= 20) return "😟";
+  return "😰";
+};

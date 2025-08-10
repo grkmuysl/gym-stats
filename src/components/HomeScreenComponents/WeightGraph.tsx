@@ -10,7 +10,6 @@ const WeightGraph = ({ weight, height }) => {
   const { bmi, category } = calculateBMI(weight, height);
 
   let colorCode;
-  console.log("cat:", category);
   if (category == BMI_TYPES.UNDERWEIGHT) {
     colorCode = AppColors.blueColor;
   } else if (category == BMI_TYPES.NORMAL_WEIGHT) {
@@ -67,11 +66,11 @@ const styles = StyleSheet.create({
   },
   upIcon: {
     position: "absolute",
-    top: 0,
+    top: -1,
   },
   weight: {
     color: AppColors.whiteColor,
-    fontSize: s(16),
+    fontSize: s(18),
     fontFamily: "Roboto-SemiBold",
     marginTop: s(6),
   },
@@ -83,10 +82,10 @@ const styles = StyleSheet.create({
   categoryTitle: {
     color: AppColors.whiteColor,
     fontSize: s(16),
-    fontFamily: "Roboto-Regular",
+    fontFamily: "Roboto-SemiBold",
     position: "absolute",
     top: vs(22),
     width: s(120),
-    right: -86,
+    right: -82,
   },
 });

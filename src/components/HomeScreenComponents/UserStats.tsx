@@ -3,6 +3,7 @@ import React from "react";
 import { AppColors } from "../../styles/colors";
 import { s, vs } from "react-native-size-matters";
 import WeightGraph from "./WeightGraph";
+import BodyScoreGraph from "./BodyScoreGraph";
 
 const UserStats = () => {
   return (
@@ -17,6 +18,8 @@ const UserStats = () => {
       <View style={styles.bodyScore}>
         <Text style={styles.title}>Body Score</Text>
         <Text style={styles.subTitle}>28 Temmuz</Text>
+
+        <BodyScoreGraph weight={74} height={180} />
       </View>
     </View>
   );
@@ -27,8 +30,8 @@ export default UserStats;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: AppColors.grayBgColor,
-    height: vs(240),
-    width: s(350),
+    height: vs(220),
+    width: s(340),
     marginTop: vs(12),
     flexDirection: "row",
     borderRadius: s(16),
@@ -36,9 +39,11 @@ const styles = StyleSheet.create({
   },
   weight: {
     flex: 1,
+    marginLeft: s(10),
   },
   bodyScore: {
     flex: 1,
+    marginLeft: s(10),
   },
   title: {
     left: s(4),
