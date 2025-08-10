@@ -3,11 +3,13 @@ import React from "react";
 import Header from "../components/Header";
 import Exercise from "../components/Exercise/Exercise";
 import { AppColors } from "../styles/colors";
+import UserStats from "../components/HomeScreenComponents/UserStats";
 
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Header />
+      <UserStats />
     </View>
   );
 };
