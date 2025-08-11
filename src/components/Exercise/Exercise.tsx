@@ -30,7 +30,10 @@ const Exercise: React.FC<{ ExerciseItem: ExerciseItem }> = ({
   return (
     <TouchableOpacity style={styles.container} onPress={goToDetailScreen}>
       <View style={styles.leftDetail}>
-        <Text style={styles.title}>{ExerciseItem.name}</Text>
+        <Text style={styles.title}>
+          {ExerciseItem.name}{" "}
+          <Text style={styles.difficulty}>( {ExerciseItem.difficulty} )</Text>
+        </Text>
         <Text style={styles.subTitle}>{ExerciseItem.subtitle}</Text>
       </View>
       <View>
@@ -60,7 +63,11 @@ const styles = StyleSheet.create({
   leftDetail: {
     width: "60%",
   },
-
+  difficulty: {
+    fontSize: s(13),
+    color: "#ddd",
+    fontFamily: "Roboto-Regular",
+  },
   title: {
     fontSize: s(14),
     fontFamily: "Roboto-Regular",
