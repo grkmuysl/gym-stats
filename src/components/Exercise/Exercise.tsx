@@ -58,7 +58,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     padding: s(16),
-    marginTop: vs(16),
+    marginTop: vs(8),
+    marginBottom: vs(6),
   },
   leftDetail: {
     width: "60%",
