@@ -7,18 +7,33 @@ import Feather from "@expo/vector-icons/Feather";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FavouriteScreen from "../screens/FavouriteScreen";
 import AllExercisesScreen from "../screens/AllExercisesScreen";
+import { AppColors } from "../styles/colors";
+import { vs } from "react-native-size-matters";
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: AppColors.whiteColor,
+        tabBarInactiveTintColor: AppColors.lightGray,
+        tabBarStyle: {
+          backgroundColor: AppColors.grayBgColor,
+          height: vs(60),
+        },
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
           tabBarIcon: () => (
-            <Ionicons name="home-outline" size={24} color="black" />
+            <Ionicons
+              name="home-outline"
+              size={24}
+              color={AppColors.limeGreenColor}
+            />
           ),
           headerShown: false,
         }}
@@ -28,7 +43,11 @@ const BottomTabs = () => {
         component={FavouriteScreen}
         options={{
           tabBarIcon: () => (
-            <MaterialIcons name="favorite-border" size={24} color="black" />
+            <MaterialIcons
+              name="favorite-border"
+              size={24}
+              color={AppColors.limeGreenColor}
+            />
           ),
           headerShown: false,
         }}
@@ -37,7 +56,9 @@ const BottomTabs = () => {
         name="All Exercises"
         component={AllExercisesScreen}
         options={{
-          tabBarIcon: () => <Feather name="list" size={24} color="black" />,
+          tabBarIcon: () => (
+            <Feather name="list" size={24} color={AppColors.limeGreenColor} />
+          ),
           headerShown: false,
         }}
       />
