@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: AppColors.grayBgColor,
     height: vs(220),
-    width: s(340),
-    marginTop: vs(12),
+    width: s(320),
+    marginTop: vs(8),
     flexDirection: "row",
     borderRadius: s(16),
     padding: s(12),

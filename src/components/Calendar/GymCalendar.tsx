@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import { Calendar } from "react-native-calendars";
 import Modal from "react-native-modal";
 import { AppColors } from "../../styles/colors";
@@ -7,20 +13,21 @@ import { s, vs } from "react-native-size-matters";
 
 const GymCalendar = () => {
   const [selectedDate, setSelectedDate] = useState("");
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [isWorkoutModalVisible, setWorkoutModalVisible] = useState(false);
+  const [isNoWorkoutModalVisible, setNoWorkoutModalVisible] = useState(false);
   const [workoutData, setWorkoutData] = useState({});
   const [markedDates, setMarkedDates] = useState({});
 
   const sampleWorkouts = {
-    "2025-08-15": [
+    "2025-08-10": [
       { exercise: "Bench Press", sets: 3, reps: 10, weight: "80kg" },
       { exercise: "Squat", sets: 3, reps: 12, weight: "100kg" },
     ],
-    "2025-08-17": [
+    "2025-08-07": [
       { exercise: "Deadlift", sets: 3, reps: 8, weight: "120kg" },
       { exercise: "Pull-ups", sets: 3, reps: 15, weight: "Bodyweight" },
     ],
-    "2025-08-20": [
+    "2025-08-05": [
       { exercise: "Overhead Press", sets: 3, reps: 10, weight: "60kg" },
     ],
   };
@@ -50,13 +57,40 @@ const GymCalendar = () => {
     setMarkedDates(marked);
   }, [workoutData]);
 
+  const isDateInFuture = (dateString) => {
+    const selectedDate = new Date(dateString);
+    const today = new Date();
+
+    selectedDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    return selectedDate > today;
+  };
+
   const onDayPress = (day) => {
     const dateString = day.dateString;
     setSelectedDate(dateString);
 
-    if (workoutData[dateString]) {
-      setModalVisible(true);
+    if (isDateInFuture(dateString)) {
+      return;
     }
+
+    if (workoutData[dateString]) {
+      setWorkoutModalVisible(true);
+    } else {
+      setNoWorkoutModalVisible(true);
+    }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      weekday: "long",
+    };
+    return date.toLocaleDateString("tr-TR", options);
   };
 
   const renderWorkoutItem = ({ item }) => (
@@ -66,6 +100,71 @@ const GymCalendar = () => {
         {item.sets} set × {item.reps} tekrar - {item.weight}
       </Text>
     </View>
+  );
+
+  const WorkoutModal = () => (
+    <Modal
+      isVisible={isWorkoutModalVisible}
+      onBackdropPress={() => setWorkoutModalVisible(false)}
+      style={styles.modal}
+    >
+      <View style={styles.modalContent}>
+        <Text style={styles.modalTitle}>{formatDate(selectedDate)}</Text>
+        <Text style={styles.modalSubtitle}>Yapılan Egzersizler</Text>
+
+        {workoutData[selectedDate] && (
+          <FlatList
+            data={workoutData[selectedDate]}
+            renderItem={renderWorkoutItem}
+            keyExtractor={(item, index) => index.toString()}
+            style={styles.workoutList}
+            showsVerticalScrollIndicator={false}
+          />
+        )}
+
+        <TouchableOpacity
+          style={styles.closeButtonContainer}
+          onPress={() => setWorkoutModalVisible(false)}
+        >
+          <Text style={styles.closeButton}>Kapat</Text>
+        </TouchableOpacity>
+      </View>
+    </Modal>
+  );
+
+  const NoWorkoutModal = () => (
+    <Modal
+      isVisible={isNoWorkoutModalVisible}
+      onBackdropPress={() => setNoWorkoutModalVisible(false)}
+      style={styles.modal}
+    >
+      <View style={styles.noWorkoutModalContent}>
+        <Text style={styles.noWorkoutIcon}>💪</Text>
+        <Text style={styles.modalTitle}>{formatDate(selectedDate)}</Text>
+        <Text style={styles.noWorkoutMessage}>
+          Bu tarihte henüz egzersiz kaydı bulunmuyor.
+        </Text>
+
+        <View style={styles.noWorkoutButtonContainer}>
+          <TouchableOpacity
+            style={styles.addWorkoutButton}
+            onPress={() => {
+              setNoWorkoutModalVisible(false);
+              console.log("Egzersiz ekle:", selectedDate);
+            }}
+          >
+            <Text style={styles.addWorkoutButtonText}>Egzersiz Ekle</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.cancelButton}
+            onPress={() => setNoWorkoutModalVisible(false)}
+          >
+            <Text style={styles.cancelButtonText}>İptal</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
   );
 
   return (
@@ -103,36 +202,16 @@ const GymCalendar = () => {
         />
       </View>
 
-      <Modal
-        isVisible={isModalVisible}
-        onBackdropPress={() => setModalVisible(false)}
-        style={styles.modal}
-      >
-        <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>{selectedDate} - Egzersizler</Text>
-
-          {workoutData[selectedDate] && (
-            <FlatList
-              data={workoutData[selectedDate]}
-              renderItem={renderWorkoutItem}
-              keyExtractor={(item, index) => index.toString()}
-              style={styles.workoutList}
-            />
-          )}
-
-          <Text
-            style={styles.closeButton}
-            onPress={() => setModalVisible(false)}
-          >
-            Kapat
-          </Text>
-        </View>
-      </Modal>
+      <WorkoutModal />
+      <NoWorkoutModal />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: s(12),
+  },
   calendarContainer: {
     height: vs(352),
     width: s(296),
@@ -151,12 +230,26 @@ const styles = StyleSheet.create({
     width: "90%",
     maxHeight: "70%",
   },
+  noWorkoutModalContent: {
+    backgroundColor: AppColors.whiteColor,
+    padding: s(24),
+    borderRadius: s(12),
+    width: "85%",
+    alignItems: "center",
+  },
   modalTitle: {
     fontSize: s(16),
     fontFamily: "Roboto-SemiBold",
-    marginBottom: vs(14),
+    marginBottom: vs(8),
     textAlign: "center",
     color: "#333",
+  },
+  modalSubtitle: {
+    fontSize: s(14),
+    fontFamily: "Roboto-Medium",
+    marginBottom: vs(12),
+    textAlign: "center",
+    color: AppColors.limeGreenColor,
   },
   workoutList: {
     maxHeight: vs(300),
@@ -179,12 +272,61 @@ const styles = StyleSheet.create({
     fontSize: s(12),
     color: AppColors.lightGray,
   },
+  closeButtonContainer: {
+    marginTop: vs(16),
+    backgroundColor: AppColors.grayBgColor,
+    paddingVertical: vs(10),
+    borderRadius: s(8),
+  },
   closeButton: {
-    marginTop: vs(14),
     textAlign: "center",
+    color: AppColors.whiteColor,
+    fontSize: s(14),
+    fontWeight: "bold",
+  },
+  // No Workout Modal Styles
+  noWorkoutIcon: {
+    fontSize: s(48),
+    marginBottom: vs(12),
+  },
+  noWorkoutMessage: {
+    fontSize: s(14),
+    textAlign: "center",
+    color: "#666",
+    marginBottom: vs(8),
+    fontFamily: "Roboto-Regular",
+  },
+  noWorkoutButtonContainer: {
+    width: "100%",
+    gap: vs(10),
+  },
+  addWorkoutButton: {
+    backgroundColor: AppColors.limeGreenColor,
+    paddingVertical: vs(12),
+    paddingHorizontal: s(24),
+    borderRadius: s(8),
+    alignItems: "center",
+  },
+  addWorkoutButtonText: {
     color: AppColors.blackBgColor,
     fontSize: s(14),
     fontWeight: "bold",
+    fontFamily: "Roboto-SemiBold",
+  },
+  cancelButton: {
+    backgroundColor: "transparent",
+    paddingVertical: vs(12),
+    paddingHorizontal: s(24),
+    borderRadius: s(8),
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#ddd",
+  },
+  cancelButtonText: {
+    color: "#666",
+    fontSize: s(14),
+    fontWeight: "500",
+    fontFamily: "Roboto-Medium",
   },
 });
 
