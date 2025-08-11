@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
     fontSize: s(18),
     fontFamily: "Roboto-Regular",
     alignSelf: "flex-start",
-    marginTop: vs(12),
+    marginTop: vs(8),
+    left: s(4),
   },
   categoryContainer: {
     marginBottom: vs(8),
