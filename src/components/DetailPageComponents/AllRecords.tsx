@@ -17,7 +17,7 @@ export default AllRecords;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: AppColors.grayBgColor,
-    marginTop: vs(12),
+    marginTop: vs(8),
     marginBottom: vs(24),
     borderRadius: s(16),
     padding: s(8),
