@@ -8,19 +8,9 @@ import BodyScoreGraph from "./BodyScoreGraph";
 const UserStats = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.weight}>
-        <Text style={styles.title}>Weight</Text>
-        <Text style={styles.subTitle}>28 Temmuz</Text>
+      <WeightGraph weight={80} height={180} />
 
-        <WeightGraph weight={80} height={180} />
-      </View>
-
-      <View style={styles.bodyScore}>
-        <Text style={styles.title}>Body Score</Text>
-        <Text style={styles.subTitle}>28 Temmuz</Text>
-
-        <BodyScoreGraph weight={74} height={180} />
-      </View>
+      <BodyScoreGraph weight={74} height={180} />
     </View>
   );
 };
@@ -29,13 +19,10 @@ export default UserStats;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: AppColors.grayBgColor,
-    height: vs(220),
     width: s(320),
     marginTop: vs(8),
-    flexDirection: "row",
-    borderRadius: s(16),
-    padding: s(12),
+    flexDirection: "column",
+    borderRadius: s(18),
   },
   weight: {
     flex: 1,
