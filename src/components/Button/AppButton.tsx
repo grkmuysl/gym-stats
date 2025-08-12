@@ -3,8 +3,6 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  TouchableOpacityProps,
-  View,
   ViewStyle,
 } from "react-native";
 import React, { FC } from "react";
@@ -15,12 +13,18 @@ interface AppButtonProps {
   onPress: () => void;
   title: string;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<ViewStyle>;
 }
 
-const AppButton: FC<AppButtonProps> = ({ onPress, title, style }) => {
+const AppButton: FC<AppButtonProps> = ({
+  onPress,
+  title,
+  style,
+  textStyle,
+}) => {
   return (
-    <TouchableOpacity style={[style, styles.container]} onPress={onPress}>
-      <Text style={styles.title}>{title}</Text>
+    <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
+      <Text style={[styles.title, textStyle]}>{title}</Text>
     </TouchableOpacity>
   );
 };
@@ -37,6 +41,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
+    fontFamily: "Roboto-Regular",
     fontSize: s(11),
     color: AppColors.blackBgColor,
   },

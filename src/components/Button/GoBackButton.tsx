@@ -17,7 +17,7 @@ const GoBackButton: FC<GoBackButtonProps> = ({ style, size }) => {
   return (
     <AntDesign
       name="arrowleft"
-      size={size ? size : 36}
+      size={size ? size : 24}
       color="white"
       onPress={goBack}
       style={[style, styles.goBackBtn]}
