@@ -4,6 +4,7 @@ import React from "react";
 import BottomTabs from "./BottomTabs";
 import DetailScreen from "../screens/DetailScreen";
 import { createStackNavigator } from "@react-navigation/stack";
+import AddExerciseScreen from "../screens/AddExerciseScreen";
 
 const StackNavigation = () => {
   const Stack = createStackNavigator();
@@ -17,6 +18,11 @@ const StackNavigation = () => {
       <Stack.Screen
         name="DetailScreen"
         component={DetailScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="AddExerciseScreen"
+        component={AddExerciseScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -10,6 +10,8 @@ import { Calendar } from "react-native-calendars";
 import Modal from "react-native-modal";
 import { AppColors } from "../../styles/colors";
 import { s, vs } from "react-native-size-matters";
+import { useNavigation } from "@react-navigation/native";
+import AppButton from "../Button/AppButton";
 
 const GymCalendar = () => {
   const [selectedDate, setSelectedDate] = useState("");
@@ -17,6 +19,8 @@ const GymCalendar = () => {
   const [isNoWorkoutModalVisible, setNoWorkoutModalVisible] = useState(false);
   const [workoutData, setWorkoutData] = useState({});
   const [markedDates, setMarkedDates] = useState({});
+
+  const navigation = useNavigation();
 
   const sampleWorkouts = {
     "2025-08-10": [
@@ -30,6 +34,11 @@ const GymCalendar = () => {
     "2025-08-05": [
       { exercise: "Overhead Press", sets: 3, reps: 10, weight: "60kg" },
     ],
+  };
+
+  const addBtnHandle = () => {
+    setWorkoutModalVisible(false);
+    navigation.navigate("AddExerciseScreen");
   };
 
   useEffect(() => {
@@ -122,6 +131,15 @@ const GymCalendar = () => {
           />
         )}
 
+        <View style={styles.btnContainer}>
+          <AppButton
+            onPress={addBtnHandle}
+            title="Egzersiz Ekle"
+            style={styles.addBtn}
+            textStyle={styles.addBtnText}
+          />
+        </View>
+
         <TouchableOpacity
           style={styles.closeButtonContainer}
           onPress={() => setWorkoutModalVisible(false)}
@@ -150,6 +168,7 @@ const GymCalendar = () => {
             style={styles.addWorkoutButton}
             onPress={() => {
               setNoWorkoutModalVisible(false);
+              navigation.navigate("AddExerciseScreen");
               console.log("Egzersiz ekle:", selectedDate);
             }}
           >
@@ -314,7 +333,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-SemiBold",
   },
   cancelButton: {
-    backgroundColor: "transparent",
+    backgroundColor: AppColors.grayBgColor,
     paddingVertical: vs(12),
     paddingHorizontal: s(24),
     borderRadius: s(8),
@@ -323,10 +342,26 @@ const styles = StyleSheet.create({
     borderColor: "#ddd",
   },
   cancelButtonText: {
-    color: "#666",
+    color: AppColors.whiteColor,
     fontSize: s(14),
     fontWeight: "500",
     fontFamily: "Roboto-Medium",
+  },
+  btnContainer: {
+    alignItems: "center",
+
+    marginTop: vs(12),
+  },
+  addBtn: {
+    borderRadius: s(8),
+    width: "100%",
+    height: vs(36),
+  },
+  addBtnText: {
+    fontWeight: "500",
+    fontFamily: "Roboto-Medium",
+    fontSize: s(14),
+    textAlign: "center",
   },
 });
 

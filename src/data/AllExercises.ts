@@ -207,3 +207,43 @@ export const allAbsExercises = [
     difficulty: "Intermediate",
   },
 ];
+
+export const exerciseTypes = [
+  { label: "Göğüs", value: "Chest" },
+  { label: "Sırt", value: "Back" },
+  { label: "Omuz", value: "Shoulders" },
+  { label: "Bacak", value: "Legs" },
+  { label: "Biceps", value: "Biceps" },
+  { label: "Triceps", value: "Triceps" },
+  { label: "Karın", value: "Abs" },
+];
+
+export const getExercisesByType = (type) => {
+  switch (type) {
+    case "Chest":
+      return allChestExercises;
+    case "Back":
+      return allBackExercises;
+    case "Shoulders":
+      return allShoulderExercises;
+    case "Legs":
+      return allLegExercises;
+    case "Biceps":
+      return allBicepsExercises;
+    case "Triceps":
+      return allTricepsExercises;
+    case "Abs":
+      return allAbsExercises;
+    default:
+      return [];
+  }
+};
+
+export const formatExercisesForDropdown = (exercises) => {
+  return exercises.map((exercise) => ({
+    label: exercise.name,
+    value: exercise.id,
+    subtitle: exercise.subtitle,
+    difficulty: exercise.difficulty,
+  }));
+};
