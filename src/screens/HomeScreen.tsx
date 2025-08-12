@@ -13,7 +13,6 @@ const HomeScreen = () => {
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.userStats}>
-          <Text style={styles.title}>User Stats</Text>
           <UserStats />
         </View>
         <View style={styles.allRecords}>

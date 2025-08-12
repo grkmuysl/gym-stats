@@ -3,6 +3,7 @@ import React from "react";
 import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../../styles/colors";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import {
   calculateAdvancedBodyScore,
   calculateBMI,
@@ -12,50 +13,151 @@ import {
 
 const BodyScoreGraph = ({ weight, height }) => {
   const { bmi } = calculateBMI(weight, height);
-
   const score = calculateAdvancedBodyScore(bmi, 23, "male");
   const body_score_description = getBodyScoreDescription(score);
 
-  let colorCode;
+  // Modern gradient renk paleti
+  let primaryColor, secondaryColor, bgGradient, iconName;
   if (body_score_description === "Perfect") {
-    colorCode = AppColors.blueColor;
+    primaryColor = "#667eea";
+    secondaryColor = "#764ba2";
+    bgGradient = ["#667eea", "#764ba2"];
+    iconName = "star";
   } else if (body_score_description === "Very Good") {
-    colorCode = AppColors.greenColor;
+    primaryColor = "#11998e";
+    secondaryColor = "#38ef7d";
+    bgGradient = ["#11998e", "#38ef7d"];
+    iconName = "trending-up";
   } else if (body_score_description === "Good") {
-    colorCode = AppColors.orangeColor;
+    primaryColor = "#f093fb";
+    secondaryColor = "#f5576c";
+    bgGradient = ["#f093fb", "#f5576c"];
+    iconName = "thumb-up";
   } else if (body_score_description === "Normal") {
-    colorCode = AppColors.darkOrangeColor;
+    primaryColor = "#ffecd2";
+    secondaryColor = "#fcb69f";
+    bgGradient = ["#ffecd2", "#fcb69f"];
+    iconName = "balance";
   } else if (body_score_description === "Bad") {
-    colorCode = AppColors.redColor;
+    primaryColor = "#ff9a9e";
+    secondaryColor = "#fecfef";
+    bgGradient = ["#ff9a9e", "#fecfef"];
+    iconName = "warning";
   } else {
-    colorCode = AppColors.purpleColor;
+    primaryColor = "#a8edea";
+    secondaryColor = "#fed6e3";
+    bgGradient = ["#a8edea", "#fed6e3"];
+    iconName = "help";
   }
 
-  const dynamicContainerStyle = {
-    ...styles.container,
-    borderTopColor: colorCode,
-  };
+  const scorePercentage = Math.min((score / 100) * 100, 100);
 
-  const dynamicScoreStyle = {
-    ...styles.score,
-    color: colorCode,
-  };
-
-  const dynamicDescripton = {
-    ...styles.description,
-    color: colorCode,
-  };
   return (
-    <View style={dynamicContainerStyle}>
-      <AntDesign
-        name="caretup"
-        size={24}
-        color={colorCode}
-        style={styles.upIcon}
-      />
-      <Text style={styles.emoji}>{getBodyScoreEmoji(score)}</Text>
-      <Text style={dynamicScoreStyle}>{score}</Text>
-      <Text style={dynamicDescripton}>{body_score_description}</Text>
+    <View style={styles.container}>
+      {/* Header Card */}
+      <View
+        style={[
+          styles.headerCard,
+          {
+            backgroundColor: primaryColor,
+            shadowColor: primaryColor,
+          },
+        ]}
+      >
+        <MaterialIcons name={iconName} size={20} color="white" />
+        <Text style={styles.headerText}>Body Score</Text>
+      </View>
+
+      {/* Main Score Card */}
+      <View
+        style={[
+          styles.scoreCard,
+          {
+            borderLeftColor: primaryColor,
+            shadowColor: primaryColor,
+          },
+        ]}
+      >
+        {/* Left Section - Progress Bar */}
+        <View style={styles.leftSection}>
+          <View style={styles.progressContainer}>
+            <View
+              style={[
+                styles.progressTrack,
+                { backgroundColor: `${primaryColor}20` },
+              ]}
+            >
+              <View
+                style={[
+                  styles.progressFill,
+                  {
+                    backgroundColor: primaryColor,
+                    height: `${scorePercentage}%`,
+                  },
+                ]}
+              />
+            </View>
+            <Text style={[styles.percentageText, { color: primaryColor }]}>
+              {Math.round(scorePercentage)}%
+            </Text>
+          </View>
+        </View>
+
+        {/* Center Section - Score */}
+        <View style={styles.centerSection}>
+          <View
+            style={[
+              styles.scoreCircle,
+              {
+                borderColor: `${primaryColor}30`,
+                backgroundColor: `${primaryColor}08`,
+              },
+            ]}
+          >
+            <Text style={styles.emoji}>{getBodyScoreEmoji(score)}</Text>
+            <Text style={[styles.mainScore, { color: primaryColor }]}>
+              {score}
+            </Text>
+          </View>
+        </View>
+
+        {/* Right Section - Status */}
+        <View style={styles.rightSection}>
+          <View
+            style={[
+              styles.statusBadge,
+              { backgroundColor: `${primaryColor}15` },
+            ]}
+          >
+            <View
+              style={[styles.statusDot, { backgroundColor: primaryColor }]}
+            />
+            <Text style={[styles.statusText, { color: primaryColor }]}>
+              {body_score_description}
+            </Text>
+          </View>
+
+          {/* Mini Stats */}
+          <View style={styles.miniStats}>
+            <View style={styles.statItem}>
+              <Text style={styles.statLabel}>BMI</Text>
+              <Text style={[styles.statValue, { color: primaryColor }]}>
+                {bmi.toFixed(1)}
+              </Text>
+            </View>
+            <View style={styles.statDivider} />
+            <View style={styles.statItem}>
+              <Text style={styles.statLabel}>Status</Text>
+              <View
+                style={[
+                  styles.statusIndicator,
+                  { backgroundColor: primaryColor },
+                ]}
+              />
+            </View>
+          </View>
+        </View>
+      </View>
     </View>
   );
 };
@@ -64,38 +166,163 @@ export default BodyScoreGraph;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: AppColors.grayBgColor,
     marginTop: vs(12),
-    height: vs(120),
-    width: s(120),
-    borderRadius: s(60),
-    borderWidth: s(12),
-    borderLeftColor: AppColors.whiteColor,
-    borderRightColor: AppColors.whiteColor,
-    borderBottomColor: AppColors.grayBgColor,
-    justifyContent: "center",
     alignItems: "center",
   },
-  score: {
-    fontSize: s(18),
-    fontFamily: "Roboto-Regular",
-    marginTop: s(3),
+
+  headerCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: s(16),
+    paddingVertical: s(8),
+    borderRadius: s(20),
+    marginBottom: vs(12),
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
+    marginTop: vs(12),
+  },
+
+  headerText: {
+    color: "white",
+    fontSize: s(14),
+    fontFamily: "Roboto-SemiBold",
+    marginLeft: s(8),
+    fontWeight: "600",
+  },
+
+  scoreCard: {
+    flexDirection: "row",
+    backgroundColor: "white",
+    borderRadius: s(20),
+    padding: s(20),
+    borderLeftWidth: s(6),
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 8,
+    width: s(320),
+    minHeight: vs(120),
+  },
+
+  leftSection: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  progressContainer: {
+    alignItems: "center",
+  },
+
+  progressTrack: {
+    width: s(8),
+    height: vs(80),
+    borderRadius: s(4),
+    overflow: "hidden",
+    justifyContent: "flex-end",
+  },
+
+  progressFill: {
+    width: "100%",
+    borderRadius: s(4),
+    minHeight: s(4),
+  },
+
+  percentageText: {
+    fontSize: s(12),
+    fontFamily: "Roboto-Bold",
+    marginTop: s(8),
+    fontWeight: "700",
+  },
+
+  centerSection: {
+    flex: 2,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  scoreCircle: {
+    width: s(80),
+    height: s(80),
+    borderRadius: s(40),
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   emoji: {
-    marginTop: vs(12),
+    fontSize: s(20),
+    marginBottom: s(4),
+  },
+
+  mainScore: {
     fontSize: s(24),
+    fontFamily: "Roboto-Bold",
+    fontWeight: "800",
   },
-  upIcon: {
-    position: "absolute",
-    top: -1,
+
+  rightSection: {
+    flex: 1.5,
+    justifyContent: "space-between",
   },
-  description: {
-    fontSize: s(16),
+
+  statusBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: s(12),
+    paddingVertical: s(8),
+    borderRadius: s(16),
+    width: s(100),
+  },
+
+  statusDot: {
+    width: s(8),
+    height: s(8),
+    borderRadius: s(4),
+    marginRight: s(8),
+  },
+
+  statusText: {
+    fontSize: s(12),
     fontFamily: "Roboto-SemiBold",
-    marginTop: s(6),
-    position: "absolute",
-    top: vs(90),
-    alignSelf: "center",
+    fontWeight: "600",
+  },
+
+  miniStats: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+    marginTop: vs(12),
+  },
+
+  statItem: {
+    alignItems: "center",
+  },
+
+  statLabel: {
+    fontSize: s(10),
+    color: "#9CA3AF",
+    fontFamily: "Roboto-Regular",
+    marginBottom: s(4),
+  },
+
+  statValue: {
+    fontSize: s(14),
+    fontFamily: "Roboto-Bold",
+    fontWeight: "700",
+  },
+
+  statDivider: {
+    width: 1,
+    height: s(20),
+    backgroundColor: "#E5E7EB",
+  },
+
+  statusIndicator: {
+    width: s(12),
+    height: s(12),
+    borderRadius: s(6),
   },
 });
