@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { AppColors } from "../styles/colors";
 import Header from "../components/Header";
-import { s } from "react-native-size-matters";
+import { s, vs } from "react-native-size-matters";
 import { useFavorites } from "../context/FavouritesContext";
 import { FlatList } from "react-native-gesture-handler";
 import Exercise from "../components/Exercise/Exercise";
@@ -13,7 +13,6 @@ const FavouriteScreen = () => {
   const isFavoritesEmpty = favorites.length === 0;
   return (
     <View style={styles.container}>
-      <Header />
       {isFavoritesEmpty ? (
         <EmptyFavoritesScreen />
       ) : (
@@ -33,6 +32,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: AppColors.blackBgColor,
     flex: 1,
+    paddingVertical: vs(8),
   },
   title: {
     fontFamily: "Roboto-SemiBold",

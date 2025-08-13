@@ -8,9 +8,9 @@ import BodyScoreGraph from "./BodyScoreGraph";
 const UserStats = () => {
   return (
     <View style={styles.container}>
-      <WeightGraph weight={80} height={180} />
+      <WeightGraph weight={110} height={180} />
 
-      <BodyScoreGraph weight={74} height={180} />
+      <BodyScoreGraph weight={60} height={180} />
     </View>
   );
 };

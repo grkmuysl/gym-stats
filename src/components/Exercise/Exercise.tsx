@@ -51,13 +51,13 @@ export default Exercise;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: vs(76),
+    height: vs(82),
     borderRadius: s(16),
     backgroundColor: AppColors.grayBgColor,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    padding: s(16),
+    paddingVertical: vs(16),
     marginTop: vs(8),
     marginBottom: vs(6),
   },
