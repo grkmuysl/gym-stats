@@ -29,7 +29,7 @@ const DetailScreen = ({ route }) => {
   ];
   return (
     <ScrollView style={styles.container}>
-      <GoBackButton style={styles.goBackBtn} size={24} />
+      <GoBackButton style={styles.goBackBtn} />
 
       <Text style={styles.pageTitle}>{route.params.name}</Text>
 
