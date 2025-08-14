@@ -21,7 +21,7 @@ const DetailScreen = ({ route }) => {
 
       <View style={styles.innerContainer}>
         <Text style={styles.innerTitle}>Prev Records</Text>
-        <PrevRecords />
+        <PrevRecords exerciseName={route.params.name} />
 
         <Text style={styles.title}>Last Changes</Text>
         <LastChanges data={data} />

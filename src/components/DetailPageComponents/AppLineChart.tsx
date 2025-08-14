@@ -39,11 +39,11 @@ const AppLineChart = ({ data }) => {
             endFillColor={AppColors.limeGreenColor}
             startOpacity={0.7}
             endOpacity={0.2}
-            spacing={17}
+            spacing={10}
             backgroundColor="#414141"
             rulesColor="gray"
             rulesType="solid"
-            initialSpacing={5}
+            initialSpacing={0}
             yAxisColor="lightgray"
             xAxisColor="lightgray"
           />

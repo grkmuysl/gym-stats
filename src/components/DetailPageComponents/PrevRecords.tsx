@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import AppLineChart from "./AppLineChart";
+import { useRecords } from "../../context/ExerciseRecordsContext";
 
-const PrevRecords = () => {
+const PrevRecords = ({ exerciseName }) => {
   const dPoint = () => {
     return (
       <View
@@ -18,88 +19,24 @@ const PrevRecords = () => {
     );
   };
 
-  const latestData = [
-    {
-      value: 40,
-      customDataPoint: dPoint,
-    },
-    {
-      value: 60,
-      hideDataPoint: true,
-    },
-    {
-      value: 30,
-      customDataPoint: dPoint,
-    },
-    {
-      value: 80,
-      hideDataPoint: true,
-    },
-    {
-      value: 90,
-      customDataPoint: dPoint,
-    },
-    {
-      value: 95,
-      hideDataPoint: true,
-    },
-    {
-      value: 67,
-      customDataPoint: dPoint,
-    },
-    {
-      value: 32,
-      hideDataPoint: true,
-    },
-    {
-      value: 28,
-      customDataPoint: dPoint,
-    },
-    {
-      value: 73,
-      hideDataPoint: true,
-    },
-    {
-      value: 90,
-      customDataPoint: dPoint,
-    },
-    {
-      value: 110,
-      hideDataPoint: true,
-    },
-    {
-      value: 70,
-      customDataPoint: dPoint,
-    },
-    {
-      value: 95,
-      hideDataPoint: true,
-    },
-    {
-      value: 120,
-      hideDataPoint: true,
-    },
-    {
-      value: 100,
-      customDataPoint: dPoint,
-    },
-    {
-      value: 50,
-      customDataPoint: dPoint,
-    },
-    {
-      value: 80,
-      hideDataPoint: true,
-    },
-    {
-      value: 130,
-      customDataPoint: dPoint,
-    },
-  ];
+  const { allRecords } = useRecords();
+
+  const filteredAndSortedRecords = [...allRecords]
+    .filter((record) => record.exerciseName === exerciseName)
+    .sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateA.getTime() - dateB.getTime();
+    });
+
+  const weights = filteredAndSortedRecords.map((record) => ({
+    value: record.weight,
+    hideDataPoint: true,
+  }));
 
   return (
     <View>
-      <AppLineChart data={latestData} />
+      <AppLineChart data={weights} />
     </View>
   );
 };
