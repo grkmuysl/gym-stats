@@ -9,8 +9,6 @@ import AllRecords from "../components/DetailPageComponents/AllRecords";
 import { ScrollView } from "react-native-gesture-handler";
 
 const DetailScreen = ({ route }) => {
-  const data = [100.32, 120.21, 90.52, 110.12];
-
   const exerciseName = route.params?.name;
 
   return (
@@ -21,10 +19,10 @@ const DetailScreen = ({ route }) => {
 
       <View style={styles.innerContainer}>
         <Text style={styles.innerTitle}>Prev Records</Text>
-        <PrevRecords />
+        <PrevRecords exerciseName={route.params.name} />
 
         <Text style={styles.title}>Last Changes</Text>
-        <LastChanges data={data} />
+        <LastChanges exerciseName={route.params.name} />
 
         <Text style={styles.title}>All {route.params.name} Records</Text>
         <AllRecords exerciseName={exerciseName} />
