@@ -5,6 +5,7 @@ import { useEffect, useState, useCallback } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { FavoritesProvider } from "./src/context/FavouritesContext";
+import { RecordsProvider } from "./src/context/ExerciseRecordsContext";
 
 if (Platform.OS === "android") {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -49,11 +50,13 @@ export default function App() {
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <FavoritesProvider>
-        <NavigationContainer>
-          <StackNavigation />
-        </NavigationContainer>
-      </FavoritesProvider>
+      <RecordsProvider>
+        <FavoritesProvider>
+          <NavigationContainer>
+            <StackNavigation />
+          </NavigationContainer>
+        </FavoritesProvider>
+      </RecordsProvider>
     </View>
   );
 }

@@ -13,7 +13,7 @@ import { s, vs } from "react-native-size-matters";
 import { useNavigation } from "@react-navigation/native";
 import AppButton from "../Button/AppButton";
 
-const GymCalendar = () => {
+const GymCalendar = ({ records }) => {
   const [selectedDate, setSelectedDate] = useState("");
   const [isWorkoutModalVisible, setWorkoutModalVisible] = useState(false);
   const [isNoWorkoutModalVisible, setNoWorkoutModalVisible] = useState(false);
@@ -22,28 +22,14 @@ const GymCalendar = () => {
 
   const navigation = useNavigation();
 
-  const sampleWorkouts = {
-    "2025-08-10": [
-      { exercise: "Bench Press", sets: 3, reps: 10, weight: "80kg" },
-      { exercise: "Squat", sets: 3, reps: 12, weight: "100kg" },
-    ],
-    "2025-08-07": [
-      { exercise: "Deadlift", sets: 3, reps: 8, weight: "120kg" },
-      { exercise: "Pull-ups", sets: 3, reps: 15, weight: "Bodyweight" },
-    ],
-    "2025-08-05": [
-      { exercise: "Overhead Press", sets: 3, reps: 10, weight: "60kg" },
-    ],
-  };
-
   const addBtnHandle = () => {
     setWorkoutModalVisible(false);
     navigation.navigate("AddExerciseScreen");
   };
 
   useEffect(() => {
-    setWorkoutData(sampleWorkouts);
-  }, []);
+    setWorkoutData(records);
+  }, [records]);
 
   useEffect(() => {
     const marked = {};
@@ -168,8 +154,7 @@ const GymCalendar = () => {
             style={styles.addWorkoutButton}
             onPress={() => {
               setNoWorkoutModalVisible(false);
-              navigation.navigate("AddExerciseScreen");
-              console.log("Egzersiz ekle:", selectedDate);
+              navigation.navigate("AddExerciseScreen", { date: selectedDate });
             }}
           >
             <Text style={styles.addWorkoutButtonText}>Egzersiz Ekle</Text>
