@@ -1,13 +1,41 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useMemo } from "react";
 import { AppColors } from "../../styles/colors";
 import { s, vs } from "react-native-size-matters";
 import GymCalendar from "../Calendar/GymCalendar";
+import { useRecords } from "../../context/ExerciseRecordsContext";
 
-const AllRecords = () => {
+const AllRecords = ({ exerciseName = null }) => {
+  const { allRecords } = useRecords();
+
+  const formattedRecords = useMemo(() => {
+    const groupedRecords: { [key: string]: any[] } = {};
+
+    const filteredRecords = exerciseName
+      ? allRecords.filter((record) => record.exerciseName === exerciseName)
+      : allRecords;
+
+    filteredRecords.forEach((record) => {
+      const dateKey = record.date.split("T")[0];
+
+      if (!groupedRecords[dateKey]) {
+        groupedRecords[dateKey] = [];
+      }
+
+      groupedRecords[dateKey].push({
+        exercise: record.exerciseName,
+        sets: record.setsCount,
+        reps: record.repsCount,
+        weight: record.weight > 0 ? `${record.weight}kg` : "Bodyweight",
+      });
+    });
+
+    return groupedRecords;
+  }, [allRecords, exerciseName]);
+
   return (
     <View style={styles.container}>
-      <GymCalendar />
+      <GymCalendar records={formattedRecords} />
     </View>
   );
 };

@@ -11,15 +11,28 @@ import {
 } from "../data/AllExercises";
 import AppButton from "../components/Button/AppButton";
 import CustomInput from "../components/CustomInput/CustomInput";
+import { useRoute } from "@react-navigation/native";
+import {
+  ExerciseRecordsItem,
+  useRecords,
+} from "../context/ExerciseRecordsContext";
 
 const AddExerciseScreen = () => {
   const [selectedExerciseType, setSelectedExerciseType] = useState(null);
   const [selectedExercise, setSelectedExercise] = useState(null);
+  const [selectedExerciseName, setSelectedExerciseName] = useState(null);
   const [selectedReps, setSelectedReps] = useState<number | null>(null);
   const [selectedSets, setSelectedSets] = useState<number | null>(null);
+  const [selectedWeight, setSelectedWeight] = useState<number | null>(null);
   const [availableExercises, setAvailableExercises] = useState([]);
   const [typeDropdownOpen, setTypeDropdownOpen] = useState(false);
   const [exerciseDropdownOpen, setExerciseDropdownOpen] = useState(false);
+
+  const route = useRoute();
+
+  const { date } = route.params || {};
+
+  const { allRecords, addRecord } = useRecords();
 
   useEffect(() => {
     if (selectedExerciseType) {
@@ -28,11 +41,12 @@ const AddExerciseScreen = () => {
       setAvailableExercises(formattedExercises);
 
       setSelectedExercise(null);
-
+      setSelectedExerciseName(null);
       setExerciseDropdownOpen(false);
     } else {
       setAvailableExercises([]);
       setSelectedExercise(null);
+      setSelectedExerciseName(null);
     }
   }, [selectedExerciseType]);
 
@@ -58,14 +72,17 @@ const AddExerciseScreen = () => {
   const handleExerciseTypeChange = (value: any) => {
     setSelectedExerciseType(value);
     setSelectedExercise(null);
+    setSelectedExerciseName(null);
   };
 
   const handleExerciseChange = (value: any) => {
     setSelectedExercise(value);
-
     const selectedExerciseDetails = availableExercises.find(
       (exercise) => exercise.value === value
     );
+    if (selectedExerciseDetails) {
+      setSelectedExerciseName(selectedExerciseDetails.label);
+    }
   };
 
   const getExerciseDetails = () => {
@@ -78,15 +95,23 @@ const AddExerciseScreen = () => {
   const resetInputs = () => {
     setSelectedExercise(null);
     setSelectedExerciseType(null);
+    setSelectedExerciseName(null);
     setSelectedReps(null);
     setSelectedSets(null);
+    setSelectedWeight(null);
   };
 
   const addExercise = () => {
-    console.log("egzersiz türü", selectedExercise);
-    console.log("egzersiz türü2", selectedExerciseType);
-    console.log("egzersiz türü3", selectedSets);
-    console.log("egzersiz türü4", selectedReps);
+    const newRecord: ExerciseRecordsItem = {
+      id: Date.now().toString(),
+      exerciseName: selectedExerciseName,
+      setsCount: selectedSets,
+      repsCount: selectedReps,
+      weight: selectedWeight || 0,
+      date: date || new Date().toISOString(),
+    };
+
+    addRecord(newRecord);
     resetInputs();
   };
 
@@ -143,7 +168,6 @@ const AddExerciseScreen = () => {
                   type="number"
                   value={selectedSets}
                   onValueChange={(value) => setSelectedSets(value)}
-                  required={true}
                 />
               </View>
 
@@ -153,7 +177,14 @@ const AddExerciseScreen = () => {
                   type="number"
                   value={selectedReps}
                   onValueChange={(value) => setSelectedReps(value)}
-                  required={true}
+                />
+              </View>
+              <View style={styles.innerDropdown}>
+                <Text style={styles.label}>Ağırlık</Text>
+                <CustomInput
+                  type="number"
+                  value={selectedWeight}
+                  onValueChange={(value) => setSelectedWeight(value)}
                 />
               </View>
             </View>

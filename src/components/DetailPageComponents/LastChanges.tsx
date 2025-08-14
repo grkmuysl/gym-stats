@@ -19,8 +19,6 @@ const LastChanges = ({ data }) => {
     isPositive = lastData - penultimate > 0;
   }
 
-  console.log(minValue);
-
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
