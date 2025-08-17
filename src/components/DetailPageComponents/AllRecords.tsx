@@ -6,7 +6,7 @@ import GymCalendar from "../Calendar/GymCalendar";
 import { useRecords } from "../../context/ExerciseRecordsContext";
 
 const AllRecords = ({ exerciseName = null }) => {
-  const { allRecords } = useRecords();
+  const { allRecords, removeRecord } = useRecords();
 
   const formattedRecords = useMemo(() => {
     const groupedRecords: { [key: string]: any[] } = {};
@@ -27,6 +27,7 @@ const AllRecords = ({ exerciseName = null }) => {
         sets: record.setsCount,
         reps: record.repsCount,
         weight: record.weight > 0 ? `${record.weight}kg` : "Bodyweight",
+        id: record.id,
       });
     });
 
@@ -35,7 +36,7 @@ const AllRecords = ({ exerciseName = null }) => {
 
   return (
     <View style={styles.container}>
-      <GymCalendar records={formattedRecords} />
+      <GymCalendar records={formattedRecords} removeRecord={removeRecord} />
     </View>
   );
 };
