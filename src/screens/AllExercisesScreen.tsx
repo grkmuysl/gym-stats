@@ -1,8 +1,15 @@
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useMemo, useState } from "react";
 import Exercise from "../components/Exercise/Exercise";
 import { AppColors } from "../styles/colors";
-import Header from "../components/Header";
+import EvilIcons from "@expo/vector-icons/EvilIcons";
 
 import { s, vs } from "react-native-size-matters";
 import {
@@ -14,6 +21,8 @@ import {
   allShoulderExercises,
   allTricepsExercises,
 } from "../data/AllExercises";
+import CustomInput from "../components/CustomInput/CustomInput";
+import { TextInput } from "react-native-gesture-handler";
 
 type ExerciseItem = {
   name: string;
@@ -29,6 +38,8 @@ type ExerciseCategory = {
 };
 
 const AllExercisesScreen = () => {
+  const [searchString, setSearchString] = useState("");
+
   const EXERCISE_CATEGORIES: ExerciseCategory[] = [
     { title: "CHEST EXERCISES", data: allChestExercises },
     { title: "BACK EXERCISES", data: allBackExercises },
@@ -38,6 +49,25 @@ const AllExercisesScreen = () => {
     { title: "TRICEPS EXERCISES", data: allTricepsExercises },
     { title: "ABS EXERCISES", data: allAbsExercises },
   ];
+
+  const filteredCategories = useMemo(() => {
+    if (!searchString.trim()) {
+      return EXERCISE_CATEGORIES;
+    }
+
+    const searchTerm = searchString.toLowerCase().trim();
+
+    return EXERCISE_CATEGORIES.map((category) => ({
+      ...category,
+      data: category.data.filter(
+        (exercise) =>
+          exercise.name.toLowerCase().includes(searchTerm) ||
+          exercise.subtitle.toLowerCase().includes(searchTerm) ||
+          exercise.type.toLowerCase().includes(searchTerm) ||
+          exercise.difficulty.toLowerCase().includes(searchTerm)
+      ),
+    })).filter((category) => category.data.length > 0);
+  }, [searchString]);
 
   const renderCategory = ({ item }: { item: ExerciseCategory }) => (
     <View style={styles.categoryContainer}>
@@ -52,13 +82,49 @@ const AllExercisesScreen = () => {
   );
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
-      <FlatList
-        data={EXERCISE_CATEGORIES}
-        renderItem={renderCategory}
-        keyExtractor={(item) => item.title}
-        showsVerticalScrollIndicator={false}
-      />
+      <View style={styles.searchContainer}>
+        <View style={styles.searchInputContainer}>
+          <EvilIcons
+            name="search"
+            size={24}
+            color={AppColors.lightGray}
+            style={styles.searchIcon}
+          />
+          <TextInput
+            style={styles.searchInput}
+            value={searchString}
+            onChangeText={setSearchString}
+            placeholder="Egzersiz ara..."
+            placeholderTextColor={AppColors.lightGray}
+          />
+          {searchString.length > 0 && (
+            <TouchableOpacity
+              style={styles.clearButton}
+              onPress={() => setSearchString("")}
+            >
+              <EvilIcons name="close" size={24} color={AppColors.lightGray} />
+            </TouchableOpacity>
+          )}
+        </View>
+      </View>
+
+      {filteredCategories.length > 0 ? (
+        <FlatList
+          data={filteredCategories}
+          renderItem={renderCategory}
+          keyExtractor={(item) => item.title}
+          showsVerticalScrollIndicator={false}
+          style={styles.listContainer}
+        />
+      ) : (
+        <View style={styles.noResultsContainer}>
+          <EvilIcons name="search" size={64} color={AppColors.lightGray} />
+          <Text style={styles.noResultsTitle}>Sonuç Bulunamadı</Text>
+          <Text style={styles.noResultsSubtitle}>
+            "{searchString}" ile eşleşen egzersiz bulunamadı.
+          </Text>
+        </View>
+      )}
     </SafeAreaView>
   );
 };
@@ -67,20 +133,110 @@ export default AllExercisesScreen;
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    justifyContent: "center",
     backgroundColor: AppColors.blackBgColor,
     flex: 1,
+    paddingTop: vs(30),
   },
+
+  searchContainer: {
+    paddingHorizontal: s(20),
+    marginBottom: vs(16),
+  },
+
+  searchInputContainer: {
+    backgroundColor: AppColors.grayBgColor,
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: s(16),
+    paddingHorizontal: s(16),
+    paddingVertical: vs(12),
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.1)",
+  },
+
+  searchIcon: {
+    marginRight: s(8),
+  },
+
+  searchInput: {
+    flex: 1,
+    color: AppColors.whiteColor,
+    fontSize: s(16),
+    fontFamily: "Roboto-Regular",
+    paddingVertical: 0,
+  },
+
+  clearButton: {
+    marginLeft: s(8),
+    padding: s(4),
+  },
+
+  searchResultInfo: {
+    marginTop: vs(8),
+    paddingHorizontal: s(4),
+  },
+
+  searchResultText: {
+    color: AppColors.lightGray,
+    fontSize: s(14),
+    fontFamily: "Roboto-Light",
+  },
+
+  listContainer: {
+    paddingHorizontal: s(20),
+  },
+
+  categoryContainer: {
+    marginBottom: vs(24),
+  },
+
+  categoryHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: vs(12),
+  },
+
   title: {
     color: AppColors.whiteColor,
     fontSize: s(18),
-    fontFamily: "Roboto-Regular",
-    alignSelf: "flex-start",
-    marginTop: vs(8),
-    left: s(4),
+    fontFamily: "Roboto-Medium",
   },
-  categoryContainer: {
+
+  exerciseCount: {
+    color: AppColors.limeGreenColor,
+    fontSize: s(14),
+    fontFamily: "Roboto-Regular",
+    marginLeft: s(8),
+  },
+
+  noResultsContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: s(40),
+  },
+
+  noResultsTitle: {
+    color: AppColors.whiteColor,
+    fontSize: s(20),
+    fontFamily: "Roboto-Medium",
+    marginTop: vs(16),
     marginBottom: vs(8),
+  },
+
+  noResultsSubtitle: {
+    color: AppColors.lightGray,
+    fontSize: s(16),
+    fontFamily: "Roboto-Regular",
+    textAlign: "center",
+    marginBottom: vs(4),
+  },
+
+  noResultsHint: {
+    color: AppColors.lightGray,
+    fontSize: s(14),
+    fontFamily: "Roboto-Light",
+    textAlign: "center",
+    opacity: 0.7,
   },
 });

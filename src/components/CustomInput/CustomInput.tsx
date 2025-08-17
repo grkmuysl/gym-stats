@@ -21,9 +21,9 @@ const CustomInput = ({
   numberOfLines = 1,
   style,
   inputStyle,
-  labelStyle,
   errorStyle,
   showPasswordToggle = true,
+  placeholder,
 }) => {
   const [inputValue, setInputValue] = useState(value || "");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -140,6 +140,7 @@ const CustomInput = ({
         <TextInput
           style={[styles.input, inputStyle]}
           value={inputValue}
+          placeholder={placeholder}
           onChangeText={handleValueChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
@@ -192,7 +193,6 @@ const styles = StyleSheet.create({
     borderColor: "#ddd",
     borderRadius: s(8),
     paddingHorizontal: s(15),
-    minHeight: vs(50),
   },
   inputContainerFocused: {
     borderColor: AppColors.limeGreenColor,
