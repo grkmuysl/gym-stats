@@ -12,8 +12,9 @@ import { AppColors } from "../../styles/colors";
 import { s, vs } from "react-native-size-matters";
 import { useNavigation } from "@react-navigation/native";
 import AppButton from "../Button/AppButton";
+import Entypo from "@expo/vector-icons/Entypo";
 
-const GymCalendar = ({ records }) => {
+const GymCalendar = ({ records, removeRecord }) => {
   const [selectedDate, setSelectedDate] = useState("");
   const [isWorkoutModalVisible, setWorkoutModalVisible] = useState(false);
   const [isNoWorkoutModalVisible, setNoWorkoutModalVisible] = useState(false);
@@ -32,8 +33,16 @@ const GymCalendar = ({ records }) => {
   }, [records]);
 
   useEffect(() => {
-    const marked = {};
+    if (isWorkoutModalVisible && selectedDate && !workoutData[selectedDate]) {
+      setWorkoutModalVisible(false);
+      setTimeout(() => {
+        setNoWorkoutModalVisible(true);
+      }, 300);
+    }
+  }, [workoutData, isWorkoutModalVisible, selectedDate]);
 
+  useEffect(() => {
+    const marked = {};
     Object.keys(workoutData).forEach((date) => {
       marked[date] = {
         customStyles: {
@@ -48,9 +57,28 @@ const GymCalendar = ({ records }) => {
         },
       };
     });
-
     setMarkedDates(marked);
   }, [workoutData]);
+
+  const handleDeleteRecord = async (itemId) => {
+    await removeRecord(itemId);
+
+    setWorkoutData((prevData) => {
+      const updatedData = { ...prevData };
+
+      if (updatedData[selectedDate]) {
+        updatedData[selectedDate] = updatedData[selectedDate].filter(
+          (workout) => workout.id !== itemId
+        );
+
+        if (updatedData[selectedDate].length === 0) {
+          delete updatedData[selectedDate];
+        }
+      }
+
+      return updatedData;
+    });
+  };
 
   const isDateInFuture = (dateString) => {
     const selectedDate = new Date(dateString);
@@ -94,6 +122,12 @@ const GymCalendar = ({ records }) => {
       <Text style={styles.workoutDetails}>
         {item.sets} set × {item.reps} tekrar - {item.weight}
       </Text>
+
+      <AppButton
+        onPress={() => handleDeleteRecord(item.id)}
+        title={<Entypo name="trash" size={24} color={AppColors.grayBgColor} />}
+        style={styles.deleteBtn}
+      />
     </View>
   );
 
@@ -347,6 +381,14 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Medium",
     fontSize: s(14),
     textAlign: "center",
+  },
+
+  deleteBtn: {
+    height: vs(36),
+    width: vs(36),
+    position: "absolute",
+    right: s(16),
+    top: s(16),
   },
 });
 
