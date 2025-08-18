@@ -20,33 +20,34 @@ const AppLineChart = ({ data }) => {
         }}
       >
         {data.length !== 0 ? (
-          <LineChart
-            width={316}
-            height={156}
-            isAnimated
-            thickness={3}
-            color={AppColors.limeGreenColor}
-            maxValue={150}
-            noOfSections={3}
-            animateOnDataChange
-            animationDuration={1000}
-            onDataChangeAnimationDuration={300}
-            areaChart
-            yAxisTextStyle={{ color: "lightgray" }}
-            data={data}
-            hideDataPoints
-            startFillColor={AppColors.limeGreenColor}
-            endFillColor={AppColors.limeGreenColor}
-            startOpacity={0.7}
-            endOpacity={0.2}
-            spacing={10}
-            backgroundColor="#414141"
-            rulesColor="gray"
-            rulesType="solid"
-            initialSpacing={0}
-            yAxisColor="lightgray"
-            xAxisColor="lightgray"
-          />
+          // <LineChart
+          //   width={316}
+          //   height={156}
+          //   isAnimated
+          //   thickness={3}
+          //   color={AppColors.limeGreenColor}
+          //   maxValue={150}
+          //   noOfSections={3}
+          //   animateOnDataChange
+          //   animationDuration={1000}
+          //   onDataChangeAnimationDuration={300}
+          //   areaChart
+          //   yAxisTextStyle={{ color: "lightgray" }}
+          //   data={data}
+          //   hideDataPoints
+          //   startFillColor={AppColors.limeGreenColor}
+          //   endFillColor={AppColors.limeGreenColor}
+          //   startOpacity={0.7}
+          //   endOpacity={0.2}
+          //   spacing={10}
+          //   backgroundColor="#414141"
+          //   rulesColor="gray"
+          //   rulesType="solid"
+          //   initialSpacing={0}
+          //   yAxisColor="lightgray"
+          //   xAxisColor="lightgray"
+          // />
+          <Text>line chart</Text>
         ) : (
           <Text style={styles.title}>There is no records!</Text>
         )}
