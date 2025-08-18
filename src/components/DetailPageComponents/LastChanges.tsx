@@ -18,6 +18,7 @@ const LastChanges = ({ exerciseName }) => {
   const data_size = sortedData.length;
 
   let lastData = 0;
+  let firstRecord = 0;
   let minValue = 0;
   let penultimate = 0;
   let isPositive = null;
@@ -37,6 +38,7 @@ const LastChanges = ({ exerciseName }) => {
 
     lastData = values[data_size - 1];
     minValue = Math.min(...values);
+    firstRecord = values[0];
 
     if (data_size > 1) {
       penultimate = values[data_size - 2];
@@ -120,7 +122,9 @@ const LastChanges = ({ exerciseName }) => {
                 />
               )}
             </View>
-            <Text style={styles.cardTitle}>Son Değişiklik</Text>
+            <Text style={styles.cardTitle}>
+              {data_size == 1 ? "İlk Kayıt" : "Son Değişiklik"}
+            </Text>
           </View>
 
           <Text
@@ -135,7 +139,11 @@ const LastChanges = ({ exerciseName }) => {
               },
             ]}
           >
-            {hasChange ? formatValue(lastData - penultimate) : formatValue(0)}
+            {hasChange
+              ? formatValue(lastData - penultimate)
+              : data_size > 1
+              ? formatValue(0)
+              : formatValue(lastData)}
           </Text>
 
           <Text style={styles.dateText}>{lastRecordDate || "Kayıt yok"}</Text>
@@ -145,9 +153,9 @@ const LastChanges = ({ exerciseName }) => {
           colors={getCardColors(
             data_size === 0
               ? "neutral"
-              : lastData - minValue > 0
+              : lastData - firstRecord > 0
               ? "positive"
-              : lastData - minValue < 0
+              : lastData - firstRecord < 0
               ? "negative"
               : "neutral"
           )}
@@ -163,20 +171,20 @@ const LastChanges = ({ exerciseName }) => {
                   backgroundColor:
                     data_size === 0
                       ? "rgba(255,255,255,0.1)"
-                      : lastData - minValue > 0
+                      : lastData - firstRecord > 0
                       ? "rgba(34, 197, 94, 0.2)"
-                      : lastData - minValue < 0
+                      : lastData - firstRecord < 0
                       ? "rgba(239, 68, 68, 0.2)"
                       : "rgba(255,255,255,0.1)",
                 },
               ]}
             >
-              {data_size > 0 && lastData - minValue !== 0 ? (
+              {data_size > 0 && lastData - firstRecord !== 0 ? (
                 <AntDesign
-                  name={lastData - minValue > 0 ? "caretup" : "caretdown"}
+                  name={lastData - firstRecord > 0 ? "caretup" : "caretdown"}
                   size={16}
                   color={
-                    lastData - minValue > 0
+                    lastData - firstRecord > 0
                       ? AppColors.greenColor
                       : AppColors.redColor
                   }
@@ -189,7 +197,9 @@ const LastChanges = ({ exerciseName }) => {
                 />
               )}
             </View>
-            <Text style={styles.cardTitle}>Toplam İlerleme</Text>
+            <Text style={styles.cardTitle}>
+              {data_size == 1 ? "İlk Kayıt" : "Toplam İlerleme"}
+            </Text>
           </View>
 
           <Text
@@ -199,15 +209,19 @@ const LastChanges = ({ exerciseName }) => {
                 color:
                   data_size === 0
                     ? AppColors.whiteColor
-                    : lastData - minValue > 0
+                    : lastData - firstRecord > 0
                     ? AppColors.greenColor
-                    : lastData - minValue < 0
+                    : lastData - firstRecord < 0
                     ? AppColors.redColor
                     : AppColors.whiteColor,
               },
             ]}
           >
-            {data_size > 0 ? formatValue(lastData - minValue) : formatValue(0)}
+            {data_size > 0
+              ? data_size == 1
+                ? formatValue(lastData)
+                : formatValue(lastData - firstRecord)
+              : formatValue(0)}
           </Text>
 
           <Text style={styles.dateText}>{firstRecordDate || "Kayıt yok"}</Text>

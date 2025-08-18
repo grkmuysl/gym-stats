@@ -7,12 +7,6 @@ import * as Font from "expo-font";
 import { FavoritesProvider } from "./src/context/FavouritesContext";
 import { RecordsProvider } from "./src/context/ExerciseRecordsContext";
 
-if (Platform.OS === "android") {
-  if (UIManager.setLayoutAnimationEnabledExperimental) {
-    UIManager.setLayoutAnimationEnabledExperimental(true);
-  }
-}
-
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
