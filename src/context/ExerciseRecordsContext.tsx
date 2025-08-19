@@ -34,7 +34,6 @@ export const RecordsProvider: React.FC<{ children: React.ReactNode }> = ({
   const [allRecords, setAllRecords] = useState<ExerciseRecordsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // ✅ useCallback ile optimize edilmiş loadRecords
   const loadRecords = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -50,7 +49,6 @@ export const RecordsProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, []);
 
-  // ✅ useCallback ile optimize edilmiş saveRecords
   const saveRecords = useCallback(async (records: ExerciseRecordsItem[]) => {
     try {
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(records));
@@ -59,36 +57,32 @@ export const RecordsProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, []);
 
-  // ✅ useCallback ile optimize edilmiş refreshRecords
   const refreshRecords = useCallback(() => {
     loadRecords();
   }, [loadRecords]);
 
-  // ✅ Sadece ilk yüklemede çalışır
   useEffect(() => {
     loadRecords();
-  }, []); // ✅ Boş dependency array
+  }, []);
 
-  // ✅ useCallback ile optimize edilmiş addRecord
   const addRecord = useCallback(
     async (record: ExerciseRecordsItem) => {
       setAllRecords((prevRecords) => {
         const updatedRecords = [...prevRecords, record];
-        saveRecords(updatedRecords); // Async olarak kaydet
+        saveRecords(updatedRecords);
         return updatedRecords;
       });
     },
     [saveRecords]
   );
 
-  // ✅ useCallback ile optimize edilmiş removeRecord
   const removeRecord = useCallback(
     async (exerciseID: string) => {
       setAllRecords((prevRecords) => {
         const updatedRecords = prevRecords.filter(
           (item) => item.id !== exerciseID
         );
-        saveRecords(updatedRecords); // Async olarak kaydet
+        saveRecords(updatedRecords);
         return updatedRecords;
       });
     },
