@@ -16,11 +16,7 @@ const DetailScreen = ({ route }) => {
 
   useFocusEffect(
     useCallback(() => {
-      const timeoutId = setTimeout(() => {
-        refreshRecords();
-      }, 100);
-
-      return () => clearTimeout(timeoutId);
+      refreshRecords();
     }, [refreshRecords])
   );
 
