@@ -1,19 +1,20 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { FC } from "react";
+import React from "react";
 import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../../styles/colors";
 import AppButton from "../Button/AppButton";
 import { ExerciseItem, useFavorites } from "../../context/FavouritesContext";
 import { useNavigation } from "@react-navigation/native";
 
-const Exercise: React.FC<{ ExerciseItem: ExerciseItem }> = ({
-  ExerciseItem,
-}) => {
+interface ExerciseProps {
+  ExerciseItem: ExerciseItem;
+}
+
+const Exercise: React.FC<ExerciseProps> = ({ ExerciseItem }) => {
   const { favorites, addFavorite, removeFavorite } = useFavorites();
+  const navigation = useNavigation();
 
   const isFavorite = favorites.some((item) => item.id === ExerciseItem.id);
-
-  const navigation = useNavigation();
 
   const toggleFavorite = () => {
     if (isFavorite) {
@@ -24,7 +25,7 @@ const Exercise: React.FC<{ ExerciseItem: ExerciseItem }> = ({
   };
 
   const goToDetailScreen = () => {
-    navigation.navigate("DetailScreen", ExerciseItem);
+    navigation.navigate("DetailScreen" as never, ExerciseItem as never);
   };
 
   return (
@@ -32,13 +33,14 @@ const Exercise: React.FC<{ ExerciseItem: ExerciseItem }> = ({
       <View style={styles.leftDetail}>
         <Text style={styles.title}>
           {ExerciseItem.name}{" "}
-          <Text style={styles.difficulty}>( {ExerciseItem.difficulty} )</Text>
+          <Text style={styles.difficulty}>({ExerciseItem.difficulty})</Text>
         </Text>
         <Text style={styles.subTitle}>{ExerciseItem.subtitle}</Text>
       </View>
-      <View>
+
+      <View style={styles.buttonContainer}>
         <AppButton
-          title={isFavorite ? "Remove Favorites" : "Add to Favorites"}
+          title={isFavorite ? "💔 Remove" : "❤️ Add"}
           onPress={toggleFavorite}
         />
       </View>
@@ -54,15 +56,19 @@ const styles = StyleSheet.create({
     height: vs(82),
     borderRadius: s(16),
     backgroundColor: AppColors.grayBgColor,
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
-    padding: s(8),
+    padding: s(12),
     marginTop: vs(8),
     marginBottom: vs(6),
   },
   leftDetail: {
-    width: "60%",
+    flex: 1,
+    marginRight: s(2),
+  },
+  buttonContainer: {
+    minWidth: s(80),
   },
   difficulty: {
     fontSize: s(13),
@@ -73,10 +79,12 @@ const styles = StyleSheet.create({
     fontSize: s(14),
     fontFamily: "Roboto-Regular",
     color: AppColors.whiteColor,
+    lineHeight: vs(18),
   },
   subTitle: {
     fontSize: s(12),
     color: AppColors.lightGray,
     fontFamily: "Roboto-Regular",
+    marginTop: vs(2),
   },
 });
