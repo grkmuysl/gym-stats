@@ -13,6 +13,8 @@ import {
 } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../styles/colors";
+import { LinearGradient } from "expo-linear-gradient";
+import CustomModal from "../components/CustomModal/CustomModal";
 
 type UserProfile = {
   firstName: string;
@@ -34,19 +36,41 @@ const ProfileScreen: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedProfile, setEditedProfile] = useState<UserProfile>(profile);
 
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalConfig, setModalConfig] = useState({
+    type: "success" as "success" | "error",
+    title: "",
+    message: "",
+  });
+
   const handleSave = () => {
     if (!editedProfile.firstName.trim()) {
-      Alert.alert("Hata", "Ad alanı boş olamaz!");
+      setModalConfig({
+        type: "error",
+        title: "Hata",
+        message: "Ad alanı boş olamaz!",
+      });
+      setModalVisible(true);
       return;
     }
     if (!editedProfile.lastName.trim()) {
-      Alert.alert("Hata", "Soyad alanı boş olamaz!");
+      setModalConfig({
+        type: "error",
+        title: "Hata",
+        message: "Soyad alanı boş olamaz!",
+      });
+      setModalVisible(true);
       return;
     }
 
     setProfile(editedProfile);
     setIsEditing(false);
-    Alert.alert("Başarılı", "Profil bilgileri güncellendi!");
+    setModalConfig({
+      type: "success",
+      title: "Başarılı",
+      message: "Profil bilgileri güncellendi!",
+    });
+    setModalVisible(true);
   };
 
   const handleCancel = () => {
@@ -204,27 +228,49 @@ const ProfileScreen: React.FC = () => {
               </View>
             </View>
           </View>
-
-          {/* Action Buttons */}
           {isEditing && (
             <View style={styles.buttonContainer}>
               <TouchableOpacity
-                style={[styles.button, styles.cancelButton]}
+                style={styles.buttonWrapper}
                 onPress={handleCancel}
+                activeOpacity={0.8}
               >
-                <Text style={styles.buttonText}>İptal</Text>
+                <LinearGradient
+                  colors={["#FF6B6B", "#ff554cea"]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={[styles.button, styles.gradientButton]}
+                >
+                  <Text style={styles.buttonText}>İptal</Text>
+                </LinearGradient>
               </TouchableOpacity>
 
               <TouchableOpacity
-                style={[styles.button, styles.saveButton]}
+                style={styles.buttonWrapper}
                 onPress={handleSave}
+                activeOpacity={0.8}
               >
-                <Text style={styles.buttonText}>Kaydet</Text>
+                <LinearGradient
+                  colors={[AppColors.limeGreenColor, "#4ECDC4"]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={[styles.button, styles.gradientButton]}
+                >
+                  <Text style={styles.buttonText}>Kaydet</Text>
+                </LinearGradient>
               </TouchableOpacity>
             </View>
           )}
         </ScrollView>
       </KeyboardAvoidingView>
+
+      <CustomModal
+        visible={modalVisible}
+        type={modalConfig.type}
+        title={modalConfig.title}
+        message={modalConfig.message}
+        onClose={() => setModalVisible(false)}
+      />
     </SafeAreaView>
   );
 };
@@ -378,5 +424,21 @@ const styles = StyleSheet.create({
     fontSize: s(16),
     fontFamily: "Roboto-Bold",
     color: AppColors.whiteColor,
+  },
+  buttonWrapper: {
+    flex: 1,
+    borderRadius: s(16),
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  gradientButton: {
+    backgroundColor: "transparent",
+    borderWidth: 0,
   },
 });
