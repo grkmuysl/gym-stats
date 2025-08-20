@@ -9,6 +9,8 @@ import FavouriteScreen from "../screens/FavouriteScreen";
 import AllExercisesScreen from "../screens/AllExercisesScreen";
 import { AppColors } from "../styles/colors";
 import { vs } from "react-native-size-matters";
+import ProfileScreen from "../screens/ProfileScreen";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 const Tab = createBottomTabNavigator();
 
@@ -58,6 +60,21 @@ const BottomTabs = () => {
         options={{
           tabBarIcon: () => (
             <Feather name="list" size={24} color={AppColors.limeGreenColor} />
+          ),
+          headerShown: false,
+        }}
+      />
+
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: () => (
+            <FontAwesome5
+              name="user"
+              size={24}
+              color={AppColors.limeGreenColor}
+            />
           ),
           headerShown: false,
         }}
