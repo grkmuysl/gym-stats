@@ -97,12 +97,20 @@ const ProfileScreen: React.FC = () => {
             <View>
               <Text style={styles.headerTitle}>Profil Bilgileri</Text>
             </View>
+
             {!isEditing && (
               <TouchableOpacity
-                style={styles.editButton}
                 onPress={() => setIsEditing(true)}
+                activeOpacity={0.8}
               >
-                <Text style={styles.editButtonText}>✏️ Düzenle</Text>
+                <LinearGradient
+                  colors={[AppColors.limeGreenColor, "#4ECDC4"]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={[styles.editButton, styles.gradientButton]}
+                >
+                  <Text style={styles.editButtonText}>✏️ Düzenle</Text>
+                </LinearGradient>
               </TouchableOpacity>
             )}
           </View>
@@ -307,13 +315,14 @@ const styles = StyleSheet.create({
     marginTop: vs(4),
   },
   editButton: {
-    backgroundColor: AppColors.limeGreenColor,
-    paddingHorizontal: s(16),
-    paddingVertical: vs(8),
-    borderRadius: s(20),
+    width: s(120),
+    height: vs(40),
+    borderRadius: s(12),
+    alignItems: "center",
+    justifyContent: "center",
   },
   editButtonText: {
-    color: AppColors.grayBgColor,
+    color: AppColors.whiteColor,
     fontSize: s(14),
     fontFamily: "Roboto-Medium",
   },
@@ -378,31 +387,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Medium",
     color: AppColors.whiteColor,
   },
-  bmiContainer: {
-    backgroundColor: "#000",
-    borderRadius: s(12),
-    padding: s(15),
-  },
-  bmiRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: vs(8),
-  },
-  bmiLabel: {
-    fontSize: s(14),
-    fontFamily: "Roboto-Regular",
-    color: AppColors.lightGray,
-  },
-  bmiValue: {
-    fontSize: s(20),
-    fontFamily: "Roboto-Bold",
-    color: AppColors.whiteColor,
-  },
-  bmiCategory: {
-    fontSize: s(16),
-    fontFamily: "Roboto-Bold",
-  },
+
   buttonContainer: {
     flexDirection: "row",
     gap: s(15),
@@ -414,12 +399,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  cancelButton: {
-    backgroundColor: "#FF3B30",
-  },
-  saveButton: {
-    backgroundColor: "#34C759",
-  },
+
   buttonText: {
     fontSize: s(16),
     fontFamily: "Roboto-Bold",

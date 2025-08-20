@@ -9,7 +9,6 @@ import {
   Dimensions,
 } from "react-native";
 import { s, vs } from "react-native-size-matters";
-import { AppColors } from "../../styles/colors";
 
 const { width } = Dimensions.get("window");
 
@@ -30,9 +29,14 @@ const CustomModal: React.FC<CustomModalProps> = ({
 }) => {
   const scaleAnim = useRef(new Animated.Value(0)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (visible) {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
       Animated.parallel([
         Animated.spring(scaleAnim, {
           toValue: 1,
@@ -47,44 +51,36 @@ const CustomModal: React.FC<CustomModalProps> = ({
         }),
       ]).start();
 
-      const timer = setTimeout(() => {
-        handleClose();
+      timeoutRef.current = setTimeout(() => {
+        if (visible) {
+          handleClose();
+        }
       }, 2000);
-
-      return () => clearTimeout(timer);
     } else {
-      Animated.parallel([
-        Animated.spring(scaleAnim, {
-          toValue: 0,
-          useNativeDriver: true,
-          tension: 150,
-          friction: 8,
-        }),
-        Animated.timing(opacityAnim, {
-          toValue: 0,
-          duration: 150,
-          useNativeDriver: true,
-        }),
-      ]).start();
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+
+      scaleAnim.setValue(0);
+      opacityAnim.setValue(0);
     }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    };
   }, [visible]);
 
   const handleClose = () => {
-    Animated.parallel([
-      Animated.spring(scaleAnim, {
-        toValue: 0,
-        useNativeDriver: true,
-        tension: 150,
-        friction: 8,
-      }),
-      Animated.timing(opacityAnim, {
-        toValue: 0,
-        duration: 150,
-        useNativeDriver: true,
-      }),
-    ]).start(() => {
-      onClose();
-    });
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+
+    onClose();
   };
 
   const getIcon = () => {
@@ -95,14 +91,17 @@ const CustomModal: React.FC<CustomModalProps> = ({
     return type === "success" ? "#4ECDC4" : "#FF6B6B";
   };
 
+  if (!visible) return null;
+
   return (
     <Modal
       transparent
       visible={visible}
-      animationType="none"
+      animationType="fade"
       statusBarTranslucent
+      onRequestClose={handleClose}
     >
-      <Animated.View style={[styles.overlay, { opacity: opacityAnim }]}>
+      <View style={styles.overlay}>
         <TouchableOpacity
           style={styles.overlayTouch}
           activeOpacity={1}
@@ -113,6 +112,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
               styles.modalContainer,
               {
                 transform: [{ scale: scaleAnim }],
+                opacity: opacityAnim,
                 borderColor: getColor(),
               },
             ]}
@@ -132,7 +132,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
 
             {/* Progress Bar */}
             <View style={styles.progressContainer}>
-              <Animated.View
+              <View
                 style={[styles.progressBar, { backgroundColor: getColor() }]}
               />
             </View>
@@ -147,7 +147,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
             </TouchableOpacity>
           </Animated.View>
         </TouchableOpacity>
-      </Animated.View>
+      </View>
     </Modal>
   );
 };
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   modalContainer: {
-    backgroundColor: AppColors.grayBgColor || "#1C1C1E",
+    backgroundColor: "#1C1C1E",
     borderRadius: s(20),
     padding: s(24),
     marginHorizontal: s(20),
@@ -203,21 +203,21 @@ const styles = StyleSheet.create({
   title: {
     fontSize: s(20),
     fontFamily: "Roboto-Bold",
-    color: AppColors.whiteColor,
+    color: "#FFFFFF",
     marginBottom: vs(8),
     textAlign: "center",
   },
   message: {
     fontSize: s(16),
     fontFamily: "Roboto-Regular",
-    color: AppColors.lightGray,
+    color: "#A0A0A0",
     textAlign: "center",
     lineHeight: s(22),
   },
   progressContainer: {
     width: "100%",
     height: s(3),
-    backgroundColor: AppColors.grayBgColor || "#000",
+    backgroundColor: "#000",
     borderRadius: s(2),
     overflow: "hidden",
     marginBottom: vs(12),
@@ -234,13 +234,13 @@ const styles = StyleSheet.create({
     width: s(30),
     height: s(30),
     borderRadius: s(15),
-    backgroundColor: AppColors.grayBgColor || "#000",
+    backgroundColor: "#000",
     justifyContent: "center",
     alignItems: "center",
   },
   closeButtonText: {
     fontSize: s(16),
-    color: AppColors.lightGray,
+    color: "#A0A0A0",
     fontFamily: "Roboto-Medium",
   },
 });
