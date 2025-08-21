@@ -6,6 +6,7 @@ import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { FavoritesProvider } from "./src/context/FavouritesContext";
 import { RecordsProvider } from "./src/context/ExerciseRecordsContext";
+import { ProfileContextProvider } from "./src/context/ProfileContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -44,13 +45,15 @@ export default function App() {
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <RecordsProvider>
-        <FavoritesProvider>
-          <NavigationContainer>
-            <StackNavigation />
-          </NavigationContainer>
-        </FavoritesProvider>
-      </RecordsProvider>
+      <ProfileContextProvider>
+        <RecordsProvider>
+          <FavoritesProvider>
+            <NavigationContainer>
+              <StackNavigation />
+            </NavigationContainer>
+          </FavoritesProvider>
+        </RecordsProvider>
+      </ProfileContextProvider>
     </View>
   );
 }
