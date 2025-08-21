@@ -1,4 +1,3 @@
-import { StyleSheet, Text, View } from "react-native";
 import React, {
   createContext,
   useCallback,
@@ -27,6 +26,8 @@ type ProfileContextType = {
   loadProfileInformation: () => Promise<void>;
   clearProfileInformation: () => Promise<void>;
   isLoading: boolean;
+  getWeight: () => string;
+  getHeight: () => string;
 };
 
 const STORAGE_KEY = "ProfileInformation";
@@ -92,6 +93,14 @@ export const ProfileContextProvider: React.FC<{
     }
   }, []);
 
+  const getWeight = () => {
+    return weight;
+  };
+
+  const getHeight = () => {
+    return height;
+  };
+
   useEffect(() => {
     loadProfileInformation();
   }, [loadProfileInformation]);
@@ -115,6 +124,8 @@ export const ProfileContextProvider: React.FC<{
     loadProfileInformation,
     clearProfileInformation,
     isLoading,
+    getWeight,
+    getHeight,
   };
 
   return (

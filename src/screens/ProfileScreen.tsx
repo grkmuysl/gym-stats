@@ -6,7 +6,6 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  Alert,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
@@ -27,7 +26,6 @@ const ProfileScreen: React.FC = () => {
     setAge,
     setWeight,
     setHeight,
-    saveProfileInformation,
     isLoading,
   } = useProfile();
 
@@ -83,7 +81,6 @@ const ProfileScreen: React.FC = () => {
       setWeight(editedProfile.weight.trim());
       setHeight(editedProfile.height.trim());
 
-      // Direkt değerleri AsyncStorage'a kaydet
       const profileData = {
         name: editedProfile.firstName.trim(),
         surname: editedProfile.lastName.trim(),

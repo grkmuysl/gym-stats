@@ -1,20 +1,24 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AppColors } from "../../styles/colors";
 import { s, vs } from "react-native-size-matters";
 import WeightGraph from "./WeightGraph";
 import BodyScoreGraph from "./BodyScoreGraph";
+import { useProfile } from "../../context/ProfileContext";
 
 const UserStats = () => {
+  const { profileInformation } = useProfile();
+
+  const height = profileInformation.height || "";
+  const weight = profileInformation.weight || "";
+
   return (
     <View style={styles.container}>
-      <WeightGraph weight={110} height={180} />
-
-      <BodyScoreGraph weight={60} height={180} />
+      <WeightGraph weight={weight} height={height} />
+      <BodyScoreGraph weight={weight} height={height} />
     </View>
   );
 };
-
 export default UserStats;
 
 const styles = StyleSheet.create({
