@@ -1,7 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import Header from "../components/Header";
-import Exercise from "../components/Exercise/Exercise";
 import { AppColors } from "../styles/colors";
 import UserStats from "../components/HomeScreenComponents/UserStats";
 import AllRecords from "../components/DetailPageComponents/AllRecords";
