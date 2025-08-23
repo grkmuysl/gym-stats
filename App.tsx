@@ -1,12 +1,16 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { Platform, StyleSheet, Text, UIManager, View } from "react-native";
+import { Text, View } from "react-native";
 import StackNavigation from "./src/navigation/StackNavigation";
 import { useEffect, useState, useCallback } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { FavoritesProvider } from "./src/context/FavouritesContext";
 import { RecordsProvider } from "./src/context/ExerciseRecordsContext";
-import { ProfileContextProvider } from "./src/context/ProfileContext";
+import {
+  ProfileContextProvider,
+  useProfile,
+} from "./src/context/ProfileContext";
+import OnboardingScreen from "./src/screens/OnboardingScreen";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -48,9 +52,7 @@ export default function App() {
       <ProfileContextProvider>
         <RecordsProvider>
           <FavoritesProvider>
-            <NavigationContainer>
-              <StackNavigation />
-            </NavigationContainer>
+            <AppContent />
           </FavoritesProvider>
         </RecordsProvider>
       </ProfileContextProvider>
@@ -58,11 +60,24 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+const AppContent = () => {
+  const { isOnboardingCompleted, isLoading } = useProfile();
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Yükleniyor...</Text>
+      </View>
+    );
+  }
+
+  if (!isOnboardingCompleted()) {
+    return <OnboardingScreen />;
+  }
+
+  return (
+    <NavigationContainer>
+      <StackNavigation />
+    </NavigationContainer>
+  );
+};

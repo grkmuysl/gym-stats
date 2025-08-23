@@ -23,14 +23,17 @@ type ProfileContextType = {
   setWeight: (weight: string) => void;
   setHeight: (height: string) => void;
   saveProfileInformation: () => Promise<void>;
+  saveProfileWithData: (profileData: ProfileInfo) => Promise<void>;
   loadProfileInformation: () => Promise<void>;
   clearProfileInformation: () => Promise<void>;
   isLoading: boolean;
   getWeight: () => string;
   getHeight: () => string;
+  isOnboardingCompleted: () => boolean;
 };
 
 const STORAGE_KEY = "ProfileInformation";
+const ONBOARDING_KEY = "onboarding_completed";
 
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 
@@ -43,10 +46,12 @@ export const ProfileContextProvider: React.FC<{
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [onboardingCompleted, setOnboardingCompleted] = useState(false);
 
   const loadProfileInformation = useCallback(async () => {
     try {
       setIsLoading(true);
+
       const storedProfile = await AsyncStorage.getItem(STORAGE_KEY);
       if (storedProfile) {
         const parsedProfile: ProfileInfo = JSON.parse(storedProfile);
@@ -56,6 +61,9 @@ export const ProfileContextProvider: React.FC<{
         setWeight(parsedProfile.weight || "");
         setHeight(parsedProfile.height || "");
       }
+
+      const onboardingStatus = await AsyncStorage.getItem(ONBOARDING_KEY);
+      setOnboardingCompleted(onboardingStatus === "true");
     } catch (error) {
       console.error("Profile loading error:", error);
     } finally {
@@ -72,7 +80,11 @@ export const ProfileContextProvider: React.FC<{
         weight,
         height,
       };
+
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(profileData));
+
+      await AsyncStorage.setItem(ONBOARDING_KEY, "true");
+      setOnboardingCompleted(true);
     } catch (error) {
       console.error("Profile saving error:", error);
       throw error;
@@ -81,14 +93,45 @@ export const ProfileContextProvider: React.FC<{
 
   const clearProfileInformation = useCallback(async () => {
     try {
-      await AsyncStorage.removeItem(STORAGE_KEY);
+      await AsyncStorage.multiRemove([STORAGE_KEY, ONBOARDING_KEY]);
+
       setName("");
       setSurname("");
       setAge("");
       setWeight("");
       setHeight("");
+      setOnboardingCompleted(false);
     } catch (error) {
       console.error("Profile clearing error:", error);
+      throw error;
+    }
+  }, []);
+
+  const saveProfileWithData = useCallback(async (profileData: ProfileInfo) => {
+    try {
+      const cleanData: ProfileInfo = {
+        name: profileData.name.trim(),
+        surname: profileData.surname.trim(),
+        age: profileData.age.trim(),
+        weight: profileData.weight.trim(),
+        height: profileData.height.trim(),
+      };
+
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(cleanData));
+      await AsyncStorage.setItem(ONBOARDING_KEY, "true");
+      await AsyncStorage.setItem(
+        "onboarding_completed_date",
+        new Date().toISOString()
+      );
+
+      setName(cleanData.name);
+      setSurname(cleanData.surname);
+      setAge(cleanData.age);
+      setWeight(cleanData.weight);
+      setHeight(cleanData.height);
+      setOnboardingCompleted(true);
+    } catch (error) {
+      console.error("Profile saving error:", error);
       throw error;
     }
   }, []);
@@ -99,6 +142,15 @@ export const ProfileContextProvider: React.FC<{
 
   const getHeight = () => {
     return height;
+  };
+
+  const isOnboardingCompleted = () => {
+    const requiredFields = [name, surname, age, weight, height];
+    const hasAllFields = requiredFields.every(
+      (field) => field && field.trim() !== ""
+    );
+
+    return hasAllFields && onboardingCompleted;
   };
 
   useEffect(() => {
@@ -122,10 +174,12 @@ export const ProfileContextProvider: React.FC<{
     setHeight,
     saveProfileInformation,
     loadProfileInformation,
+    saveProfileWithData,
     clearProfileInformation,
     isLoading,
     getWeight,
     getHeight,
+    isOnboardingCompleted,
   };
 
   return (
