@@ -1,8 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { s, vs } from "react-native-size-matters";
-import { AppColors } from "../../styles/colors";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import {
   calculateAdvancedBodyScore,
@@ -16,7 +14,6 @@ const BodyScoreGraph = ({ weight, height }) => {
   const score = calculateAdvancedBodyScore(bmi, 23, "male");
   const body_score_description = getBodyScoreDescription(score);
 
-  // Modern gradient renk paleti
   let primaryColor, secondaryColor, bgGradient, iconName;
   if (body_score_description === "Perfect") {
     primaryColor = "#667eea";
@@ -34,9 +31,9 @@ const BodyScoreGraph = ({ weight, height }) => {
     bgGradient = ["#f093fb", "#f5576c"];
     iconName = "thumb-up";
   } else if (body_score_description === "Normal") {
-    primaryColor = "#ffecd2";
-    secondaryColor = "#fcb69f";
-    bgGradient = ["#ffecd2", "#fcb69f"];
+    primaryColor = "#F2BE8F";
+    secondaryColor = "#E3743C";
+    bgGradient = ["#F2BE8F", "#E3743C"];
     iconName = "balance";
   } else if (body_score_description === "Bad") {
     primaryColor = "#ff9a9e";
@@ -44,12 +41,11 @@ const BodyScoreGraph = ({ weight, height }) => {
     bgGradient = ["#ff9a9e", "#fecfef"];
     iconName = "warning";
   } else {
-    primaryColor = "#a8edea";
-    secondaryColor = "#fed6e3";
-    bgGradient = ["#a8edea", "#fed6e3"];
+    primaryColor = "#56AAA7";
+    secondaryColor = "#E1839F";
+    bgGradient = ["#56AAA7", "#E1839F"];
     iconName = "help";
   }
-
   const scorePercentage = Math.min((score / 100) * 100, 100);
 
   return (
@@ -109,7 +105,7 @@ const BodyScoreGraph = ({ weight, height }) => {
             style={[
               styles.scoreCircle,
               {
-                borderColor: `${primaryColor}30`,
+                borderColor: `${primaryColor}90`,
                 backgroundColor: `${primaryColor}08`,
               },
             ]}
@@ -177,15 +173,15 @@ const styles = StyleSheet.create({
     paddingVertical: s(8),
     borderRadius: s(20),
     marginBottom: vs(12),
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 6,
     marginTop: vs(12),
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.35,
+    shadowRadius: 10,
+    elevation: 6,
   },
 
   headerText: {
-    color: "white",
+    color: "#FFFFFF",
     fontSize: s(14),
     fontFamily: "Roboto-SemiBold",
     marginLeft: s(8),
@@ -194,16 +190,18 @@ const styles = StyleSheet.create({
 
   scoreCard: {
     flexDirection: "row",
-    backgroundColor: "white",
+    backgroundColor: "#121715", // koyu kart zemini
     borderRadius: s(20),
     padding: s(20),
     borderLeftWidth: s(6),
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.15,
-    shadowRadius: 12,
-    elevation: 8,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.4,
+    shadowRadius: 14,
+    shadowColor: "#000000",
+    elevation: 10,
     width: s(320),
     minHeight: vs(120),
+    borderColor: "#1E2A26",
   },
 
   leftSection: {
@@ -222,12 +220,14 @@ const styles = StyleSheet.create({
     borderRadius: s(4),
     overflow: "hidden",
     justifyContent: "flex-end",
+    backgroundColor: "#1A2421",
   },
 
   progressFill: {
     width: "100%",
     borderRadius: s(4),
     minHeight: s(4),
+    // rengi dinamik (primaryColor) inline
   },
 
   percentageText: {
@@ -235,6 +235,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Bold",
     marginTop: s(8),
     fontWeight: "700",
+    color: "#E8FDF3",
   },
 
   centerSection: {
@@ -250,17 +251,21 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#0E1311",
+    borderColor: "#1F2E29",
   },
 
   emoji: {
     fontSize: s(20),
     marginBottom: s(4),
+    color: "#C5DCD3",
   },
 
   mainScore: {
     fontSize: s(24),
     fontFamily: "Roboto-Bold",
     fontWeight: "800",
+    color: "#E5F9EF",
   },
 
   rightSection: {
@@ -275,6 +280,7 @@ const styles = StyleSheet.create({
     paddingVertical: s(8),
     borderRadius: s(16),
     width: s(100),
+    backgroundColor: "#18221F",
   },
 
   statusDot: {
@@ -282,12 +288,14 @@ const styles = StyleSheet.create({
     height: s(8),
     borderRadius: s(4),
     marginRight: s(8),
+    backgroundColor: "#1F3D32",
   },
 
   statusText: {
     fontSize: s(12),
     fontFamily: "Roboto-SemiBold",
     fontWeight: "600",
+    color: "#D0E9DF",
   },
 
   miniStats: {
@@ -303,7 +311,7 @@ const styles = StyleSheet.create({
 
   statLabel: {
     fontSize: s(10),
-    color: "#9CA3AF",
+    color: "#5F6F68",
     fontFamily: "Roboto-Regular",
     marginBottom: s(4),
   },
@@ -312,17 +320,19 @@ const styles = StyleSheet.create({
     fontSize: s(14),
     fontFamily: "Roboto-Bold",
     fontWeight: "700",
+    color: "#CFE7DE",
   },
 
   statDivider: {
     width: 1,
     height: s(20),
-    backgroundColor: "#E5E7EB",
+    backgroundColor: "#23312C",
   },
 
   statusIndicator: {
     width: s(12),
     height: s(12),
     borderRadius: s(6),
+    backgroundColor: "#1F3D32",
   },
 });

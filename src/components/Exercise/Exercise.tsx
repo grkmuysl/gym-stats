@@ -42,6 +42,7 @@ const Exercise: React.FC<ExerciseProps> = ({ ExerciseItem }) => {
         <AppButton
           title={isFavorite ? "💔 Remove" : "❤️ Add"}
           onPress={toggleFavorite}
+          style={styles.favoriteBtn}
         />
       </View>
     </TouchableOpacity>
@@ -68,7 +69,10 @@ const styles = StyleSheet.create({
     marginRight: s(2),
   },
   buttonContainer: {
-    minWidth: s(80),
+    minWidth: s(100),
+  },
+  favoriteBtn: {
+    width: "100%",
   },
   difficulty: {
     fontSize: s(13),

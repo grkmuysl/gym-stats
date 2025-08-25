@@ -254,37 +254,6 @@ const ProfileScreen: React.FC = () => {
                 />
               </View>
             </View>
-
-            {/* Özet Bilgiler */}
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>📊 Özet Bilgiler</Text>
-              <View style={styles.summaryContainer}>
-                <View style={styles.summaryRow}>
-                  <Text style={styles.summaryLabel}>👤 Yaş</Text>
-                  <Text style={styles.summaryValue}>
-                    {editedProfile.age
-                      ? `${editedProfile.age} yaşında`
-                      : "Belirtilmemiş"}
-                  </Text>
-                </View>
-                <View style={styles.summaryRow}>
-                  <Text style={styles.summaryLabel}>⚖️ Kilo</Text>
-                  <Text style={styles.summaryValue}>
-                    {editedProfile.weight
-                      ? `${editedProfile.weight} kg`
-                      : "Belirtilmemiş"}
-                  </Text>
-                </View>
-                <View style={styles.summaryRow}>
-                  <Text style={styles.summaryLabel}>📏 Boy</Text>
-                  <Text style={styles.summaryValue}>
-                    {editedProfile.height
-                      ? `${editedProfile.height} cm`
-                      : "Belirtilmemiş"}
-                  </Text>
-                </View>
-              </View>
-            </View>
           </View>
 
           {/* Action Buttons */}
@@ -296,7 +265,7 @@ const ProfileScreen: React.FC = () => {
                 activeOpacity={0.8}
               >
                 <LinearGradient
-                  colors={["#FF6B6B", "#ff554cea"]}
+                  colors={["#FF6B6B", "#ff534aff"]}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 1 }}
                   style={[styles.button, styles.gradientButton]}
@@ -389,7 +358,7 @@ const styles = StyleSheet.create({
   editBtnContainer: {
     position: "absolute",
     right: 10,
-    top: 6,
+    top: 16,
   },
   editButtonText: {
     color: AppColors.whiteColor,
@@ -436,27 +405,7 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderWidth: s(0.5),
   },
-  summaryContainer: {
-    backgroundColor: "#000",
-    borderRadius: s(12),
-    padding: s(15),
-  },
-  summaryRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: vs(8),
-  },
-  summaryLabel: {
-    fontSize: s(14),
-    fontFamily: "Roboto-Regular",
-    color: AppColors.lightGray,
-  },
-  summaryValue: {
-    fontSize: s(14),
-    fontFamily: "Roboto-Medium",
-    color: AppColors.whiteColor,
-  },
+
   buttonContainer: {
     flexDirection: "row",
     gap: s(15),
