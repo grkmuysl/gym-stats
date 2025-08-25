@@ -15,7 +15,7 @@ const UserStats = () => {
   return (
     <View style={styles.container}>
       <WeightGraph weight={weight} height={height} />
-      <BodyScoreGraph weight={weight} height={height} />
+      <BodyScoreGraph />
     </View>
   );
 };

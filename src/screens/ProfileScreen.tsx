@@ -36,6 +36,7 @@ const ProfileScreen: React.FC = () => {
     age: "",
     weight: "",
     height: "",
+    gender: "",
   });
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -52,6 +53,7 @@ const ProfileScreen: React.FC = () => {
       age: profileInformation.age,
       weight: profileInformation.weight,
       height: profileInformation.height,
+      gender: profileInformation.gender,
     });
   }, [profileInformation]);
 
@@ -87,6 +89,7 @@ const ProfileScreen: React.FC = () => {
         age: editedProfile.age.trim(),
         weight: editedProfile.weight.trim(),
         height: editedProfile.height.trim(),
+        gender: editedProfile.gender.trim(),
       };
 
       await AsyncStorage.setItem(
@@ -109,6 +112,7 @@ const ProfileScreen: React.FC = () => {
       age: profileInformation.age,
       weight: profileInformation.weight,
       height: profileInformation.height,
+      gender: profileInformation.gender,
     });
     setIsEditing(false);
   };

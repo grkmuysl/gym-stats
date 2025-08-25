@@ -155,6 +155,7 @@ const OnboardingScreen = () => {
         age: formData.age.trim(),
         weight: formData.weight.trim(),
         height: formData.height.trim(),
+        gender: formData.gender.trim(),
       };
 
       await saveProfileWithData(profileData);

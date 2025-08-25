@@ -13,6 +13,7 @@ export type ProfileInfo = {
   age: string;
   weight: string;
   height: string;
+  gender: string;
 };
 
 type ProfileContextType = {
@@ -45,6 +46,7 @@ export const ProfileContextProvider: React.FC<{
   const [age, setAge] = useState("");
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
+  const [gender, setGender] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [onboardingCompleted, setOnboardingCompleted] = useState(false);
 
@@ -60,6 +62,7 @@ export const ProfileContextProvider: React.FC<{
         setAge(parsedProfile.age || "");
         setWeight(parsedProfile.weight || "");
         setHeight(parsedProfile.height || "");
+        setGender(parsedProfile.gender || "");
       }
 
       const onboardingStatus = await AsyncStorage.getItem(ONBOARDING_KEY);
@@ -79,6 +82,7 @@ export const ProfileContextProvider: React.FC<{
         age,
         weight,
         height,
+        gender,
       };
 
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(profileData));
@@ -100,6 +104,7 @@ export const ProfileContextProvider: React.FC<{
       setAge("");
       setWeight("");
       setHeight("");
+      setGender("");
       setOnboardingCompleted(false);
     } catch (error) {
       console.error("Profile clearing error:", error);
@@ -115,6 +120,7 @@ export const ProfileContextProvider: React.FC<{
         age: profileData.age.trim(),
         weight: profileData.weight.trim(),
         height: profileData.height.trim(),
+        gender: profileData.gender.trim(),
       };
 
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(cleanData));
@@ -129,6 +135,7 @@ export const ProfileContextProvider: React.FC<{
       setAge(cleanData.age);
       setWeight(cleanData.weight);
       setHeight(cleanData.height);
+      setGender(cleanData.gender);
       setOnboardingCompleted(true);
     } catch (error) {
       console.error("Profile saving error:", error);
@@ -163,6 +170,7 @@ export const ProfileContextProvider: React.FC<{
     age,
     weight,
     height,
+    gender,
   };
 
   const contextValue: ProfileContextType = {
