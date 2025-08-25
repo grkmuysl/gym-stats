@@ -8,10 +8,18 @@ import {
   getBodyScoreDescription,
   getBodyScoreEmoji,
 } from "../../utils/BMICalculater";
+import { useProfile } from "../../context/ProfileContext";
 
-const BodyScoreGraph = ({ weight, height }) => {
+const BodyScoreGraph = () => {
+  const { profileInformation } = useProfile();
+
+  const height = profileInformation.height || "";
+  const weight = profileInformation.weight || "";
+  const age = profileInformation.age || "";
+  const gender = profileInformation.gender || "";
+
   const { bmi } = calculateBMI(weight, height);
-  const score = calculateAdvancedBodyScore(bmi, 23, "male");
+  const score = calculateAdvancedBodyScore(bmi, age, gender);
   const body_score_description = getBodyScoreDescription(score);
 
   let primaryColor, secondaryColor, bgGradient, iconName;
