@@ -41,13 +41,13 @@ const AllExercisesScreen = () => {
   const [searchString, setSearchString] = useState("");
 
   const EXERCISE_CATEGORIES: ExerciseCategory[] = [
-    { title: "CHEST EXERCISES", data: allChestExercises },
-    { title: "BACK EXERCISES", data: allBackExercises },
-    { title: "SHOULDER EXERCISES", data: allShoulderExercises },
-    { title: "LEG EXERCISES", data: allLegExercises },
-    { title: "BICEPS EXERCISES", data: allBicepsExercises },
-    { title: "TRICEPS EXERCISES", data: allTricepsExercises },
-    { title: "ABS EXERCISES", data: allAbsExercises },
+    { title: "GÖĞÜS EGZERSİZLERİ", data: allChestExercises },
+    { title: "SIRT EGZERSİZLERİ", data: allBackExercises },
+    { title: "OMUZ EGZERSİZLERİ", data: allShoulderExercises },
+    { title: "BACAK EGZERSİZLERİ", data: allLegExercises },
+    { title: "BICEPS EGZERSİZLERİ", data: allBicepsExercises },
+    { title: "TRICEPS EGZERSİZLERİ", data: allTricepsExercises },
+    { title: "KARIN EGZERSİZLERİ", data: allAbsExercises },
   ];
 
   const filteredCategories = useMemo(() => {
@@ -200,6 +200,7 @@ const styles = StyleSheet.create({
     color: AppColors.whiteColor,
     fontSize: s(18),
     fontFamily: "Roboto-Medium",
+    marginLeft: s(4),
   },
 
   exerciseCount: {

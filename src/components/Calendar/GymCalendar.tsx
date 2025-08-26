@@ -212,6 +212,8 @@ const GymCalendar = ({ records, removeRecord }) => {
           onDayPress={onDayPress}
           markedDates={markedDates}
           markingType={"custom"}
+          monthFormat={"MMMM yyyy"}
+          locale="tr"
           theme={{
             backgroundColor: AppColors.blackBgColor,
             calendarBackground: AppColors.grayBgColor,
@@ -227,15 +229,15 @@ const GymCalendar = ({ records, removeRecord }) => {
             disabledArrowColor: "#d9e1e8",
             monthTextColor: AppColors.limeGreenColor,
             indicatorColor: "blue",
-            textDayFontFamily: "monospace",
-            textMonthFontFamily: "monospace",
-            textDayHeaderFontFamily: "monospace",
+            textDayFontFamily: "Roboto-Regular",
+            textMonthFontFamily: "Roboto-Bold",
+            textDayHeaderFontFamily: "Roboto-Medium",
             textDayFontWeight: "300",
             textMonthFontWeight: "bold",
             textDayHeaderFontWeight: "300",
             textDayFontSize: 14,
-            textMonthFontSize: 14,
-            textDayHeaderFontSize: 11,
+            textMonthFontSize: 16,
+            textDayHeaderFontSize: 12,
           }}
         />
       </View>

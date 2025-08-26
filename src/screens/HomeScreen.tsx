@@ -15,21 +15,13 @@ const HomeScreen = () => {
           <UserStats />
         </View>
         <View style={styles.allRecords}>
-          <View
-            style={[
-              styles.headerCard,
-              {
-                backgroundColor: AppColors.grayBgColor,
-                shadowColor: AppColors.grayBgColor,
-              },
-            ]}
-          >
+          <View style={[styles.headerCard]}>
             <MaterialIcons
               name="library-books"
               size={20}
-              color={AppColors.whiteColor}
+              color={AppColors.grayBgColor}
             />
-            <Text style={styles.headerText}>All Records</Text>
+            <Text style={styles.headerText}>Tüm Kayıtlar</Text>
           </View>
           <AllRecords />
         </View>
@@ -75,12 +67,14 @@ const styles = StyleSheet.create({
     width: s(132),
     height: vs(48),
     alignSelf: "center",
+    backgroundColor: AppColors.limeGreenColor,
+    shadowColor: AppColors.limeGreenColor,
   },
   headerText: {
-    color: AppColors.whiteColor,
+    color: AppColors.grayBgColor,
     fontSize: s(14),
     fontFamily: "Roboto-SemiBold",
-    marginLeft: s(8),
+    marginLeft: s(6),
     fontWeight: "600",
   },
 });

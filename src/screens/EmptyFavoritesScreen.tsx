@@ -19,7 +19,7 @@ const EmptyFavoritesScreen = () => {
   const navigation = useNavigation();
 
   const goToAllExercises = () => {
-    navigation.navigate("All Exercises");
+    navigation.navigate("Tüm Egzersizler");
   };
 
   return (
@@ -49,7 +49,7 @@ const EmptyFavoritesScreen = () => {
 
             <AppButton
               onPress={goToAllExercises}
-              title="Go to Exercises"
+              title="Egzersizlere Git"
               style={styles.button}
               textStyle={styles.buttonText}
             />

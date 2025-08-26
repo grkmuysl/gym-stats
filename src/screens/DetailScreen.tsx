@@ -28,7 +28,7 @@ const DetailScreen = ({ route }) => {
           { justifyContent: "center", alignItems: "center" },
         ]}
       >
-        <Text style={styles.pageTitle}>Loading...</Text>
+        <Text style={styles.pageTitle}>Yükleniyor...</Text>
       </View>
     );
   }
@@ -40,13 +40,13 @@ const DetailScreen = ({ route }) => {
       <Text style={styles.pageTitle}>{route.params.name}</Text>
 
       <View style={styles.innerContainer}>
-        <Text style={styles.innerTitle}>Prev Records</Text>
+        <Text style={styles.innerTitle}>Önceki Kayıtlar</Text>
         <PrevRecords exerciseName={route.params.name} />
 
-        <Text style={styles.title}>Last Changes</Text>
+        <Text style={styles.title}>Son Değişiklikler</Text>
         <LastChanges exerciseName={route.params.name} />
 
-        <Text style={styles.title}>All {route.params.name} Records</Text>
+        <Text style={styles.title}>Tüm {route.params.name} Kayıtları</Text>
         <AllRecords exerciseName={exerciseName} />
       </View>
     </ScrollView>
