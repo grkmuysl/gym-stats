@@ -66,13 +66,15 @@ const styles = StyleSheet.create({
   },
   leftDetail: {
     flex: 1,
+    marginLeft: s(2),
     marginRight: s(2),
   },
   buttonContainer: {
     minWidth: s(100),
   },
   favoriteBtn: {
-    width: "100%",
+    width: s(92),
+    height: vs(36),
   },
   difficulty: {
     fontSize: s(13),

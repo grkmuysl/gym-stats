@@ -21,7 +21,7 @@ import {
   allShoulderExercises,
   allTricepsExercises,
 } from "../data/AllExercises";
-import CustomInput from "../components/CustomInput/CustomInput";
+
 import { TextInput } from "react-native-gesture-handler";
 
 type ExerciseItem = {
@@ -39,6 +39,7 @@ type ExerciseCategory = {
 
 const AllExercisesScreen = () => {
   const [searchString, setSearchString] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
 
   const EXERCISE_CATEGORIES: ExerciseCategory[] = [
     { title: "GÖĞÜS EGZERSİZLERİ", data: allChestExercises },
@@ -83,7 +84,16 @@ const AllExercisesScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
-        <View style={styles.searchInputContainer}>
+        <View
+          style={[
+            styles.searchInputContainer,
+            {
+              borderColor: isFocused
+                ? AppColors.limeGreenColor
+                : AppColors.lightGray,
+            },
+          ]}
+        >
           <EvilIcons
             name="search"
             size={24}
@@ -96,6 +106,8 @@ const AllExercisesScreen = () => {
             onChangeText={setSearchString}
             placeholder="Egzersiz ara..."
             placeholderTextColor={AppColors.lightGray}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
           />
           {searchString.length > 0 && (
             <TouchableOpacity
