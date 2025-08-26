@@ -1,238 +1,239 @@
 export const allChestExercises = [
   {
     name: "Bench Press",
-    subtitle: "A compound exercise for building chest strength",
-    type: "Chest",
+    subtitle:
+      "Göğüs kuvveti geliştirmek için bileşik (çok eklemli) bir egzersiz",
+    type: "Göğüs",
     id: "0",
-    difficulty: "Advanced",
+    difficulty: "İleri",
   },
   {
     name: "Incline Bench Press",
-    subtitle: "Targets the upper part of the chest muscles",
-    type: "Chest",
+    subtitle: "Göğüs kaslarının üst bölümünü hedefler",
+    type: "Göğüs",
     id: "1",
-    difficulty: "Advanced",
+    difficulty: "İleri",
   },
   {
     name: "Decline Bench Press",
-    subtitle: "Focuses on the lower chest muscles",
-    type: "Chest",
+    subtitle: "Alt göğüs kaslarına odaklanır",
+    type: "Göğüs",
     id: "2",
-    difficulty: "Intermediate",
+    difficulty: "Orta",
   },
   {
-    name: "Push-Ups",
-    subtitle: "A basic upper body exercise using body weight",
-    type: "Chest",
+    name: "Şınav",
+    subtitle: "Vücut ağırlığıyla yapılan temel bir üst vücut egzersizi",
+    type: "Göğüs",
     id: "3",
-    difficulty: "Beginner",
+    difficulty: "Başlangıç",
   },
   {
-    name: "Cable Crossover",
-    subtitle: "Isolates the chest muscles with cable resistance",
-    type: "Chest",
+    name: "Kablo Göğüs Açışı",
+    subtitle: "Kablo direnciyle göğüs kaslarını izole eder",
+    type: "Göğüs",
     id: "4",
-    difficulty: "Intermediate",
+    difficulty: "Orta",
   },
 ];
 
 export const allBackExercises = [
   {
-    name: "Pull-Ups",
-    subtitle: "A challenging back and arm strength exercise",
-    type: "Back",
+    name: "Barfiks",
+    subtitle: "Sırt ve kol kuvveti için zorlayıcı bir egzersiz",
+    type: "Sırt",
     id: "5",
-    difficulty: "Advanced",
+    difficulty: "İleri",
   },
   {
     name: "Deadlift",
-    subtitle: "A full-body exercise focusing on back and legs",
-    type: "Back",
+    subtitle: "Sırt ve bacaklara odaklanan tam vücut egzersizi",
+    type: "Sırt",
     id: "6",
-    difficulty: "Advanced",
+    difficulty: "İleri",
   },
   {
     name: "Bent Over Row",
-    subtitle: "Strengthens the back and stabilizer muscles",
-    type: "Back",
+    subtitle: "Sırt ve dengeleyici kasları güçlendirir",
+    type: "Sırt",
     id: "7",
-    difficulty: "Intermediate",
+    difficulty: "Orta",
   },
   {
-    name: "Lat Pulldown",
-    subtitle: "Builds lat muscles and improves pull-up strength",
-    type: "Back",
+    name: "Lat Çekiş",
+    subtitle: "Kanat kaslarını geliştirir ve barfiks kuvvetini artırır",
+    type: "Sırt",
     id: "8",
-    difficulty: "Beginner",
+    difficulty: "Başlangıç",
   },
   {
     name: "Face Pull",
-    subtitle: "Targets rear delts and upper back muscles",
-    type: "Back",
+    subtitle: "Arka omuz ve üst sırt kaslarını hedefler",
+    type: "Sırt",
     id: "9",
-    difficulty: "Intermediate",
+    difficulty: "Orta",
   },
 ];
 
 export const allShoulderExercises = [
   {
     name: "Overhead Press",
-    subtitle: "Builds shoulder strength and stability",
-    type: "Shoulders",
+    subtitle: "Omuz kuvveti ve stabilitesini geliştirir",
+    type: "Omuz",
     id: "10",
-    difficulty: "Advanced",
+    difficulty: "İleri",
   },
   {
     name: "Arnold Press",
-    subtitle: "A dynamic shoulder exercise with rotation",
-    type: "Shoulders",
+    subtitle: "Rotasyon içeren dinamik bir omuz egzersizi",
+    type: "Omuz",
     id: "11",
-    difficulty: "Intermediate",
+    difficulty: "Orta",
   },
   {
-    name: "Lateral Raise",
-    subtitle: "Focuses on the side delts for shoulder width",
-    type: "Shoulders",
+    name: "Yana Açış",
+    subtitle: "Omuz genişliği için yan deltoidleri hedefler",
+    type: "Omuz",
     id: "12",
-    difficulty: "Beginner",
+    difficulty: "Başlangıç",
   },
   {
-    name: "Front Raise",
-    subtitle: "Targets the front delts for shoulder definition",
-    type: "Shoulders",
+    name: "Öne Kaldırış",
+    subtitle: "Omuz hattı için ön deltoidleri hedefler",
+    type: "Omuz",
     id: "13",
-    difficulty: "Beginner",
+    difficulty: "Başlangıç",
   },
 ];
 
 export const allLegExercises = [
   {
     name: "Squat",
-    subtitle: "A fundamental lower body strength exercise",
-    type: "Legs",
+    subtitle: "Alt vücut kuvveti için temel bir egzersiz",
+    type: "Bacak",
     id: "14",
-    difficulty: "Advanced",
+    difficulty: "İleri",
   },
   {
     name: "Leg Press",
-    subtitle: "Builds quad and glute strength with controlled motion",
-    type: "Legs",
+    subtitle: "Kontrollü hareketle quadriceps ve glute kuvveti kazandırır",
+    type: "Bacak",
     id: "15",
-    difficulty: "Intermediate",
+    difficulty: "Orta",
   },
   {
-    name: "Lunges",
-    subtitle: "Improves balance and strengthens legs",
-    type: "Legs",
+    name: "Lunge",
+    subtitle: "Dengeyi geliştirir ve bacakları güçlendirir",
+    type: "Bacak",
     id: "16",
-    difficulty: "Beginner",
+    difficulty: "Başlangıç",
   },
   {
     name: "Bulgarian Split Squat",
-    subtitle: "A unilateral leg exercise for strength and balance",
-    type: "Legs",
+    subtitle: "Kuvvet ve denge için tek taraflı bir bacak egzersizi",
+    type: "Bacak",
     id: "17",
-    difficulty: "Advanced",
+    difficulty: "İleri",
   },
 ];
 
 export const allBicepsExercises = [
   {
     name: "Barbell Curl",
-    subtitle: "Builds bicep strength with barbell resistance",
+    subtitle: "Barbell direnciyle biceps kuvveti kazandırır",
     type: "Biceps",
     id: "18",
-    difficulty: "Intermediate",
+    difficulty: "Orta",
   },
   {
     name: "Dumbbell Curl",
-    subtitle: "Isolates biceps for controlled strength building",
+    subtitle: "Kontrollü kuvvet gelişimi için biceps’i izole eder",
     type: "Biceps",
     id: "19",
-    difficulty: "Beginner",
+    difficulty: "Başlangıç",
   },
   {
     name: "Hammer Curl",
-    subtitle: "Targets biceps and brachialis muscles",
+    subtitle: "Biceps ve brachialis kaslarını hedefler",
     type: "Biceps",
     id: "20",
-    difficulty: "Beginner",
+    difficulty: "Başlangıç",
   },
 ];
 
 export const allTricepsExercises = [
   {
-    name: "Tricep Dips",
-    subtitle: "Strengthens triceps using body weight",
+    name: "Paralel Bar Dips",
+    subtitle: "Vücut ağırlığıyla triceps’i güçlendirir",
     type: "Triceps",
     id: "21",
-    difficulty: "Intermediate",
+    difficulty: "Orta",
   },
   {
     name: "Skull Crushers",
-    subtitle: "Isolates triceps with overhead extension",
+    subtitle: "Baş üstü ekstansiyonla triceps’i izole eder",
     type: "Triceps",
     id: "22",
-    difficulty: "Advanced",
+    difficulty: "İleri",
   },
 ];
 
 export const allAbsExercises = [
   {
     name: "Plank",
-    subtitle: "A core stability exercise for abs and lower back",
-    type: "Abs",
+    subtitle: "Karın ve bel (alt sırt) için merkez stabilite egzersizi",
+    type: "Karın",
     id: "23",
-    difficulty: "Beginner",
+    difficulty: "Başlangıç",
   },
   {
-    name: "Crunch",
-    subtitle: "Targets the upper abdominal muscles",
-    type: "Abs",
+    name: "Mekik",
+    subtitle: "Üst karın kaslarını hedefler",
+    type: "Karın",
     id: "24",
-    difficulty: "Beginner",
+    difficulty: "Başlangıç",
   },
   {
     name: "Russian Twist",
-    subtitle: "Improves core strength and rotational stability",
-    type: "Abs",
+    subtitle: "Merkez kuvveti ve rotasyonel stabiliteyi artırır",
+    type: "Karın",
     id: "25",
-    difficulty: "Intermediate",
+    difficulty: "Orta",
   },
   {
-    name: "Mountain Climbers",
-    subtitle: "A dynamic core and cardio exercise",
-    type: "Abs",
+    name: "Dağ Tırmanışı",
+    subtitle: "Dinamik bir core ve kardiyo egzersizi",
+    type: "Karın",
     id: "26",
-    difficulty: "Intermediate",
+    difficulty: "Orta",
   },
 ];
 
 export const exerciseTypes = [
-  { label: "Göğüs", value: "Chest" },
-  { label: "Sırt", value: "Back" },
-  { label: "Omuz", value: "Shoulders" },
-  { label: "Bacak", value: "Legs" },
+  { label: "Göğüs", value: "Göğüs" },
+  { label: "Sırt", value: "Sırt" },
+  { label: "Omuz", value: "Omuz" },
+  { label: "Bacak", value: "Bacak" },
   { label: "Biceps", value: "Biceps" },
   { label: "Triceps", value: "Triceps" },
-  { label: "Karın", value: "Abs" },
+  { label: "Karın", value: "Karın" },
 ];
 
 export const getExercisesByType = (type) => {
   switch (type) {
-    case "Chest":
+    case "Göğüs":
       return allChestExercises;
-    case "Back":
+    case "Sırt":
       return allBackExercises;
-    case "Shoulders":
+    case "Omuz":
       return allShoulderExercises;
-    case "Legs":
+    case "Bacak":
       return allLegExercises;
     case "Biceps":
       return allBicepsExercises;
     case "Triceps":
       return allTricepsExercises;
-    case "Abs":
+    case "Karın":
       return allAbsExercises;
     default:
       return [];

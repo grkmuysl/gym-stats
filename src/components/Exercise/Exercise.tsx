@@ -40,7 +40,7 @@ const Exercise: React.FC<ExerciseProps> = ({ ExerciseItem }) => {
 
       <View style={styles.buttonContainer}>
         <AppButton
-          title={isFavorite ? "💔 Remove" : "❤️ Add"}
+          title={isFavorite ? "💔 Sil" : "❤️ Ekle"}
           onPress={toggleFavorite}
           style={styles.favoriteBtn}
         />

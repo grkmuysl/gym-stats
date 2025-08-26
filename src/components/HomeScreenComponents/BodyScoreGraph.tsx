@@ -23,17 +23,17 @@ const BodyScoreGraph = () => {
   const body_score_description = getBodyScoreDescription(score);
 
   let primaryColor, secondaryColor, bgGradient, iconName;
-  if (body_score_description === "Perfect") {
+  if (body_score_description === "Mükemmel") {
     primaryColor = "#667eea";
     secondaryColor = "#764ba2";
     bgGradient = ["#667eea", "#764ba2"];
     iconName = "star";
-  } else if (body_score_description === "Very Good") {
+  } else if (body_score_description === "Çok İyi") {
     primaryColor = "#11998e";
     secondaryColor = "#38ef7d";
     bgGradient = ["#11998e", "#38ef7d"];
     iconName = "trending-up";
-  } else if (body_score_description === "Good") {
+  } else if (body_score_description === "İyi") {
     primaryColor = "#f093fb";
     secondaryColor = "#f5576c";
     bgGradient = ["#f093fb", "#f5576c"];
@@ -43,7 +43,7 @@ const BodyScoreGraph = () => {
     secondaryColor = "#E3743C";
     bgGradient = ["#F2BE8F", "#E3743C"];
     iconName = "balance";
-  } else if (body_score_description === "Bad") {
+  } else if (body_score_description === "Kötü") {
     primaryColor = "#ff9a9e";
     secondaryColor = "#fecfef";
     bgGradient = ["#ff9a9e", "#fecfef"];
@@ -69,7 +69,7 @@ const BodyScoreGraph = () => {
         ]}
       >
         <MaterialIcons name={iconName} size={20} color="white" />
-        <Text style={styles.headerText}>Body Score</Text>
+        <Text style={styles.headerText}>Vücut Puanı</Text>
       </View>
 
       {/* Main Score Card */}
@@ -151,7 +151,7 @@ const BodyScoreGraph = () => {
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
-              <Text style={styles.statLabel}>Status</Text>
+              <Text style={styles.statLabel}>Durum</Text>
               <View
                 style={[
                   styles.statusIndicator,

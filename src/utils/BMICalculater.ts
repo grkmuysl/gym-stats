@@ -88,11 +88,11 @@ export const calculateAdvancedBodyScore = (
 };
 
 export const getBodyScoreDescription = (score: number): string => {
-  if (score >= 90) return "Perfect";
-  if (score >= 80) return "Very Good";
-  if (score >= 70) return "Good";
+  if (score >= 90) return "Mükemmel";
+  if (score >= 80) return "Çok İyi";
+  if (score >= 70) return "İyi";
   if (score >= 60) return "Normal";
-  if (score >= 20) return "Bad";
+  if (score >= 20) return "Kötü";
   return "Very Bad";
 };
 

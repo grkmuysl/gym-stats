@@ -60,7 +60,7 @@ const WeightGraph = ({ weight, height }) => {
         ]}
       >
         <MaterialIcons name="monitor-weight" size={20} color="white" />
-        <Text style={styles.headerText}>Weight Status</Text>
+        <Text style={styles.headerText}>Kilo Durumu</Text>
       </View>
 
       {/* Main Weight Card */}
@@ -133,19 +133,19 @@ const WeightGraph = ({ weight, height }) => {
 
           {/* Health Indicator */}
           <View style={styles.healthIndicator}>
-            <Text style={styles.healthLabel}>Health Status</Text>
+            <Text style={styles.healthLabel}>Sağlık Durumu</Text>
             <View style={styles.indicatorRow}>
               <View
                 style={[styles.healthDot, { backgroundColor: primaryColor }]}
               />
               <Text style={[styles.healthStatus, { color: primaryColor }]}>
                 {category === BMI_TYPES.NORMAL_WEIGHT
-                  ? "Healthy"
+                  ? "Sağlıklı"
                   : category === BMI_TYPES.UNDERWEIGHT
-                  ? "Low"
+                  ? "Düşük"
                   : category === BMI_TYPES.OVERWEIGHT
-                  ? "Moderate"
-                  : "High"}
+                  ? "Orta"
+                  : "Yüksek"}
               </Text>
             </View>
           </View>

@@ -8,7 +8,7 @@ const AppLineChart = ({ data }) => {
   if (!Array.isArray(data) || data.length === 0) {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>There is no records!</Text>
+        <Text style={styles.title}>Burada kayıt yok!</Text>
       </View>
     );
   }
@@ -93,6 +93,6 @@ const styles = StyleSheet.create({
   title: {
     color: AppColors.whiteColor,
     fontSize: s(18),
-    fontFamily: "Roboto-Regular",
+    fontFamily: "Roboto-Bold",
   },
 });

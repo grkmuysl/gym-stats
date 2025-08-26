@@ -8,7 +8,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import FavouriteScreen from "../screens/FavouriteScreen";
 import AllExercisesScreen from "../screens/AllExercisesScreen";
 import { AppColors } from "../styles/colors";
-import { vs } from "react-native-size-matters";
+import { s, vs } from "react-native-size-matters";
 import ProfileScreen from "../screens/ProfileScreen";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
@@ -27,7 +27,7 @@ const BottomTabs = () => {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="Anasayfa"
         component={HomeScreen}
         options={{
           tabBarIcon: () => (
@@ -37,11 +37,15 @@ const BottomTabs = () => {
               color={AppColors.limeGreenColor}
             />
           ),
+          tabBarLabelStyle: {
+            fontSize: s(10),
+            fontFamily: "Roboto-Regular",
+          },
           headerShown: false,
         }}
       />
       <Tab.Screen
-        name="Favorites"
+        name="Favoriler"
         component={FavouriteScreen}
         options={{
           tabBarIcon: () => (
@@ -51,22 +55,30 @@ const BottomTabs = () => {
               color={AppColors.limeGreenColor}
             />
           ),
+          tabBarLabelStyle: {
+            fontSize: s(10),
+            fontFamily: "Roboto-Regular",
+          },
           headerShown: false,
         }}
       />
       <Tab.Screen
-        name="All Exercises"
+        name="Tüm Egzersizler"
         component={AllExercisesScreen}
         options={{
           tabBarIcon: () => (
             <Feather name="list" size={24} color={AppColors.limeGreenColor} />
           ),
+          tabBarLabelStyle: {
+            fontSize: s(10),
+            fontFamily: "Roboto-Regular",
+          },
           headerShown: false,
         }}
       />
 
       <Tab.Screen
-        name="Profile"
+        name="Profil"
         component={ProfileScreen}
         options={{
           tabBarIcon: () => (
@@ -76,6 +88,10 @@ const BottomTabs = () => {
               color={AppColors.limeGreenColor}
             />
           ),
+          tabBarLabelStyle: {
+            fontSize: s(10),
+            fontFamily: "Roboto-Regular",
+          },
           headerShown: false,
         }}
       />
