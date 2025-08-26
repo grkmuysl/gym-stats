@@ -2,6 +2,7 @@ import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 import React, { FC } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { s, vs } from "react-native-size-matters";
 
 interface GoBackButtonProps {
   style?: StyleProp<ViewStyle>;
@@ -27,4 +28,11 @@ const GoBackButton: FC<GoBackButtonProps> = ({ style, size }) => {
 
 export default GoBackButton;
 
-const styles = StyleSheet.create({ goBackBtn: {} });
+const styles = StyleSheet.create({
+  goBackBtn: {
+    height: vs(24),
+    width: s(20),
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
