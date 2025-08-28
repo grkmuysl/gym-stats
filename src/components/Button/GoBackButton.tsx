@@ -31,7 +31,7 @@ export default GoBackButton;
 const styles = StyleSheet.create({
   goBackBtn: {
     height: vs(24),
-    width: s(20),
+    width: s(24),
     justifyContent: "center",
     alignItems: "center",
   },

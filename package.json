@@ -34,7 +34,8 @@
     "react-native-size-matters": "^0.4.2",
     "react-native-skia": "^0.0.1",
     "react-native-svg": "^15.11.2",
-    "expo-blur": "~14.1.5"
+    "expo-blur": "~14.1.5",
+    "lottie-react-native": "7.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

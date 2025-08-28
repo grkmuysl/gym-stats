@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { AppColors } from "../styles/colors";
 import GoBackButton from "../components/Button/GoBackButton";
 import PrevRecords from "../components/DetailPageComponents/PrevRecords";
@@ -9,10 +9,17 @@ import AllRecords from "../components/DetailPageComponents/AllRecords";
 import { ScrollView } from "react-native-gesture-handler";
 import { useRecords } from "../context/ExerciseRecordsContext";
 import { useFocusEffect } from "@react-navigation/native";
+import LottieView from "lottie-react-native";
+import animations from "../data/Animations";
 
 const DetailScreen = ({ route }) => {
   const exerciseName = route.params?.name;
   const { refreshRecords, isLoading } = useRecords();
+
+  const animation = useRef<LottieView>(null);
+  const animationKey = route.params?.animationSource;
+
+  console.log(animationKey);
 
   useFocusEffect(
     useCallback(() => {
@@ -38,6 +45,15 @@ const DetailScreen = ({ route }) => {
       <GoBackButton style={styles.goBackBtn} />
 
       <Text style={styles.pageTitle}>{route.params.name}</Text>
+
+      <View style={styles.animationContainer}>
+        <LottieView
+          autoPlay
+          ref={animation}
+          style={styles.animation}
+          source={animations[animationKey]}
+        />
+      </View>
 
       <View style={styles.innerContainer}>
         <Text style={styles.innerTitle}>Önceki Kayıtlar</Text>
@@ -90,5 +106,19 @@ const styles = StyleSheet.create({
     color: AppColors.whiteColor,
     alignSelf: "flex-start",
     left: s(22),
+  },
+  animationContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: vs(200),
+    width: s(316),
+    marginLeft: s(16),
+    marginTop: s(8),
+    backgroundColor: "#b7b3b3ff",
+    borderRadius: s(16),
+  },
+  animation: {
+    width: "100%",
+    height: "100%",
   },
 });

@@ -6,6 +6,7 @@ export const allChestExercises = [
     type: "Göğüs",
     id: "0",
     difficulty: "İleri",
+    animationSource: "benchPress",
   },
   {
     name: "Incline Bench Press",
@@ -27,6 +28,7 @@ export const allChestExercises = [
     type: "Göğüs",
     id: "3",
     difficulty: "Başlangıç",
+    animationSource: "pushUp",
   },
   {
     name: "Kablo Göğüs Açışı",
@@ -44,6 +46,7 @@ export const allBackExercises = [
     type: "Sırt",
     id: "5",
     difficulty: "İleri",
+    animationSource: "pullUp",
   },
   {
     name: "Deadlift",
@@ -51,6 +54,7 @@ export const allBackExercises = [
     type: "Sırt",
     id: "6",
     difficulty: "İleri",
+    animationSource: "deadLift",
   },
   {
     name: "Bent Over Row",
@@ -120,6 +124,7 @@ export const allLegExercises = [
     type: "Bacak",
     id: "15",
     difficulty: "Orta",
+    animationSource: "legPress",
   },
   {
     name: "Lunge",
@@ -185,6 +190,7 @@ export const allAbsExercises = [
     type: "Karın",
     id: "23",
     difficulty: "Başlangıç",
+    animationSource: "plank",
   },
   {
     name: "Mekik",
