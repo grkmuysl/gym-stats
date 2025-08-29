@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -17,6 +17,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import CustomModal from "../components/CustomModal/CustomModal";
 import { useProfile } from "../context/ProfileContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import LottieView from "lottie-react-native";
 
 const ProfileScreen: React.FC = () => {
   const {
@@ -45,6 +46,8 @@ const ProfileScreen: React.FC = () => {
     title: "",
     message: "",
   });
+
+  const animation = useRef<LottieView>(null);
 
   useEffect(() => {
     setEditedProfile({
@@ -123,12 +126,14 @@ const ProfileScreen: React.FC = () => {
 
   if (isLoading) {
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={AppColors.limeGreenColor} />
-          <Text style={styles.loadingText}>Profil yükleniyor...</Text>
-        </View>
-      </SafeAreaView>
+      <View style={styles.spinner}>
+        <LottieView
+          autoPlay
+          ref={animation}
+          style={styles.spinnerAnimation}
+          source={require("../assets/animations/spinner.json")}
+        />
+      </View>
     );
   }
 
@@ -322,17 +327,7 @@ const styles = StyleSheet.create({
     padding: s(20),
     paddingBottom: vs(40),
   },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  loadingText: {
-    fontSize: s(16),
-    fontFamily: "Roboto-Regular",
-    color: AppColors.lightGray,
-    marginTop: vs(10),
-  },
+
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -441,5 +436,14 @@ const styles = StyleSheet.create({
   gradientButton: {
     backgroundColor: "transparent",
     borderWidth: 0,
+  },
+  spinner: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  spinnerAnimation: {
+    width: s(120),
+    height: s(120),
   },
 });
