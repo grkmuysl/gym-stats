@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import StackNavigation from "./src/navigation/StackNavigation";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { FavoritesProvider } from "./src/context/FavouritesContext";
@@ -12,6 +12,8 @@ import {
 } from "./src/context/ProfileContext";
 import OnboardingScreen from "./src/screens/OnboardingScreen";
 import { LocaleConfig } from "react-native-calendars";
+import LottieView from "lottie-react-native";
+import { s, vs } from "react-native-size-matters";
 
 LocaleConfig.locales["tr"] = {
   monthNames: [
@@ -108,10 +110,17 @@ export default function App() {
 const AppContent = () => {
   const { isOnboardingCompleted, isLoading } = useProfile();
 
+  const animation = useRef<LottieView>(null);
+
   if (isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Yükleniyor...</Text>
+      <View style={styles.spinner}>
+        <LottieView
+          autoPlay
+          ref={animation}
+          style={styles.spinnerAnimation}
+          source={require("./src/assets/animations/spinner.json")}
+        />
       </View>
     );
   }
@@ -126,3 +135,15 @@ const AppContent = () => {
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  spinner: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  spinnerAnimation: {
+    width: s(120),
+    height: s(120),
+  },
+});

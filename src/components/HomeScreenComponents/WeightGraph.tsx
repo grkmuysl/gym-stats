@@ -1,16 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { FC } from "react";
-import { AppColors } from "../../styles/colors";
 import { s, vs } from "react-native-size-matters";
 import { calculateBMI } from "../../utils/BMICalculater";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { BMI_TYPES } from "../../data/BMITypes";
 
 const WeightGraph = ({ weight, height }) => {
-  const { bmi, category } = calculateBMI(80, height);
-
-  // Modern gradient renk paleti ve ikonlar
+  const { bmi, category } = calculateBMI(weight, height);
   let primaryColor, secondaryColor, bgGradient, iconName;
   if (category === BMI_TYPES.UNDERWEIGHT) {
     primaryColor = "#0EA5E9";

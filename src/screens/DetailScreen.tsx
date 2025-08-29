@@ -35,7 +35,14 @@ const DetailScreen = ({ route }) => {
           { justifyContent: "center", alignItems: "center" },
         ]}
       >
-        <Text style={styles.pageTitle}>Yükleniyor...</Text>
+        <View style={styles.spinner}>
+          <LottieView
+            autoPlay
+            ref={animation}
+            style={styles.spinnerAnimation}
+            source={require("../assets/animations/spinner.json")}
+          />
+        </View>
       </View>
     );
   }
@@ -120,5 +127,14 @@ const styles = StyleSheet.create({
   animation: {
     width: "100%",
     height: "100%",
+  },
+  spinner: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  spinnerAnimation: {
+    width: s(120),
+    height: s(120),
   },
 });
