@@ -176,14 +176,17 @@ const AddExerciseScreen = () => {
                 />
               </View>
 
-              <View style={styles.innerDropdown}>
-                <Text style={styles.label}>Tekrar Sayısı</Text>
-                <CustomInput
-                  type="number"
-                  value={selectedReps}
-                  onValueChange={(value) => setSelectedReps(value)}
-                />
-              </View>
+              {selectedExerciseInputType !== "duration" && (
+                <View style={styles.innerDropdown}>
+                  <Text style={styles.label}>Tekrar Sayısı</Text>
+                  <CustomInput
+                    type="number"
+                    value={selectedReps}
+                    onValueChange={(value) => setSelectedReps(value)}
+                  />
+                </View>
+              )}
+
               {selectedExerciseInputType !== "reps" && (
                 <View style={styles.innerDropdown}>
                   {selectedExerciseInputType === "weight" ? (

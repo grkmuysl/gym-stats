@@ -3,22 +3,7 @@ import React from "react";
 import AppLineChart from "./AppLineChart";
 import { useRecords } from "../../context/ExerciseRecordsContext";
 
-const PrevRecords = ({ exerciseName }) => {
-  const dPoint = () => {
-    return (
-      <View
-        style={{
-          width: 14,
-          height: 14,
-          backgroundColor: "white",
-          borderWidth: 3,
-          borderRadius: 7,
-          borderColor: "#07BAD1",
-        }}
-      />
-    );
-  };
-
+const PrevRecords = ({ exerciseName, inputType }) => {
   const { allRecords } = useRecords();
 
   const filteredAndSortedRecords = [...allRecords]
@@ -29,14 +14,28 @@ const PrevRecords = ({ exerciseName }) => {
       return dateA.getTime() - dateB.getTime();
     });
 
-  const weights = filteredAndSortedRecords.map((record) => ({
-    value: record.weight,
-    hideDataPoint: true,
-  }));
+  let lineChartData;
+
+  if (inputType === "weight") {
+    lineChartData = filteredAndSortedRecords.map((record) => ({
+      value: record.weight,
+      hideDataPoint: true,
+    }));
+  } else if (inputType === "duration") {
+    lineChartData = filteredAndSortedRecords.map((record) => ({
+      value: record.weight * record.setsCount,
+      hideDataPoint: true,
+    }));
+  } else {
+    lineChartData = filteredAndSortedRecords.map((record) => ({
+      value: record.repsCount * record.setsCount,
+      hideDataPoint: true,
+    }));
+  }
 
   return (
     <View>
-      <AppLineChart data={weights} />
+      <AppLineChart data={lineChartData} />
     </View>
   );
 };

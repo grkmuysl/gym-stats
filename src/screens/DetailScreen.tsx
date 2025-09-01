@@ -14,12 +14,12 @@ import animations from "../data/Animations";
 
 const DetailScreen = ({ route }) => {
   const exerciseName = route.params?.name;
+  const inputType = route.params?.inputType;
+
   const { refreshRecords, isLoading } = useRecords();
 
   const animation = useRef<LottieView>(null);
   const animationKey = route.params?.animationSource;
-
-  console.log(animationKey);
 
   useFocusEffect(
     useCallback(() => {
@@ -63,11 +63,26 @@ const DetailScreen = ({ route }) => {
       </View>
 
       <View style={styles.innerContainer}>
-        <Text style={styles.innerTitle}>Önceki Kayıtlar</Text>
-        <PrevRecords exerciseName={route.params.name} />
+        {inputType === "duration" ? (
+          <Text style={styles.innerTitle}>Önceki Kayıtlar (Toplam Süre)</Text>
+        ) : inputType === "reps" ? (
+          <Text style={styles.innerTitle}>
+            Önceki Kayıtlar (Toplam Tekrar Sayısı)
+          </Text>
+        ) : (
+          <Text style={styles.innerTitle}>Önceki Kayıtlar</Text>
+        )}
+
+        <PrevRecords
+          exerciseName={route.params.name}
+          inputType={route.params.inputType}
+        />
 
         <Text style={styles.title}>Son Değişiklikler</Text>
-        <LastChanges exerciseName={route.params.name} />
+        <LastChanges
+          exerciseName={route.params.name}
+          inputType={route.params.inputType}
+        />
 
         <Text style={styles.title}>Tüm {route.params.name} Kayıtları</Text>
         <AllRecords exerciseName={exerciseName} />
