@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { s, vs } from "react-native-size-matters";
-import { ScrollView } from "react-native-gesture-handler";
+import { AppColors } from "../../styles/colors";
 
 const Dropdown = ({
   placeholder,
@@ -33,15 +33,7 @@ const Dropdown = ({
   }, [value]);
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          zIndex: open ? zIndex + 1000 : zIndex,
-          elevation: open ? zIndex + 1000 : zIndex,
-        },
-      ]}
-    >
+    <View style={styles.container}>
       <DropDownPicker
         open={open}
         value={value}
@@ -49,21 +41,39 @@ const Dropdown = ({
         setOpen={setOpen}
         setValue={setValue}
         setItems={setItems}
+        tickIconStyle={styles.tickIcon}
         placeholder={placeholder}
         style={styles.dropdown}
-        dropDownContainerStyle={styles.dropdownContainer}
         textStyle={styles.dropdownText}
         placeholderStyle={styles.placeholder}
-        maxHeight={vs(200)}
-        listMode="FLATLIST"
-        flatListProps={{
-          nestedScrollEnabled: true,
-          showsVerticalScrollIndicator: true,
-          keyboardShouldPersistTaps: "handled",
-          bounces: false,
+        listMode="MODAL"
+        modalProps={{
+          transparent: true,
+          animationType: "slide",
+          presentationStyle: "overFullScreen",
+          statusBarTranslucent: true,
         }}
-        zIndex={open ? zIndex + 1000 : zIndex}
-        zIndexInverse={open ? zIndex - 1000 : zIndex - 1000}
+        modalContentContainerStyle={styles.modalContainer}
+        modalTitle="Seçim Yapın"
+        modalTitleStyle={styles.modalTitle}
+        searchable={true}
+        searchPlaceholder="🔍 Ara..."
+        searchTextInputStyle={styles.searchInput}
+        searchContainerStyle={styles.searchContainer}
+        maxHeight={400}
+        itemSeparator={true}
+        itemSeparatorStyle={styles.separator}
+        selectedItemContainerStyle={styles.selectedItem}
+        selectedItemLabelStyle={styles.selectedItemText}
+        listItemContainerStyle={styles.listItem}
+        listItemLabelStyle={styles.listItemText}
+        flatListProps={{
+          showsVerticalScrollIndicator: false,
+          keyboardShouldPersistTaps: "handled",
+          contentContainerStyle: styles.listContent,
+        }}
+        closeAfterSelecting={true}
+        modalAnimationType="slide"
       />
     </View>
   );
@@ -74,23 +84,148 @@ export default Dropdown;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    minHeight: vs(50),
   },
+
   dropdown: {
-    backgroundColor: "#f5f5f5",
-    borderColor: "#ddd",
-    borderWidth: 1,
-    borderRadius: 8,
+    backgroundColor: "#ffffff",
+    borderColor: "#e1e5e9",
+    borderWidth: 1.5,
+    borderRadius: 12,
+    minHeight: vs(50),
+    paddingHorizontal: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
   },
-  dropdownContainer: {
-    backgroundColor: "#f5f5f5",
-    borderColor: "#ddd",
-    maxHeight: vs(200),
+  tickIcon: {
+    width: 20,
+    height: 20,
+    tintColor: AppColors.whiteColor,
   },
   dropdownText: {
     fontSize: 16,
-    color: "#333",
+    color: "#2c3e50",
+    fontWeight: "500",
   },
+
   placeholder: {
-    color: "#999",
+    color: "#7f8c8d",
+    fontSize: 16,
+    fontWeight: "400",
+  },
+
+  modalContainer: {
+    backgroundColor: "#ffffff",
+    marginHorizontal: s(20),
+    marginTop: vs(100),
+    borderRadius: s(12),
+    maxHeight: "70%",
+
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.25,
+    shadowRadius: 20,
+    elevation: 15,
+
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0.05)",
+  },
+
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "700",
+    textAlign: "center",
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    color: "#2c3e50",
+    backgroundColor: "#f8f9fa",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(0,0,0,0.08)",
+  },
+
+  searchContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(0,0,0,0.05)",
+  },
+
+  //SEARCH INPUT
+  searchInput: {
+    backgroundColor: "#ffffff",
+    borderColor: "#e1e5e9",
+    borderWidth: 1.5,
+    borderRadius: 12,
+    paddingHorizontal: 15,
+    paddingVertical: 12,
+    fontSize: 16,
+    color: "#2c3e50",
+
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+
+  listContent: {
+    paddingBottom: 20,
+  },
+
+  //LIST ITEM
+  listItem: {
+    height: vs(56),
+    backgroundColor: AppColors.whiteColor,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f1f2f6",
+    marginHorizontal: 10,
+    marginVertical: 2,
+    borderRadius: 8,
+
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 1,
+    elevation: 1,
+  },
+
+  listItemText: {
+    fontSize: 16,
+    color: "#2c3e50",
+    fontWeight: "500",
+  },
+
+  // seledted item style
+  selectedItem: {
+    height: vs(56),
+    padding: s(4),
+    backgroundColor: AppColors.grayBgColor,
+    marginHorizontal: 10,
+    marginVertical: 2,
+    borderRadius: 8,
+
+    shadowColor: AppColors.grayBgColor,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+
+  selectedItemText: {
+    fontSize: 16,
+    color: "#ffffff",
+    fontWeight: "600",
+  },
+
+  //  SEPARATOR
+  separator: {
+    height: 1,
+    backgroundColor: "rgba(0,0,0,0.05)",
+    marginHorizontal: 20,
   },
 });

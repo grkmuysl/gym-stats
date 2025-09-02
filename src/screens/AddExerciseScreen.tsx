@@ -128,19 +128,14 @@ const AddExerciseScreen = () => {
         <Text style={styles.title}>Egzersiz Ekle</Text>
 
         <View style={styles.formContainer}>
-          <View
-            style={[
-              styles.dropdownWrapper,
-              { zIndex: typeDropdownOpen ? 5000 : 3000 },
-            ]}
-          >
+          <View style={styles.dropdownWrapper}>
             <Text style={styles.label}>Egzersiz Türü</Text>
+
             <Dropdown
               itemsProp={exerciseTypes}
               placeholder="Egzersiz türünü seçin"
               onValueChange={handleExerciseTypeChange}
               selectedValue={selectedExerciseType}
-              zIndex={3000}
               open={typeDropdownOpen}
               setOpen={handleTypeDropdownOpen}
             />
@@ -262,17 +257,17 @@ const styles = StyleSheet.create({
     marginBottom: vs(20),
   },
   formContainer: {
-    width: "100%",
+    flex: 1,
+    paddingHorizontal: vs(20),
   },
   dropdownWrapper: {
-    marginBottom: vs(25),
-    width: "100%",
+    marginBottom: vs(20),
   },
   label: {
-    fontSize: s(16),
+    fontSize: 16,
     fontWeight: "600",
-    color: AppColors.whiteColor,
     marginBottom: vs(8),
+    color: AppColors.whiteColor,
   },
   selectedContainer: {
     backgroundColor: "rgba(255, 255, 255, 0.1)",
