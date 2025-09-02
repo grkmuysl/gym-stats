@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     marginBottom: vs(8),
-    color: "#333",
+    color: AppColors.whiteColor,
   },
   selectedContainer: {
     backgroundColor: "rgba(255, 255, 255, 0.1)",

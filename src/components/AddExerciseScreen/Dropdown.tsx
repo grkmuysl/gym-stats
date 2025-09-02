@@ -180,7 +180,6 @@ const styles = StyleSheet.create({
   //LIST ITEM
   listItem: {
     height: vs(56),
-    padding: s(4),
     backgroundColor: AppColors.whiteColor,
     borderBottomWidth: 1,
     borderBottomColor: "#f1f2f6",
