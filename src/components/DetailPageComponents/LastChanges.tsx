@@ -6,7 +6,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import { useRecords } from "../../context/ExerciseRecordsContext";
 import { LinearGradient } from "expo-linear-gradient";
 
-const LastChanges = ({ exerciseName }) => {
+const LastChanges = ({ exerciseName, inputType }) => {
   const { allRecords } = useRecords();
   const exerciseData =
     allRecords?.filter((record) => record.exerciseName === exerciseName) || [];
@@ -18,6 +18,7 @@ const LastChanges = ({ exerciseName }) => {
   const data_size = sortedData.length;
 
   let lastData = 0;
+  let totalReps = 0;
   let firstRecord = 0;
   let minValue = 0;
   let penultimate = 0;
@@ -27,11 +28,21 @@ const LastChanges = ({ exerciseName }) => {
 
   if (data_size > 0) {
     const getRecordValue = (record) => {
-      if (record.weight && record.weight > 0) {
-        isWeightBased = true;
-        return record.weight;
+      if (inputType === "weight") {
+        if (record.weight && record.weight > 0) {
+          isWeightBased = true;
+          return record.weight;
+        }
+        return record.repsCount || 0;
+      } else if (inputType === "reps") {
+        const sets = record.setsCount || 1;
+        const reps = record.repsCount || 0;
+        return sets * reps;
+      } else {
+        const sets = record.setsCount || 1;
+        const duration = record.weight;
+        return sets * duration;
       }
-      return record.repsCount || 0;
     };
 
     const values = sortedData.map(getRecordValue);
@@ -54,10 +65,26 @@ const LastChanges = ({ exerciseName }) => {
   const formatValue = (value) => {
     if (value === 0) return "0.0";
 
-    const formattedNumber = value.toFixed(1);
-    const unit = isWeightBased ? " kg" : " tekrar";
+    let unit = "";
+    let formattedNumber;
+    if (inputType === "weight") {
+      formattedNumber = value.toFixed(1);
+      unit = isWeightBased ? " kg" : " tekrar";
+    } else if (inputType === "reps") {
+      formattedNumber = Math.round(value).toString();
+      unit = " Toplam Tekrar";
+    } else {
+      // DURATION
+      formattedNumber = Math.round(value).toString();
+      unit = "sn";
+    }
 
-    return formattedNumber + unit;
+    return (
+      <View style={styles.lastChangeCard}>
+        <Text style={styles.lastChangeTitle}>{formattedNumber}</Text>
+        <Text style={styles.lastChangeSubtitle}>{unit}</Text>
+      </View>
+    );
   };
 
   const getFormattedDate = (dateString) => {
@@ -321,5 +348,19 @@ const styles = StyleSheet.create({
     color: AppColors.lightGray,
     textAlign: "center",
     opacity: 0.8,
+  },
+  lastChangeCard: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  lastChangeTitle: {
+    color: AppColors.whiteColor,
+    fontSize: s(26),
+    fontFamily: "Roboto-Bold",
+  },
+  lastChangeSubtitle: {
+    color: AppColors.whiteColor,
+    fontSize: s(15),
+    fontFamily: "Roboto-Bold",
   },
 });

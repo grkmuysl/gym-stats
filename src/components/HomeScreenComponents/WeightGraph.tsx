@@ -41,7 +41,29 @@ const WeightGraph = ({ weight, height }) => {
     iconName = "help";
   }
 
-  const bmiPercentage = Math.min((bmi / 40) * 100, 100);
+  const getBMIPercentage = (bmi, category) => {
+    switch (category) {
+      case BMI_TYPES.UNDERWEIGHT:
+        return Math.min((bmi / 18.5) * 100, 100);
+
+      case BMI_TYPES.NORMAL_WEIGHT:
+        return ((bmi - 18.5) / (24.9 - 18.5)) * 100;
+
+      case BMI_TYPES.OVERWEIGHT:
+        return ((bmi - 25) / (29.9 - 25)) * 100;
+
+      case BMI_TYPES.OBESE_1:
+        return ((bmi - 30) / (34.9 - 30)) * 100;
+
+      case BMI_TYPES.OBESE_2:
+        return Math.min(((bmi - 35) / 10) * 100, 100);
+
+      default:
+        return 0;
+    }
+  };
+
+  const bmiPercentage = getBMIPercentage(bmi, category);
 
   return (
     <View style={styles.container}>

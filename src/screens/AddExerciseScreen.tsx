@@ -21,6 +21,8 @@ const AddExerciseScreen = () => {
   const [selectedExerciseType, setSelectedExerciseType] = useState(null);
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [selectedExerciseName, setSelectedExerciseName] = useState(null);
+  const [selectedExerciseInputType, setSelectedExerciseInputType] =
+    useState(null);
   const [selectedReps, setSelectedReps] = useState<number | null>(null);
   const [selectedSets, setSelectedSets] = useState<number | null>(null);
   const [selectedWeight, setSelectedWeight] = useState<number | null>(null);
@@ -32,7 +34,7 @@ const AddExerciseScreen = () => {
 
   const { date } = route.params || {};
 
-  const { allRecords, addRecord } = useRecords();
+  const { addRecord } = useRecords();
 
   useEffect(() => {
     if (selectedExerciseType) {
@@ -77,11 +79,14 @@ const AddExerciseScreen = () => {
 
   const handleExerciseChange = (value: any) => {
     setSelectedExercise(value);
+
     const selectedExerciseDetails = availableExercises.find(
       (exercise) => exercise.value === value
     );
+
     if (selectedExerciseDetails) {
       setSelectedExerciseName(selectedExerciseDetails.label);
+      setSelectedExerciseInputType(selectedExerciseDetails.inputType);
     }
   };
 
@@ -171,22 +176,31 @@ const AddExerciseScreen = () => {
                 />
               </View>
 
-              <View style={styles.innerDropdown}>
-                <Text style={styles.label}>Tekrar Sayısı</Text>
-                <CustomInput
-                  type="number"
-                  value={selectedReps}
-                  onValueChange={(value) => setSelectedReps(value)}
-                />
-              </View>
-              <View style={styles.innerDropdown}>
-                <Text style={styles.label}>Ağırlık</Text>
-                <CustomInput
-                  type="number"
-                  value={selectedWeight}
-                  onValueChange={(value) => setSelectedWeight(value)}
-                />
-              </View>
+              {selectedExerciseInputType !== "duration" && (
+                <View style={styles.innerDropdown}>
+                  <Text style={styles.label}>Tekrar Sayısı</Text>
+                  <CustomInput
+                    type="number"
+                    value={selectedReps}
+                    onValueChange={(value) => setSelectedReps(value)}
+                  />
+                </View>
+              )}
+
+              {selectedExerciseInputType !== "reps" && (
+                <View style={styles.innerDropdown}>
+                  {selectedExerciseInputType === "weight" ? (
+                    <Text style={styles.label}>Ağırlık</Text>
+                  ) : (
+                    <Text style={styles.label}>Süre</Text>
+                  )}
+                  <CustomInput
+                    type="number"
+                    value={selectedWeight}
+                    onValueChange={(value) => setSelectedWeight(value)}
+                  />
+                </View>
+              )}
             </View>
           )}
 
