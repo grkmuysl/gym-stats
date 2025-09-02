@@ -28,27 +28,21 @@ const LastChanges = ({ exerciseName, inputType }) => {
 
   if (data_size > 0) {
     const getRecordValue = (record) => {
-      // ✅ inputType kontrolü eklendi
       if (inputType === "weight") {
-        // Weight mode: sadece weight değerini al
         if (record.weight && record.weight > 0) {
           isWeightBased = true;
           return record.weight;
         }
         return record.repsCount || 0;
       } else if (inputType === "reps") {
-        // Reps mode: set * tekrar sayısı
         const sets = record.setsCount || 1;
         const reps = record.repsCount || 0;
         return sets * reps;
+      } else {
+        const sets = record.setsCount || 1;
+        const duration = record.weight;
+        return sets * duration;
       }
-
-      // Default davranış (eski kod)
-      if (record.weight && record.weight > 0) {
-        isWeightBased = true;
-        return record.weight;
-      }
-      return record.repsCount || 0;
     };
 
     const values = sortedData.map(getRecordValue);
@@ -81,7 +75,8 @@ const LastChanges = ({ exerciseName, inputType }) => {
       unit = " Toplam Tekrar";
     } else {
       // DURATION
-      unit = isWeightBased ? " kg" : " tekrar";
+      formattedNumber = Math.round(value).toString();
+      unit = "sn";
     }
 
     return (

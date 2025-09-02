@@ -15,7 +15,7 @@ export const allChestExercises = [
     type: "Göğüs",
     id: "1",
     difficulty: "İleri",
-    inputType: "duration",
+    inputType: "weight",
   },
   {
     name: "Decline Bench Press",
