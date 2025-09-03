@@ -10,6 +10,7 @@ import React, { useMemo, useState } from "react";
 import Exercise from "../components/Exercise/Exercise";
 import { AppColors } from "../styles/colors";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import { s, vs } from "react-native-size-matters";
 import {
@@ -23,6 +24,14 @@ import {
 } from "../data/AllExercises";
 
 import { TextInput } from "react-native-gesture-handler";
+import { SvgProps } from "react-native-svg";
+import ChestIcon from "../assets/exercise_icons/ChestIcon";
+import BackIcon from "../assets/exercise_icons/BackIcon";
+import ShoulderIcon from "../assets/exercise_icons/ShoulderIcon";
+import LegIcon from "../assets/exercise_icons/LegIcon";
+import BicepsIcon from "../assets/exercise_icons/BicepsIcon";
+import TricepsIcon from "../assets/exercise_icons/TricepsIcon";
+import AbsIcon from "../assets/exercise_icons/AbsIcon";
 
 type ExerciseItem = {
   name: string;
@@ -32,9 +41,19 @@ type ExerciseItem = {
   difficulty: string;
 };
 
+type IconComponent = React.FC<
+  SvgProps & {
+    width?: number;
+    height?: number;
+    color?: string;
+  }
+>;
+
 type ExerciseCategory = {
   title: string;
   data: ExerciseItem[];
+  Icon: IconComponent;
+  color: string;
 };
 
 const AllExercisesScreen = () => {
@@ -42,13 +61,48 @@ const AllExercisesScreen = () => {
   const [isFocused, setIsFocused] = useState(false);
 
   const EXERCISE_CATEGORIES: ExerciseCategory[] = [
-    { title: "GÖĞÜS EGZERSİZLERİ", data: allChestExercises },
-    { title: "SIRT EGZERSİZLERİ", data: allBackExercises },
-    { title: "OMUZ EGZERSİZLERİ", data: allShoulderExercises },
-    { title: "BACAK EGZERSİZLERİ", data: allLegExercises },
-    { title: "BICEPS EGZERSİZLERİ", data: allBicepsExercises },
-    { title: "TRICEPS EGZERSİZLERİ", data: allTricepsExercises },
-    { title: "KARIN EGZERSİZLERİ", data: allAbsExercises },
+    {
+      title: "GÖĞÜS EGZERSİZLERİ",
+      data: allChestExercises,
+      Icon: ChestIcon,
+      color: "#FF6B6B",
+    },
+    {
+      title: "SIRT EGZERSİZLERİ",
+      data: allBackExercises,
+      Icon: BackIcon,
+      color: "#4ECDC4",
+    },
+    {
+      title: "OMUZ EGZERSİZLERİ",
+      data: allShoulderExercises,
+      Icon: ShoulderIcon,
+      color: "#45B7D1",
+    },
+    {
+      title: "BACAK EGZERSİZLERİ",
+      data: allLegExercises,
+      Icon: LegIcon,
+      color: "#96CEB4",
+    },
+    {
+      title: "BICEPS EGZERSİZLERİ",
+      data: allBicepsExercises,
+      Icon: BicepsIcon,
+      color: "#FECA57",
+    },
+    {
+      title: "TRICEPS EGZERSİZLERİ",
+      data: allTricepsExercises,
+      Icon: TricepsIcon,
+      color: "#FF9FF3",
+    },
+    {
+      title: "KARIN EGZERSİZLERİ",
+      data: allAbsExercises,
+      Icon: AbsIcon,
+      color: "#54A0FF",
+    },
   ];
 
   const filteredCategories = useMemo(() => {
@@ -70,9 +124,26 @@ const AllExercisesScreen = () => {
     })).filter((category) => category.data.length > 0);
   }, [searchString]);
 
-  const renderCategory = ({ item }: { item: ExerciseCategory }) => (
+  const renderCategory = ({
+    item,
+    index,
+  }: {
+    item: ExerciseCategory;
+    index: number;
+  }) => (
     <View style={styles.categoryContainer}>
-      <Text style={styles.title}>{item.title}</Text>
+      <View style={styles.categoryHeader}>
+        <View
+          style={[styles.iconContainer, { backgroundColor: item.color + "90" }]}
+        >
+          <item.Icon width={64} height={64} color={item.color} />
+        </View>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>{item.title}</Text>
+          <View style={[styles.underline, { backgroundColor: item.color }]} />
+        </View>
+      </View>
+
       <FlatList
         data={item.data}
         renderItem={({ item }) => <Exercise ExerciseItem={item} />}
@@ -195,11 +266,14 @@ const styles = StyleSheet.create({
   },
 
   listContainer: {
-    paddingHorizontal: s(20),
+    paddingHorizontal: s(12),
   },
 
   categoryContainer: {
     marginBottom: vs(24),
+    backgroundColor: "rgba(255,255,255,0.05)",
+    padding: s(12),
+    borderRadius: s(8),
   },
 
   categoryHeader: {
@@ -251,5 +325,22 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Light",
     textAlign: "center",
     opacity: 0.7,
+  },
+  iconContainer: {
+    width: s(56),
+    height: s(56),
+    borderRadius: s(28),
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: s(16),
+  },
+  titleContainer: {
+    flex: 1,
+  },
+  underline: {
+    height: vs(3),
+    width: s(40),
+    borderRadius: vs(2),
+    marginBottom: vs(4),
   },
 });
