@@ -58,6 +58,7 @@ const Dropdown = ({
         modalTitleStyle={styles.modalTitle}
         searchable={true}
         searchPlaceholder="🔍 Ara..."
+        searchPlaceholderTextColor={AppColors.whiteColor}
         searchTextInputStyle={styles.searchInput}
         searchContainerStyle={styles.searchContainer}
         maxHeight={400}
@@ -157,14 +158,14 @@ const styles = StyleSheet.create({
 
   //SEARCH INPUT
   searchInput: {
-    backgroundColor: "#ffffff",
-    borderColor: "#e1e5e9",
+    backgroundColor: AppColors.grayBgColor,
+    borderColor: AppColors.grayBgColor,
     borderWidth: 1.5,
     borderRadius: 12,
     paddingHorizontal: 15,
     paddingVertical: 12,
     fontSize: 16,
-    color: "#2c3e50",
+    color: AppColors.whiteColor,
 
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
   //LIST ITEM
   listItem: {
     height: vs(56),
-    backgroundColor: AppColors.whiteColor,
+    backgroundColor: AppColors.grayBgColor,
     borderBottomWidth: 1,
     borderBottomColor: "#f1f2f6",
     marginHorizontal: 10,
@@ -196,7 +197,7 @@ const styles = StyleSheet.create({
 
   listItemText: {
     fontSize: 16,
-    color: "#2c3e50",
+    color: AppColors.whiteColor,
     fontWeight: "500",
   },
 
@@ -204,12 +205,12 @@ const styles = StyleSheet.create({
   selectedItem: {
     height: vs(56),
     padding: s(4),
-    backgroundColor: AppColors.grayBgColor,
+    backgroundColor: AppColors.blackBgColor,
     marginHorizontal: 10,
     marginVertical: 2,
     borderRadius: 8,
 
-    shadowColor: AppColors.grayBgColor,
+    shadowColor: AppColors.blackBgColor,
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.3,
     shadowRadius: 5,
