@@ -136,7 +136,11 @@ const AllExercisesScreen = () => {
         <View
           style={[styles.iconContainer, { backgroundColor: item.color + "90" }]}
         >
-          <item.Icon width={64} height={64} color={item.color} />
+          <item.Icon
+            width={item.title === "SIRT EGZERSİZLERİ" ? 52 : 64}
+            height={item.title === "SIRT EGZERSİZLERİ" ? 52 : 64}
+            color={item.color}
+          />
         </View>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{item.title}</Text>
