@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     width: s(316),
     marginLeft: s(16),
     marginTop: s(8),
-    backgroundColor: "#b7b3b3ff",
+    backgroundColor: AppColors.grayBgColor,
     borderRadius: s(16),
   },
   animation: {
