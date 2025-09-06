@@ -32,6 +32,7 @@ import LegIcon from "../assets/exercise_icons/LegIcon";
 import BicepsIcon from "../assets/exercise_icons/BicepsIcon";
 import TricepsIcon from "../assets/exercise_icons/TricepsIcon";
 import AbsIcon from "../assets/exercise_icons/AbsIcon";
+import DipsIcon from "../assets/exercise_icons/DipsIcon";
 
 type ExerciseItem = {
   name: string;
@@ -94,7 +95,7 @@ const AllExercisesScreen = () => {
     {
       title: "TRICEPS EGZERSİZLERİ",
       data: allTricepsExercises,
-      Icon: TricepsIcon,
+      Icon: DipsIcon,
       color: "#FF9FF3",
     },
     {
