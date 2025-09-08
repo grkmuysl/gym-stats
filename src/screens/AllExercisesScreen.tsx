@@ -87,13 +87,13 @@ const AllExercisesScreen = () => {
       color: "#96CEB4",
     },
     {
-      title: "BICEPS EGZERSİZLERİ",
+      title: "ÖN KOL EGZERSİZLERİ",
       data: allBicepsExercises,
       Icon: BicepsIcon,
       color: "#FECA57",
     },
     {
-      title: "TRICEPS EGZERSİZLERİ",
+      title: "ARKA KOL EGZERSİZLERİ",
       data: allTricepsExercises,
       Icon: DipsIcon,
       color: "#FF9FF3",
