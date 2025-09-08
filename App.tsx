@@ -14,6 +14,7 @@ import OnboardingScreen from "./src/screens/OnboardingScreen";
 import { LocaleConfig } from "react-native-calendars";
 import LottieView from "lottie-react-native";
 import { s, vs } from "react-native-size-matters";
+import { AppColors } from "./src/styles/colors";
 
 LocaleConfig.locales["tr"] = {
   monthNames: [
@@ -114,13 +115,21 @@ const AppContent = () => {
 
   if (isLoading) {
     return (
-      <View style={styles.spinner}>
-        <LottieView
-          autoPlay
-          ref={animation}
-          style={styles.spinnerAnimation}
-          source={require("./src/assets/animations/spinner.json")}
-        />
+      <View
+        style={[
+          styles.container,
+          { justifyContent: "center", alignItems: "center" },
+        ]}
+      >
+        <View style={styles.spinner}>
+          <LottieView
+            autoPlay
+            loop
+            ref={animation}
+            style={styles.spinnerAnimation}
+            source={require("./src/assets/animations/spinner.json")}
+          />
+        </View>
       </View>
     );
   }
@@ -137,6 +146,10 @@ const AppContent = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: AppColors.blackBgColor,
+  },
   spinner: {
     flex: 1,
     justifyContent: "center",

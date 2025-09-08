@@ -31,10 +31,15 @@ type ProfileContextType = {
   getWeight: () => string;
   getHeight: () => string;
   isOnboardingCompleted: () => boolean;
+
+  isGuideCompleted: () => boolean;
+  setGuideCompleted: () => Promise<void>;
+  resetGuide: () => Promise<void>;
 };
 
 const STORAGE_KEY = "ProfileInformation";
 const ONBOARDING_KEY = "onboarding_completed";
+const GUIDE_KEY = "guide_completed";
 
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 
@@ -49,6 +54,7 @@ export const ProfileContextProvider: React.FC<{
   const [gender, setGender] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [onboardingCompleted, setOnboardingCompleted] = useState(false);
+  const [guideCompleted, setGuideCompletedState] = useState(false);
 
   const loadProfileInformation = useCallback(async () => {
     try {
@@ -67,6 +73,9 @@ export const ProfileContextProvider: React.FC<{
 
       const onboardingStatus = await AsyncStorage.getItem(ONBOARDING_KEY);
       setOnboardingCompleted(onboardingStatus === "true");
+
+      const guideStatus = await AsyncStorage.getItem(GUIDE_KEY);
+      setGuideCompletedState(guideStatus === "true");
     } catch (error) {
       console.error("Profile loading error:", error);
     } finally {
@@ -143,6 +152,35 @@ export const ProfileContextProvider: React.FC<{
     }
   }, []);
 
+  const setGuideCompleted = useCallback(async () => {
+    try {
+      await AsyncStorage.setItem(GUIDE_KEY, "true");
+      await AsyncStorage.setItem(
+        "guide_completed_date",
+        new Date().toISOString()
+      );
+      setGuideCompletedState(true);
+    } catch (error) {
+      console.error("Guide completion saving error:", error);
+      throw error;
+    }
+  }, []);
+
+  const resetGuide = useCallback(async () => {
+    try {
+      await AsyncStorage.removeItem(GUIDE_KEY);
+      await AsyncStorage.removeItem("guide_completed_date");
+      setGuideCompletedState(false);
+    } catch (error) {
+      console.error("Guide reset error:", error);
+      throw error;
+    }
+  }, []);
+
+  const isGuideCompleted = useCallback(() => {
+    return guideCompleted;
+  }, [guideCompleted]);
+
   const getWeight = () => {
     return weight;
   };
@@ -188,6 +226,9 @@ export const ProfileContextProvider: React.FC<{
     getWeight,
     getHeight,
     isOnboardingCompleted,
+    isGuideCompleted,
+    setGuideCompleted,
+    resetGuide,
   };
 
   return (
