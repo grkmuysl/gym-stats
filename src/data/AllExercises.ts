@@ -15,6 +15,7 @@ export const allChestExercises = [
     type: "Göğüs",
     id: "1",
     difficulty: "İleri",
+    animationSource: "incline_bench_press",
     inputType: "weight",
   },
   {
@@ -23,6 +24,7 @@ export const allChestExercises = [
     type: "Göğüs",
     id: "2",
     difficulty: "Orta",
+    animationSource: "decline_bench_press",
     inputType: "weight",
   },
   {
@@ -35,11 +37,12 @@ export const allChestExercises = [
     inputType: "reps",
   },
   {
-    name: "Kablo Göğüs Açışı",
+    name: "Cable Crossover",
     subtitle: "Kablo direnciyle göğüs kaslarını izole eder",
     type: "Göğüs",
     id: "4",
     difficulty: "Orta",
+    animationSource: "cable_crossover",
     inputType: "weight",
   },
 ];
@@ -69,14 +72,16 @@ export const allBackExercises = [
     type: "Sırt",
     id: "7",
     difficulty: "Orta",
+    animationSource: "bent_over_row",
     inputType: "weight",
   },
   {
-    name: "Lat Çekiş",
+    name: "Lat Pull Down",
     subtitle: "Kanat kaslarını geliştirir ve barfiks kuvvetini artırır",
     type: "Sırt",
     id: "8",
     difficulty: "Başlangıç",
+    animationSource: "lat_pull_down",
     inputType: "weight",
   },
   {
@@ -85,25 +90,19 @@ export const allBackExercises = [
     type: "Sırt",
     id: "9",
     difficulty: "Orta",
+    animationSource: "face_pull",
     inputType: "weight",
   },
 ];
 
 export const allShoulderExercises = [
   {
-    name: "Overhead Press",
+    name: "Shoulder Press",
     subtitle: "Omuz kuvveti ve stabilitesini geliştirir",
     type: "Omuz",
     id: "10",
     difficulty: "İleri",
-    inputType: "weight",
-  },
-  {
-    name: "Arnold Press",
-    subtitle: "Rotasyon içeren dinamik bir omuz egzersizi",
-    type: "Omuz",
-    id: "11",
-    difficulty: "Orta",
+    animationSource: "shoulder_press",
     inputType: "weight",
   },
   {
@@ -112,6 +111,7 @@ export const allShoulderExercises = [
     type: "Omuz",
     id: "12",
     difficulty: "Başlangıç",
+    animationSource: "lateral_raise",
     inputType: "weight",
   },
   {
@@ -120,6 +120,7 @@ export const allShoulderExercises = [
     type: "Omuz",
     id: "13",
     difficulty: "Başlangıç",
+    animationSource: "front_raise",
     inputType: "weight",
   },
 ];
@@ -131,6 +132,7 @@ export const allLegExercises = [
     type: "Bacak",
     id: "14",
     difficulty: "İleri",
+    animationSource: "squat",
     inputType: "reps",
   },
   {
@@ -148,6 +150,7 @@ export const allLegExercises = [
     type: "Bacak",
     id: "16",
     difficulty: "Başlangıç",
+    animationSource: "lunge",
     inputType: "reps",
   },
   {
@@ -156,6 +159,7 @@ export const allLegExercises = [
     type: "Bacak",
     id: "17",
     difficulty: "İleri",
+    animationSource: "bulgarian_split",
     inputType: "reps",
   },
 ];
@@ -167,6 +171,7 @@ export const allBicepsExercises = [
     type: "Biceps",
     id: "18",
     difficulty: "Orta",
+    animationSource: "biceps_curl",
     inputType: "weight",
   },
   {
@@ -175,6 +180,7 @@ export const allBicepsExercises = [
     type: "Biceps",
     id: "19",
     difficulty: "Başlangıç",
+    animationSource: "biceps_curl_dumb",
     inputType: "weight",
   },
   {
@@ -183,6 +189,7 @@ export const allBicepsExercises = [
     type: "Biceps",
     id: "20",
     difficulty: "Başlangıç",
+    animationSource: "hammer_curl",
     inputType: "weight",
   },
 ];
@@ -194,14 +201,16 @@ export const allTricepsExercises = [
     type: "Triceps",
     id: "21",
     difficulty: "Orta",
+    animationSource: "dips",
     inputType: "reps",
   },
   {
-    name: "Skull Crushers",
+    name: "Triceps Extension",
     subtitle: "Baş üstü ekstansiyonla triceps’i izole eder",
     type: "Triceps",
     id: "22",
     difficulty: "İleri",
+    animationSource: "triceps_extension",
     inputType: "weight",
   },
 ];
@@ -222,6 +231,7 @@ export const allAbsExercises = [
     type: "Karın",
     id: "24",
     difficulty: "Başlangıç",
+    animationSource: "mekik",
     inputType: "reps",
   },
   {
@@ -230,6 +240,7 @@ export const allAbsExercises = [
     type: "Karın",
     id: "25",
     difficulty: "Orta",
+    animationSource: "russian_twist",
     inputType: "duration",
   },
   {
@@ -238,6 +249,7 @@ export const allAbsExercises = [
     type: "Karın",
     id: "26",
     difficulty: "Orta",
+    animationSource: "mountain_climber",
     inputType: "duration",
   },
 ];
