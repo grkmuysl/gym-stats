@@ -21,6 +21,7 @@ import {
   allLegExercises,
   allShoulderExercises,
   allTricepsExercises,
+  allForearmsExercises,
 } from "../data/AllExercises";
 
 import { TextInput } from "react-native-gesture-handler";
@@ -99,7 +100,7 @@ const AllExercisesScreen = () => {
     },
     {
       title: "FOREARMS EGZERSİZLERİ",
-      data: allAbsExercises,
+      data: allForearmsExercises,
       animationSource: require("../assets/animations/exerciseIconsAnimations/forearms-animated.json"),
       color: "#ffc0b3",
     },
@@ -351,10 +352,10 @@ const styles = StyleSheet.create({
     marginBottom: vs(4),
   },
   animationContainer: {
-    height: vs(72),
-    width: s(72),
+    height: vs(68),
+    width: s(68),
     backgroundColor: AppColors.grayBgColor,
-    borderRadius: s(36),
+    borderRadius: s(34),
   },
   animation: {
     width: "100%",
