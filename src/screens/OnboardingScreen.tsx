@@ -16,6 +16,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../styles/colors";
 import { useProfile } from "../context/ProfileContext";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 interface FormData {
   firstName: string;
@@ -27,17 +28,7 @@ interface FormData {
 }
 
 const OnboardingScreen = () => {
-  const {
-    profileInformation,
-    setName,
-    setSurname,
-    setAge,
-    setWeight,
-    setHeight,
-    saveProfileInformation,
-    saveProfileWithData,
-    isLoading,
-  } = useProfile();
+  const { saveProfileWithData, isLoading } = useProfile();
 
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
@@ -321,7 +312,13 @@ const OnboardingScreen = () => {
                 onPress={handleBack}
                 activeOpacity={0.8}
               >
-                <Text style={styles.backButtonText}>← Geri</Text>
+                <AntDesign
+                  name="arrowleft"
+                  size={18}
+                  color={AppColors.lightGray}
+                  style={styles.backIcon}
+                />
+                <Text style={styles.backButtonText}>Geri</Text>
               </TouchableOpacity>
             )}
 
@@ -336,11 +333,21 @@ const OnboardingScreen = () => {
                 end={{ x: 1, y: 1 }}
                 style={styles.nextButton}
               >
-                <Text style={styles.nextButtonText}>
-                  {currentStep === steps.length - 1
-                    ? "🚀 Başlayalım!"
-                    : "İleri →"}
-                </Text>
+                <View style={styles.buttonContent}>
+                  <Text style={styles.nextButtonText}>
+                    {currentStep === steps.length - 1
+                      ? "🚀 Başlayalım!"
+                      : "İleri"}
+                  </Text>
+                  {currentStep !== steps.length - 1 && (
+                    <AntDesign
+                      name="arrowright"
+                      size={18}
+                      color="white"
+                      style={styles.iconStlye}
+                    />
+                  )}
+                </View>
               </LinearGradient>
             </TouchableOpacity>
           </View>
@@ -494,5 +501,15 @@ const styles = StyleSheet.create({
     fontSize: s(16),
     fontFamily: "Roboto-Bold",
     color: AppColors.whiteColor,
+  },
+  iconStlye: {
+    position: "absolute",
+    marginLeft: s(32),
+    marginTop: s(3),
+  },
+  backIcon: {
+    position: "absolute",
+    marginRight: s(52),
+    marginTop: s(3),
   },
 });

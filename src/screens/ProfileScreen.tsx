@@ -177,7 +177,7 @@ const ProfileScreen: React.FC = () => {
           <View style={styles.profileCard}>
             {/* Kişisel Bilgiler */}
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>📝 Kişisel Bilgiler</Text>
+              <Text style={styles.sectionTitle}>Kişisel Bilgiler</Text>
 
               {/* Ad */}
               <View style={styles.inputGroup}>
@@ -228,7 +228,7 @@ const ProfileScreen: React.FC = () => {
 
             {/* Fiziksel Özellikler */}
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>📏 Fiziksel Özellikler</Text>
+              <Text style={styles.sectionTitle}>Fiziksel Özellikler</Text>
 
               {/* Kilo */}
               <View style={styles.inputGroup}>
