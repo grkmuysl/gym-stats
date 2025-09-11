@@ -54,7 +54,7 @@ LocaleConfig.locales["tr"] = {
     "Cuma",
     "Cumartesi",
   ],
-  dayNamesShort: ["Paz", "Pzt", "Sal", "Çar", "Per", "Cum", "Cmt"], // ✅ Daha açık kısaltmalar
+  dayNamesShort: ["Paz", "Pzt", "Sal", "Çar", "Per", "Cum", "Cmt"],
   today: "Bugün",
 };
 
@@ -64,6 +64,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [isFirstLaunch, setIsFirstLaunch] = useState(true);
 
   const loadFonts = async () => {
     try {
@@ -78,6 +79,10 @@ export default function App() {
       console.error("Font loading error:", error);
     } finally {
       setFontsLoaded(true);
+
+      setTimeout(() => {
+        setIsFirstLaunch(false);
+      }, 1000);
     }
   };
 
@@ -86,12 +91,12 @@ export default function App() {
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
+    if (fontsLoaded && !isFirstLaunch) {
       await SplashScreen.hideAsync();
     }
-  }, [fontsLoaded]);
+  }, [fontsLoaded, isFirstLaunch]);
 
-  if (!fontsLoaded) {
+  if (!fontsLoaded || isFirstLaunch) {
     return null;
   }
 
@@ -110,17 +115,11 @@ export default function App() {
 
 const AppContent = () => {
   const { isOnboardingCompleted, isLoading } = useProfile();
-
   const animation = useRef<LottieView>(null);
 
   if (isLoading) {
     return (
-      <View
-        style={[
-          styles.container,
-          { justifyContent: "center", alignItems: "center" },
-        ]}
-      >
+      <View style={styles.customLoadingContainer}>
         <View style={styles.spinner}>
           <LottieView
             autoPlay
@@ -149,6 +148,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: AppColors.blackBgColor,
+  },
+  customLoadingContainer: {
+    flex: 1,
+    backgroundColor: AppColors.blackBgColor,
+    justifyContent: "center",
+    alignItems: "center",
   },
   spinner: {
     flex: 1,
