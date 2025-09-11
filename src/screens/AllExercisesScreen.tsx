@@ -22,6 +22,7 @@ import {
   allShoulderExercises,
   allTricepsExercises,
   allForearmsExercises,
+  allCardioExercises,
 } from "../data/AllExercises";
 
 import { TextInput } from "react-native-gesture-handler";
@@ -87,22 +88,23 @@ const AllExercisesScreen = () => {
       color: "#FF9FF3",
     },
     {
+      title: "FOREARMS EGZERSİZLERİ",
+      data: allForearmsExercises,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/forearms-animated.json"),
+      color: "#ffc0b3",
+    },
+    {
       title: "KARIN EGZERSİZLERİ",
       data: allAbsExercises,
       animationSource: require("../assets/animations/exerciseIconsAnimations/abs-animated.json"),
       color: "#54A0FF",
     },
+
     {
       title: "KARDİO EGZERSİZLERİ",
-      data: allAbsExercises,
-      animationSource: require("../assets/animations/exerciseIconsAnimations/abs-animated.json"),
+      data: allCardioExercises,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/cardio-animated.json"),
       color: "#0df93e",
-    },
-    {
-      title: "FOREARMS EGZERSİZLERİ",
-      data: allForearmsExercises,
-      animationSource: require("../assets/animations/exerciseIconsAnimations/forearms-animated.json"),
-      color: "#ffc0b3",
     },
   ];
 

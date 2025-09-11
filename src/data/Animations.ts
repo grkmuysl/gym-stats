@@ -41,6 +41,11 @@ const animations = {
   seated_wrist_curl: require("../assets/animations/exerciseAnimations/seated-wrist-curl.json"),
   ulnar_deviation: require("../assets/animations/exerciseAnimations/ulnar-deviation.json"),
   wrist_hammer_curl: require("../assets/animations/exerciseAnimations/wrist-hammer-curl.json"),
+  crunch: require("../assets/animations/exerciseAnimations/crunch.json"),
+  bridge: require("../assets/animations/exerciseAnimations/bridge.json"),
+  cobras: require("../assets/animations/exerciseAnimations/cobras.json"),
+  side_hip: require("../assets/animations/exerciseAnimations/side-hip.json"),
+  treadmill: require("../assets/animations/exerciseAnimations/treadmill.json"),
 };
 
 export default animations;

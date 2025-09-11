@@ -369,6 +369,51 @@ export const allAbsExercises = [
     animationSource: "mountain_climber",
     inputType: "duration",
   },
+  {
+    name: "Crunch",
+    subtitle: "Kontrollü hareketle üst karın kaslarını izole eder",
+    type: "Karın",
+    id: "42",
+    difficulty: "Başlangıç",
+    animationSource: "crunch",
+    inputType: "reps",
+  },
+  {
+    name: "Bridge",
+    subtitle: "Kalça ve alt sırt kaslarını güçlendirir",
+    type: "Karın",
+    id: "43",
+    difficulty: "Başlangıç",
+    animationSource: "bridge",
+    inputType: "reps",
+  },
+  {
+    name: "Cobras",
+    subtitle: "Sırt ekstansörlerini güçlendirir ve duruş düzeltir",
+    type: "Karın",
+    id: "44",
+    difficulty: "Başlangıç",
+    animationSource: "cobras",
+    inputType: "reps",
+  },
+  {
+    name: "Russian Twist",
+    subtitle: "Rotasyonla yan karın kaslarını hedefler",
+    type: "Karın",
+    id: "45",
+    difficulty: "Orta",
+    animationSource: "russian_twist",
+    inputType: "reps",
+  },
+  {
+    name: "Side Hip",
+    subtitle: "Yan yatış pozisyonunda kalça ve yan karın güçlendirir",
+    type: "Karın",
+    id: "46",
+    difficulty: "Orta",
+    animationSource: "side_hip",
+    inputType: "reps",
+  },
 ];
 
 export const allForearmsExercises = [
@@ -401,6 +446,18 @@ export const allForearmsExercises = [
   },
 ];
 
+export const allCardioExercises = [
+  {
+    name: "Koşu Bandı",
+    subtitle: "Kardiyovasküler dayanıklılık ve kalori yakımı sağlar",
+    type: "Kardio",
+    id: "47",
+    difficulty: "Başlangıç",
+    animationSource: "treadmill",
+    inputType: "duration",
+  },
+];
+
 export const exerciseTypes = [
   { label: "Göğüs", value: "Göğüs" },
   { label: "Sırt", value: "Sırt" },
@@ -410,6 +467,7 @@ export const exerciseTypes = [
   { label: "Triceps", value: "Triceps" },
   { label: "Karın", value: "Karın" },
   { label: "Forearms", value: "Forearms" },
+  { label: "Cardio", value: "Cardio" },
 ];
 
 export const getExercisesByType = (type) => {
@@ -429,7 +487,9 @@ export const getExercisesByType = (type) => {
     case "Karın":
       return allAbsExercises;
     case "Forearms":
-      return allAbsExercises;
+      return allForearmsExercises;
+    case "Cardio":
+      return allCardioExercises;
     default:
       return [];
   }
