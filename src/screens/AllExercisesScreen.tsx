@@ -6,11 +6,10 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Exercise from "../components/Exercise/Exercise";
 import { AppColors } from "../styles/colors";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import { s, vs } from "react-native-size-matters";
 import {
@@ -21,18 +20,13 @@ import {
   allLegExercises,
   allShoulderExercises,
   allTricepsExercises,
+  allForearmsExercises,
+  allCardioExercises,
 } from "../data/AllExercises";
 
 import { TextInput } from "react-native-gesture-handler";
-import { SvgProps } from "react-native-svg";
-import ChestIcon from "../assets/exercise_icons/ChestIcon";
-import BackIcon from "../assets/exercise_icons/BackIcon";
-import ShoulderIcon from "../assets/exercise_icons/ShoulderIcon";
-import LegIcon from "../assets/exercise_icons/LegIcon";
-import BicepsIcon from "../assets/exercise_icons/BicepsIcon";
-import TricepsIcon from "../assets/exercise_icons/TricepsIcon";
-import AbsIcon from "../assets/exercise_icons/AbsIcon";
-import DipsIcon from "../assets/exercise_icons/DipsIcon";
+
+import LottieView from "lottie-react-native";
 
 type ExerciseItem = {
   name: string;
@@ -42,18 +36,10 @@ type ExerciseItem = {
   difficulty: string;
 };
 
-type IconComponent = React.FC<
-  SvgProps & {
-    width?: number;
-    height?: number;
-    color?: string;
-  }
->;
-
 type ExerciseCategory = {
   title: string;
   data: ExerciseItem[];
-  Icon: IconComponent;
+  animationSource: string;
   color: string;
 };
 
@@ -61,48 +47,63 @@ const AllExercisesScreen = () => {
   const [searchString, setSearchString] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
+  const animation = useRef<LottieView>(null);
+
   const EXERCISE_CATEGORIES: ExerciseCategory[] = [
     {
       title: "GÖĞÜS EGZERSİZLERİ",
       data: allChestExercises,
-      Icon: ChestIcon,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/chest-animated.json"),
       color: "#FF6B6B",
     },
     {
       title: "SIRT EGZERSİZLERİ",
       data: allBackExercises,
-      Icon: BackIcon,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/back-animated.json"),
       color: "#4ECDC4",
     },
     {
       title: "OMUZ EGZERSİZLERİ",
       data: allShoulderExercises,
-      Icon: ShoulderIcon,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/shoulder-animated.json"),
       color: "#45B7D1",
     },
     {
       title: "BACAK EGZERSİZLERİ",
       data: allLegExercises,
-      Icon: LegIcon,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/leg-animated.json"),
       color: "#96CEB4",
     },
     {
       title: "ÖN KOL EGZERSİZLERİ",
       data: allBicepsExercises,
-      Icon: BicepsIcon,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/biceps-animated.json"),
       color: "#FECA57",
     },
     {
       title: "ARKA KOL EGZERSİZLERİ",
       data: allTricepsExercises,
-      Icon: DipsIcon,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/triceps-animated.json"),
       color: "#FF9FF3",
+    },
+    {
+      title: "FOREARMS EGZERSİZLERİ",
+      data: allForearmsExercises,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/forearms-animated.json"),
+      color: "#ffc0b3",
     },
     {
       title: "KARIN EGZERSİZLERİ",
       data: allAbsExercises,
-      Icon: AbsIcon,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/abs-animated.json"),
       color: "#54A0FF",
+    },
+
+    {
+      title: "KARDİO EGZERSİZLERİ",
+      data: allCardioExercises,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/cardio-animated.json"),
+      color: "#0df93e",
     },
   ];
 
@@ -137,11 +138,14 @@ const AllExercisesScreen = () => {
         <View
           style={[styles.iconContainer, { backgroundColor: item.color + "90" }]}
         >
-          <item.Icon
-            width={item.title === "SIRT EGZERSİZLERİ" ? 52 : 64}
-            height={item.title === "SIRT EGZERSİZLERİ" ? 52 : 64}
-            color={item.color}
-          />
+          <View style={styles.animationContainer}>
+            <LottieView
+              autoPlay
+              ref={animation}
+              style={styles.animation}
+              source={item.animationSource}
+            />
+          </View>
         </View>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{item.title}</Text>
@@ -347,5 +351,15 @@ const styles = StyleSheet.create({
     width: s(40),
     borderRadius: vs(2),
     marginBottom: vs(4),
+  },
+  animationContainer: {
+    height: vs(68),
+    width: s(68),
+    backgroundColor: AppColors.grayBgColor,
+    borderRadius: s(34),
+  },
+  animation: {
+    width: "100%",
+    height: "100%",
   },
 });

@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 export const GuideModal = ({ visible, onClose, navigation }) => {
   const [currentPage, setCurrentPage] = useState(0);

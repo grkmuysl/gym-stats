@@ -1,5 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import StackNavigation from "./src/navigation/StackNavigation";
 import { useEffect, useState, useCallback, useRef } from "react";
 import * as SplashScreen from "expo-splash-screen";
@@ -13,7 +13,7 @@ import {
 import OnboardingScreen from "./src/screens/OnboardingScreen";
 import { LocaleConfig } from "react-native-calendars";
 import LottieView from "lottie-react-native";
-import { s, vs } from "react-native-size-matters";
+import { s } from "react-native-size-matters";
 import { AppColors } from "./src/styles/colors";
 
 LocaleConfig.locales["tr"] = {

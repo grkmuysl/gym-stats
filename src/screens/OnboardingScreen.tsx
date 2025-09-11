@@ -16,7 +16,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../styles/colors";
 import { useProfile } from "../context/ProfileContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface FormData {
   firstName: string;

@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { AppColors } from "../styles/colors";
-import Header from "../components/Header";
 import { s, vs } from "react-native-size-matters";
 import { useFavorites } from "../context/FavouritesContext";
 import { FlatList } from "react-native-gesture-handler";

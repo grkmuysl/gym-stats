@@ -9,7 +9,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
-  ActivityIndicator,
 } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../styles/colors";

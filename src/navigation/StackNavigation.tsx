@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useState, useEffect, useRef } from "react";
+import { StyleSheet, View } from "react-native";
+import React, { useRef } from "react";
 
 import BottomTabs from "./BottomTabs";
 import DetailScreen from "../screens/DetailScreen";

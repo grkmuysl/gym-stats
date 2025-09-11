@@ -15,6 +15,7 @@ export const allChestExercises = [
     type: "Göğüs",
     id: "1",
     difficulty: "İleri",
+    animationSource: "incline_bench_press",
     inputType: "weight",
   },
   {
@@ -23,6 +24,43 @@ export const allChestExercises = [
     type: "Göğüs",
     id: "2",
     difficulty: "Orta",
+    animationSource: "decline_bench_press",
+    inputType: "weight",
+  },
+  {
+    name: "Dumbbell Bench Press",
+    subtitle: "Dumbbelllarla yapılan göğüs geliştirme egzersizi",
+    type: "Göğüs",
+    id: "27",
+    difficulty: "Orta",
+    animationSource: "dumbbell_bench_press",
+    inputType: "weight",
+  },
+  {
+    name: "Dumbbell Fly",
+    subtitle: "Göğüs kaslarını izole eden açma-kapama hareketi",
+    type: "Göğüs",
+    id: "28",
+    difficulty: "Orta",
+    animationSource: "dumbbell_fly",
+    inputType: "weight",
+  },
+  {
+    name: "Pec Deck",
+    subtitle: "Makinede yapılan göğüs izolasyon egzersizi",
+    type: "Göğüs",
+    id: "29",
+    difficulty: "Başlangıç",
+    animationSource: "pec_deck",
+    inputType: "weight",
+  },
+  {
+    name: "Chest Press Machine",
+    subtitle: "Makine ile güvenli göğüs geliştirme egzersizi",
+    type: "Göğüs",
+    id: "30",
+    difficulty: "Başlangıç",
+    animationSource: "chest_press_machine",
     inputType: "weight",
   },
   {
@@ -35,11 +73,12 @@ export const allChestExercises = [
     inputType: "reps",
   },
   {
-    name: "Kablo Göğüs Açışı",
+    name: "Cable Crossover",
     subtitle: "Kablo direnciyle göğüs kaslarını izole eder",
     type: "Göğüs",
     id: "4",
     difficulty: "Orta",
+    animationSource: "cable_crossover",
     inputType: "weight",
   },
 ];
@@ -69,14 +108,34 @@ export const allBackExercises = [
     type: "Sırt",
     id: "7",
     difficulty: "Orta",
+    animationSource: "bent_over_row",
     inputType: "weight",
   },
   {
-    name: "Lat Çekiş",
+    name: "Cable Row",
+    subtitle: "Kablo sistemiyle sırt kaslarını güçlendirir",
+    type: "Sırt",
+    id: "35",
+    difficulty: "Orta",
+    animationSource: "cable_row",
+    inputType: "weight",
+  },
+  {
+    name: "One-Arm Row",
+    subtitle: "Tek kolla yapılan sırt izolasyon egzersizi",
+    type: "Sırt",
+    id: "31",
+    difficulty: "Orta",
+    animationSource: "one_arm_row",
+    inputType: "weight",
+  },
+  {
+    name: "Lat Pull Down",
     subtitle: "Kanat kaslarını geliştirir ve barfiks kuvvetini artırır",
     type: "Sırt",
     id: "8",
     difficulty: "Başlangıç",
+    animationSource: "lat_pull_down",
     inputType: "weight",
   },
   {
@@ -85,25 +144,28 @@ export const allBackExercises = [
     type: "Sırt",
     id: "9",
     difficulty: "Orta",
+    animationSource: "face_pull",
     inputType: "weight",
   },
 ];
 
 export const allShoulderExercises = [
   {
-    name: "Overhead Press",
+    name: "Shoulder Press",
     subtitle: "Omuz kuvveti ve stabilitesini geliştirir",
     type: "Omuz",
     id: "10",
     difficulty: "İleri",
+    animationSource: "shoulder_press",
     inputType: "weight",
   },
   {
-    name: "Arnold Press",
-    subtitle: "Rotasyon içeren dinamik bir omuz egzersizi",
+    name: "Shoulder Press Machine",
+    subtitle: "Makinede güvenli ve kontrollü omuz geliştirme",
     type: "Omuz",
-    id: "11",
-    difficulty: "Orta",
+    id: "34",
+    difficulty: "Başlangıç",
+    animationSource: "shoulder_press_machine",
     inputType: "weight",
   },
   {
@@ -112,6 +174,7 @@ export const allShoulderExercises = [
     type: "Omuz",
     id: "12",
     difficulty: "Başlangıç",
+    animationSource: "lateral_raise",
     inputType: "weight",
   },
   {
@@ -120,6 +183,7 @@ export const allShoulderExercises = [
     type: "Omuz",
     id: "13",
     difficulty: "Başlangıç",
+    animationSource: "front_raise",
     inputType: "weight",
   },
 ];
@@ -131,7 +195,17 @@ export const allLegExercises = [
     type: "Bacak",
     id: "14",
     difficulty: "İleri",
+    animationSource: "squat",
     inputType: "reps",
+  },
+  {
+    name: "Ağırlıklı Squat",
+    subtitle: "Ağırlık ile alt vücut kuvvetini maksimize eder",
+    type: "Bacak",
+    id: "23",
+    difficulty: "İleri",
+    animationSource: "weighted_squat",
+    inputType: "weight",
   },
   {
     name: "Leg Press",
@@ -148,6 +222,7 @@ export const allLegExercises = [
     type: "Bacak",
     id: "16",
     difficulty: "Başlangıç",
+    animationSource: "lunge",
     inputType: "reps",
   },
   {
@@ -156,7 +231,17 @@ export const allLegExercises = [
     type: "Bacak",
     id: "17",
     difficulty: "İleri",
+    animationSource: "bulgarian_split",
     inputType: "reps",
+  },
+  {
+    name: "Hip Thrust",
+    subtitle: "Glute kaslarını güçlendiren etkili kalça egzersizi",
+    type: "Bacak",
+    id: "32",
+    difficulty: "Orta",
+    animationSource: "hip_thrust",
+    inputType: "weight",
   },
 ];
 
@@ -167,6 +252,7 @@ export const allBicepsExercises = [
     type: "Biceps",
     id: "18",
     difficulty: "Orta",
+    animationSource: "biceps_curl",
     inputType: "weight",
   },
   {
@@ -175,6 +261,7 @@ export const allBicepsExercises = [
     type: "Biceps",
     id: "19",
     difficulty: "Başlangıç",
+    animationSource: "biceps_curl_dumb",
     inputType: "weight",
   },
   {
@@ -183,6 +270,25 @@ export const allBicepsExercises = [
     type: "Biceps",
     id: "20",
     difficulty: "Başlangıç",
+    animationSource: "hammer_curl",
+    inputType: "weight",
+  },
+  {
+    name: "Incline Biceps Curl",
+    subtitle: "Eğimli pozisyonda biceps'in tam gerilimini sağlar",
+    type: "Biceps",
+    id: "33",
+    difficulty: "Orta",
+    animationSource: "incline_biceps_curl",
+    inputType: "weight",
+  },
+  {
+    name: "Preacher Biceps Curl",
+    subtitle: "Preacher bench ile biceps'i tam izole eder",
+    type: "Biceps",
+    id: "38",
+    difficulty: "Orta",
+    animationSource: "preacher_biceps_curl",
     inputType: "weight",
   },
 ];
@@ -194,14 +300,34 @@ export const allTricepsExercises = [
     type: "Triceps",
     id: "21",
     difficulty: "Orta",
+    animationSource: "dips",
     inputType: "reps",
   },
   {
-    name: "Skull Crushers",
+    name: "Triceps Extension",
     subtitle: "Baş üstü ekstansiyonla triceps’i izole eder",
     type: "Triceps",
     id: "22",
     difficulty: "İleri",
+    animationSource: "triceps_extension",
+    inputType: "weight",
+  },
+  {
+    name: "Triceps Pushdown",
+    subtitle: "Kablo sistemiyle triceps'i etkili şekilde izole eder",
+    type: "Triceps",
+    id: "36",
+    difficulty: "Başlangıç",
+    animationSource: "triceps_pushdown",
+    inputType: "weight",
+  },
+  {
+    name: "High Pulley",
+    subtitle: "Yüksek makara ile triceps kuvvet geliştirme",
+    type: "Triceps",
+    id: "37",
+    difficulty: "Orta",
+    animationSource: "high_pulley",
     inputType: "weight",
   },
 ];
@@ -222,6 +348,7 @@ export const allAbsExercises = [
     type: "Karın",
     id: "24",
     difficulty: "Başlangıç",
+    animationSource: "mekik",
     inputType: "reps",
   },
   {
@@ -230,6 +357,7 @@ export const allAbsExercises = [
     type: "Karın",
     id: "25",
     difficulty: "Orta",
+    animationSource: "russian_twist",
     inputType: "duration",
   },
   {
@@ -238,6 +366,94 @@ export const allAbsExercises = [
     type: "Karın",
     id: "26",
     difficulty: "Orta",
+    animationSource: "mountain_climber",
+    inputType: "duration",
+  },
+  {
+    name: "Crunch",
+    subtitle: "Kontrollü hareketle üst karın kaslarını izole eder",
+    type: "Karın",
+    id: "42",
+    difficulty: "Başlangıç",
+    animationSource: "crunch",
+    inputType: "reps",
+  },
+  {
+    name: "Bridge",
+    subtitle: "Kalça ve alt sırt kaslarını güçlendirir",
+    type: "Karın",
+    id: "43",
+    difficulty: "Başlangıç",
+    animationSource: "bridge",
+    inputType: "reps",
+  },
+  {
+    name: "Cobras",
+    subtitle: "Sırt ekstansörlerini güçlendirir ve duruş düzeltir",
+    type: "Karın",
+    id: "44",
+    difficulty: "Başlangıç",
+    animationSource: "cobras",
+    inputType: "reps",
+  },
+  {
+    name: "Russian Twist",
+    subtitle: "Rotasyonla yan karın kaslarını hedefler",
+    type: "Karın",
+    id: "45",
+    difficulty: "Orta",
+    animationSource: "russian_twist",
+    inputType: "reps",
+  },
+  {
+    name: "Side Hip",
+    subtitle: "Yan yatış pozisyonunda kalça ve yan karın güçlendirir",
+    type: "Karın",
+    id: "46",
+    difficulty: "Orta",
+    animationSource: "side_hip",
+    inputType: "reps",
+  },
+];
+
+export const allForearmsExercises = [
+  {
+    name: "Seated Wrist Curl",
+    subtitle: "Oturarak bilek flexor kaslarını güçlendirir",
+    type: "Forearms",
+    id: "39",
+    difficulty: "Başlangıç",
+    animationSource: "seated_wrist_curl",
+    inputType: "weight",
+  },
+  {
+    name: "Ulnar Deviation",
+    subtitle: "Bilek yan hareketiyle forearm stabilizasyonu sağlar",
+    type: "Forearms",
+    id: "40",
+    difficulty: "Başlangıç",
+    animationSource: "ulnar_deviation",
+    inputType: "weight",
+  },
+  {
+    name: "Wrist Hammer Curl",
+    subtitle: "Hammer pozisyonunda bilek ve forearm kuvvetlendirir",
+    type: "Forearms",
+    id: "41",
+    difficulty: "Orta",
+    animationSource: "wrist_hammer_curl",
+    inputType: "weight",
+  },
+];
+
+export const allCardioExercises = [
+  {
+    name: "Koşu Bandı",
+    subtitle: "Kardiyovasküler dayanıklılık ve kalori yakımı sağlar",
+    type: "Kardio",
+    id: "47",
+    difficulty: "Başlangıç",
+    animationSource: "treadmill",
     inputType: "duration",
   },
 ];
@@ -250,6 +466,8 @@ export const exerciseTypes = [
   { label: "Biceps", value: "Biceps" },
   { label: "Triceps", value: "Triceps" },
   { label: "Karın", value: "Karın" },
+  { label: "Forearms", value: "Forearms" },
+  { label: "Cardio", value: "Cardio" },
 ];
 
 export const getExercisesByType = (type) => {
@@ -268,6 +486,10 @@ export const getExercisesByType = (type) => {
       return allTricepsExercises;
     case "Karın":
       return allAbsExercises;
+    case "Forearms":
+      return allForearmsExercises;
+    case "Cardio":
+      return allCardioExercises;
     default:
       return [];
   }
