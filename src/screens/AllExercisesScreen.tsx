@@ -10,7 +10,6 @@ import React, { useMemo, useRef, useState } from "react";
 import Exercise from "../components/Exercise/Exercise";
 import { AppColors } from "../styles/colors";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import { s, vs } from "react-native-size-matters";
 import {

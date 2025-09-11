@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { FC } from "react";
+import React from "react";
 import { s, vs } from "react-native-size-matters";
 import { calculateBMI } from "../../utils/BMICalculater";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";

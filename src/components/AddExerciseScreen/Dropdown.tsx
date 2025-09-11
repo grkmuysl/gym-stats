@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { s, vs } from "react-native-size-matters";
@@ -9,7 +9,6 @@ const Dropdown = ({
   itemsProp,
   onValueChange,
   selectedValue,
-  zIndex = 1000,
   open,
   setOpen,
 }) => {

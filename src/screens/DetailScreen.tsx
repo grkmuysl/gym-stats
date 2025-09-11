@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { AppColors } from "../styles/colors";
 import GoBackButton from "../components/Button/GoBackButton";
 import PrevRecords from "../components/DetailPageComponents/PrevRecords";
