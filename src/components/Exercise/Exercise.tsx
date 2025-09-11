@@ -49,7 +49,7 @@ const Exercise: React.FC<ExerciseProps> = ({ ExerciseItem }) => {
   );
 };
 
-export default Exercise;
+export default React.memo(Exercise);
 
 const styles = StyleSheet.create({
   container: {
