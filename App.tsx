@@ -79,10 +79,7 @@ export default function App() {
       console.error("Font loading error:", error);
     } finally {
       setFontsLoaded(true);
-
-      setTimeout(() => {
-        setIsFirstLaunch(false);
-      }, 1000);
+      setIsFirstLaunch(false);
     }
   };
 
