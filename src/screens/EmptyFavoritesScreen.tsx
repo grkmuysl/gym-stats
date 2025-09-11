@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Dimensions } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image } from "expo-image";
 import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../styles/colors";
@@ -11,6 +11,20 @@ const { width } = Dimensions.get("window");
 
 const EmptyFavoritesScreen = () => {
   const navigation = useNavigation();
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  useEffect(() => {
+    const preloadImage = async () => {
+      try {
+        await Image.prefetch(require("../assets/images/empty-gym.png"));
+        setImageLoaded(true);
+      } catch (error) {
+        setImageLoaded(true);
+      }
+    };
+
+    preloadImage();
+  }, []);
 
   const goToAllExercises = () => {
     navigation.navigate("Tüm Egzersizler");
@@ -31,7 +45,9 @@ const EmptyFavoritesScreen = () => {
         <View style={styles.imageWrapper}>
           <Image
             source={require("../assets/images/empty-gym.png")}
-            style={styles.img}
+            style={[styles.img, { opacity: imageLoaded ? 1 : 0 }]}
+            onLoad={() => setImageLoaded(true)}
+            transition={200}
           />
           <View style={styles.imageBadge} />
         </View>
