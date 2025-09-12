@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Exercise from "../components/Exercise/Exercise";
 import { AppColors } from "../styles/colors";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
@@ -26,8 +26,6 @@ import {
 
 import { TextInput } from "react-native-gesture-handler";
 import LottieView from "lottie-react-native";
-import { AnimationKey } from "../utils/AnimationsLoader";
-import LazyLottieView from "../components/LazyAnimations/LazyLottieView";
 
 type ExerciseItem = {
   name: string;
@@ -40,70 +38,70 @@ type ExerciseItem = {
 type ExerciseCategory = {
   title: string;
   data: ExerciseItem[];
-  animationKey: AnimationKey;
+  animationSource: string;
   color: string;
 };
-
-const MemoizedExercise = React.memo(Exercise);
 
 const AllExercisesScreen = () => {
   const [searchString, setSearchString] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+
+  const animation = useRef<LottieView>(null);
 
   const EXERCISE_CATEGORIES: ExerciseCategory[] = useMemo(
     () => [
       {
         title: "GÖĞÜS EGZERSİZLERİ",
         data: allChestExercises,
-        animationKey: "chest",
+        animationSource: require("../assets/animations/exerciseIconsAnimations/chest-animated.json"),
         color: "#FF6B6B",
       },
       {
         title: "SIRT EGZERSİZLERİ",
         data: allBackExercises,
-        animationKey: "back",
+        animationSource: require("../assets/animations/exerciseIconsAnimations/back-animated.json"),
         color: "#4ECDC4",
       },
       {
         title: "OMUZ EGZERSİZLERİ",
         data: allShoulderExercises,
-        animationKey: "shoulder",
+        animationSource: require("../assets/animations/exerciseIconsAnimations/shoulder-animated.json"),
         color: "#45B7D1",
       },
       {
         title: "BACAK EGZERSİZLERİ",
         data: allLegExercises,
-        animationKey: "leg",
+        animationSource: require("../assets/animations/exerciseIconsAnimations/leg-animated.json"),
         color: "#96CEB4",
       },
       {
         title: "ÖN KOL EGZERSİZLERİ",
         data: allBicepsExercises,
-        animationKey: "biceps",
+        animationSource: require("../assets/animations/exerciseIconsAnimations/biceps-animated.json"),
         color: "#FECA57",
       },
       {
         title: "ARKA KOL EGZERSİZLERİ",
         data: allTricepsExercises,
-        animationKey: "triceps",
+        animationSource: require("../assets/animations/exerciseIconsAnimations/triceps-animated.json"),
         color: "#FF9FF3",
       },
       {
         title: "FOREARMS EGZERSİZLERİ",
         data: allForearmsExercises,
-        animationKey: "forearms",
+        animationSource: require("../assets/animations/exerciseIconsAnimations/forearms-animated.json"),
         color: "#ffc0b3",
       },
       {
         title: "KARIN EGZERSİZLERİ",
         data: allAbsExercises,
-        animationKey: "abs",
+        animationSource: require("../assets/animations/exerciseIconsAnimations/abs-animated.json"),
         color: "#54A0FF",
       },
       {
         title: "KARDİO EGZERSİZLERİ",
         data: allCardioExercises,
-        animationKey: "cardio",
+        animationSource: require("../assets/animations/exerciseIconsAnimations/cardio-animated.json"),
         color: "#0df93e",
       },
     ],
@@ -129,55 +127,46 @@ const AllExercisesScreen = () => {
     })).filter((category) => category.data.length > 0);
   }, [searchString, EXERCISE_CATEGORIES]);
 
-  const renderCategory = useCallback(
-    ({ item, index }: { item: ExerciseCategory; index: number }) => (
-      <View style={styles.categoryContainer}>
-        <View style={styles.categoryHeader}>
-          <View
-            style={[
-              styles.iconContainer,
-              { backgroundColor: item.color + "90" },
-            ]}
-          >
-            <View style={styles.animationContainer}>
-              <LazyLottieView
-                animationKey={item.animationKey} // Lazy loading component
-                style={styles.animation}
-                autoPlay={false}
-                loop={false}
-              />
-            </View>
-          </View>
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>{item.title}</Text>
-            <View style={[styles.underline, { backgroundColor: item.color }]} />
+  const renderCategory = ({
+    item,
+    index,
+  }: {
+    item: ExerciseCategory;
+    index: number;
+  }) => (
+    <View style={styles.categoryContainer}>
+      <View style={styles.categoryHeader}>
+        <View
+          style={[styles.iconContainer, { backgroundColor: item.color + "90" }]}
+        >
+          <View style={styles.animationContainer}>
+            <LottieView
+              autoPlay={false}
+              ref={animation}
+              style={styles.animation}
+              source={item.animationSource}
+            />
           </View>
         </View>
-
-        <FlatList
-          data={item.data}
-          renderItem={renderExercise}
-          keyExtractor={keyExtractor}
-          showsHorizontalScrollIndicator={false}
-          initialNumToRender={2}
-          maxToRenderPerBatch={2}
-          windowSize={3}
-          removeClippedSubviews={true}
-          updateCellsBatchingPeriod={50}
-          onEndReachedThreshold={0.5}
-          disableVirtualization={false}
-        />
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>{item.title}</Text>
+          <View style={[styles.underline, { backgroundColor: item.color }]} />
+        </View>
       </View>
-    ),
-    []
-  );
 
-  const renderExercise = useCallback(
-    ({ item }) => <MemoizedExercise ExerciseItem={item} />,
-    []
+      <FlatList
+        data={item.data}
+        renderItem={({ item }) => <Exercise ExerciseItem={item} />}
+        keyExtractor={(item) => item.id}
+        showsHorizontalScrollIndicator={false}
+        initialNumToRender={2}
+        maxToRenderPerBatch={1}
+        windowSize={3}
+        removeClippedSubviews={true}
+        updateCellsBatchingPeriod={100}
+      />
+    </View>
   );
-
-  const keyExtractor = useCallback((item) => item.id, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -244,6 +233,7 @@ const AllExercisesScreen = () => {
 
 export default AllExercisesScreen;
 
+// Styles aynı kalacak
 const styles = StyleSheet.create({
   container: {
     backgroundColor: AppColors.blackBgColor,
