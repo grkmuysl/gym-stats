@@ -304,7 +304,7 @@ const ProfileScreen: React.FC = () => {
   );
 };
 
-export default ProfileScreen;
+export default React.memo(ProfileScreen);
 
 const styles = StyleSheet.create({
   container: {

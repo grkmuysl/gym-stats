@@ -56,7 +56,7 @@ const FavouriteScreen = () => {
   );
 };
 
-export default FavouriteScreen;
+export default React.memo(FavouriteScreen);
 
 const styles = StyleSheet.create({
   container: {
