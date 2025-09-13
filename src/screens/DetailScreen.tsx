@@ -42,46 +42,48 @@ const DetailScreen = ({ route }) => {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <GoBackButton style={styles.goBackBtn} />
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <GoBackButton style={styles.goBackBtn} />
 
-      <Text style={styles.pageTitle}>{route.params.name}</Text>
+        <Text style={styles.pageTitle}>{route.params.name}</Text>
 
-      <View style={styles.animationContainer}>
-        <LottieView
-          autoPlay
-          ref={animation}
-          style={styles.animation}
-          source={animations[animationKey]}
-        />
-      </View>
+        <View style={styles.animationContainer}>
+          <LottieView
+            autoPlay
+            ref={animation}
+            style={styles.animation}
+            source={animations[animationKey]}
+          />
+        </View>
 
-      <View style={styles.innerContainer}>
-        {inputType === "duration" ? (
-          <Text style={styles.innerTitle}>Önceki Kayıtlar (Toplam Süre)</Text>
-        ) : inputType === "reps" ? (
-          <Text style={styles.innerTitle}>
-            Önceki Kayıtlar (Toplam Tekrar Sayısı)
-          </Text>
-        ) : (
-          <Text style={styles.innerTitle}>Önceki Kayıtlar</Text>
-        )}
+        <View style={styles.innerContainer}>
+          {inputType === "duration" ? (
+            <Text style={styles.innerTitle}>Önceki Kayıtlar (Toplam Süre)</Text>
+          ) : inputType === "reps" ? (
+            <Text style={styles.innerTitle}>
+              Önceki Kayıtlar (Toplam Tekrar Sayısı)
+            </Text>
+          ) : (
+            <Text style={styles.innerTitle}>Önceki Kayıtlar</Text>
+          )}
 
-        <PrevRecords
-          exerciseName={route.params.name}
-          inputType={route.params.inputType}
-        />
+          <PrevRecords
+            exerciseName={route.params.name}
+            inputType={route.params.inputType}
+          />
 
-        <Text style={styles.title}>Son Değişiklikler</Text>
-        <LastChanges
-          exerciseName={route.params.name}
-          inputType={route.params.inputType}
-        />
+          <Text style={styles.title}>Son Değişiklikler</Text>
+          <LastChanges
+            exerciseName={route.params.name}
+            inputType={route.params.inputType}
+          />
 
-        <Text style={styles.title}>Tüm {route.params.name} Kayıtları</Text>
-        <AllRecords exerciseName={exerciseName} />
-      </View>
-    </ScrollView>
+          <Text style={styles.title}>Tüm {route.params.name} Kayıtları</Text>
+          <AllRecords exerciseName={exerciseName} />
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -92,9 +94,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: AppColors.blackBgColor,
   },
+  scrollView: {
+    marginTop: vs(16),
+  },
   goBackBtn: {
     position: "relative",
-    top: s(20),
+    top: s(28),
     left: s(14),
   },
   innerContainer: {
