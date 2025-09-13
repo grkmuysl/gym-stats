@@ -27,6 +27,7 @@ import {
 import { TextInput } from "react-native-gesture-handler";
 
 import LottieView from "lottie-react-native";
+import animations from "../data/Animations";
 
 type ExerciseItem = {
   name: string;
@@ -53,56 +54,56 @@ const AllExercisesScreen = () => {
     {
       title: "GÖĞÜS EGZERSİZLERİ",
       data: allChestExercises,
-      animationSource: require("../assets/animations/exerciseIconsAnimations/chest-animated.json"),
+      animationSource: "chest",
       color: "#FF6B6B",
     },
     {
       title: "SIRT EGZERSİZLERİ",
       data: allBackExercises,
-      animationSource: require("../assets/animations/exerciseIconsAnimations/back-animated.json"),
+      animationSource: "back",
       color: "#4ECDC4",
     },
     {
       title: "OMUZ EGZERSİZLERİ",
       data: allShoulderExercises,
-      animationSource: require("../assets/animations/exerciseIconsAnimations/shoulder-animated.json"),
+      animationSource: "shoulder",
       color: "#45B7D1",
     },
     {
       title: "BACAK EGZERSİZLERİ",
       data: allLegExercises,
-      animationSource: require("../assets/animations/exerciseIconsAnimations/leg-animated.json"),
+      animationSource: "leg",
       color: "#96CEB4",
     },
     {
       title: "ÖN KOL EGZERSİZLERİ",
       data: allBicepsExercises,
-      animationSource: require("../assets/animations/exerciseIconsAnimations/biceps-animated.json"),
+      animationSource: "biceps",
       color: "#FECA57",
     },
     {
       title: "ARKA KOL EGZERSİZLERİ",
       data: allTricepsExercises,
-      animationSource: require("../assets/animations/exerciseIconsAnimations/triceps-animated.json"),
+      animationSource: "triceps",
       color: "#FF9FF3",
     },
     {
       title: "FOREARMS EGZERSİZLERİ",
       data: allForearmsExercises,
-      animationSource: require("../assets/animations/exerciseIconsAnimations/forearms-animated.json"),
+      animationSource: "forearms",
       color: "#ffc0b3",
     },
     {
       title: "KARIN EGZERSİZLERİ",
       data: allAbsExercises,
-      animationSource: require("../assets/animations/exerciseIconsAnimations/abs-animated.json"),
+      animationSource: "abs",
       color: "#54A0FF",
     },
 
     {
       title: "KARDİO EGZERSİZLERİ",
       data: allCardioExercises,
-      animationSource: require("../assets/animations/exerciseIconsAnimations/cardio-animated.json"),
+      animationSource: "cardio",
       color: "#0df93e",
     },
   ];
@@ -143,7 +144,7 @@ const AllExercisesScreen = () => {
               autoPlay
               ref={animation}
               style={styles.animation}
-              source={item.animationSource}
+              source={animations[item.animationSource]}
             />
           </View>
         </View>
