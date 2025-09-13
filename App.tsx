@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet, View } from "react-native";
 import StackNavigation from "./src/navigation/StackNavigation";
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { FavoritesProvider } from "./src/context/FavouritesContext";
@@ -12,10 +12,8 @@ import {
 } from "./src/context/ProfileContext";
 import OnboardingScreen from "./src/screens/OnboardingScreen";
 import { LocaleConfig } from "react-native-calendars";
-import LottieView from "lottie-react-native";
-import { s } from "react-native-size-matters";
-import { AppColors } from "./src/styles/colors";
 import CustomSpinner from "./src/components/Spinner/CustomSpinner";
+import { AppColors } from "./src/styles/colors";
 
 LocaleConfig.locales["tr"] = {
   monthNames: [
@@ -58,48 +56,52 @@ LocaleConfig.locales["tr"] = {
   dayNamesShort: ["Paz", "Pzt", "Sal", "Çar", "Per", "Cum", "Cmt"],
   today: "Bugün",
 };
-
 LocaleConfig.defaultLocale = "tr";
+
+const FONTS = {
+  "Roboto-Regular": require("./src/assets/fonts/Roboto-Regular.ttf"),
+  "Roboto-Bold": require("./src/assets/fonts/Roboto-Bold.ttf"),
+  "Roboto-Medium": require("./src/assets/fonts/Roboto-Medium.ttf"),
+  "Roboto-Light": require("./src/assets/fonts/Roboto-Light.ttf"),
+  "Roboto-SemiBold": require("./src/assets/fonts/Roboto-SemiBold.ttf"),
+} as const;
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  const [fontsLoaded, setFontsLoaded] = useState(false);
-  const [isFirstLaunch, setIsFirstLaunch] = useState(true);
-
-  const loadFonts = async () => {
-    try {
-      await Font.loadAsync({
-        "Roboto-Regular": require("./src/assets/fonts/Roboto-Regular.ttf"),
-        "Roboto-Bold": require("./src/assets/fonts/Roboto-Bold.ttf"),
-        "Roboto-Medium": require("./src/assets/fonts/Roboto-Medium.ttf"),
-        "Roboto-Light": require("./src/assets/fonts/Roboto-Light.ttf"),
-        "Roboto-SemiBold": require("./src/assets/fonts/Roboto-SemiBold.ttf"),
-      });
-    } catch (error) {
-      console.error("Font loading error:", error);
-    } finally {
-      setFontsLoaded(true);
-      setIsFirstLaunch(false);
-    }
-  };
+  const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
-    loadFonts();
+    const prepareApp = async () => {
+      try {
+        await Font.loadAsync(FONTS);
+      } catch (error) {
+        console.error("App initialization error:", error);
+      } finally {
+        setAppIsReady(true);
+      }
+    };
+
+    prepareApp();
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded && !isFirstLaunch) {
-      await SplashScreen.hideAsync();
+    if (appIsReady) {
+      try {
+        await SplashScreen.hideAsync();
+      } catch (error) {
+        console.error("Error hiding splash screen:", error);
+      }
     }
-  }, [fontsLoaded, isFirstLaunch]);
+  }, [appIsReady]);
 
-  if (!fontsLoaded || isFirstLaunch) {
+  // Show nothing while app is preparing (Expo splash screen will be visible)
+  if (!appIsReady) {
     return null;
   }
 
   return (
-    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+    <View style={styles.container} onLayout={onLayoutRootView}>
       <ProfileContextProvider>
         <RecordsProvider>
           <FavoritesProvider>
@@ -113,10 +115,13 @@ export default function App() {
 
 const AppContent = () => {
   const { isOnboardingCompleted, isLoading } = useProfile();
-  const animation = useRef<LottieView>(null);
 
   if (isLoading) {
-    return <CustomSpinner />;
+    return (
+      <View style={styles.loadingContainer}>
+        <CustomSpinner />
+      </View>
+    );
   }
 
   if (!isOnboardingCompleted()) {
@@ -133,15 +138,11 @@ const AppContent = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: AppColors.blackBgColor,
   },
-  spinner: {
+  loadingContainer: {
     flex: 1,
+    backgroundColor: "#161616",
     justifyContent: "center",
     alignItems: "center",
-  },
-  spinnerAnimation: {
-    width: s(120),
-    height: s(120),
   },
 });
