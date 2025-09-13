@@ -11,6 +11,7 @@ import { useRecords } from "../context/ExerciseRecordsContext";
 import { useFocusEffect } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 import animations from "../data/Animations";
+import CustomSpinner from "../components/Spinner/CustomSpinner";
 
 const DetailScreen = ({ route }) => {
   const exerciseName = route.params?.name;
@@ -35,14 +36,7 @@ const DetailScreen = ({ route }) => {
           { justifyContent: "center", alignItems: "center" },
         ]}
       >
-        <View style={styles.spinner}>
-          <LottieView
-            autoPlay
-            ref={animation}
-            style={styles.spinnerAnimation}
-            source={require("../assets/animations/spinner.json")}
-          />
-        </View>
+        <CustomSpinner />
       </View>
     );
   }

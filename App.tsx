@@ -15,6 +15,7 @@ import { LocaleConfig } from "react-native-calendars";
 import LottieView from "lottie-react-native";
 import { s } from "react-native-size-matters";
 import { AppColors } from "./src/styles/colors";
+import CustomSpinner from "./src/components/Spinner/CustomSpinner";
 
 LocaleConfig.locales["tr"] = {
   monthNames: [
@@ -115,19 +116,7 @@ const AppContent = () => {
   const animation = useRef<LottieView>(null);
 
   if (isLoading) {
-    return (
-      <View style={styles.customLoadingContainer}>
-        <View style={styles.spinner}>
-          <LottieView
-            autoPlay
-            loop
-            ref={animation}
-            style={styles.spinnerAnimation}
-            source={require("./src/assets/animations/spinner.json")}
-          />
-        </View>
-      </View>
-    );
+    return <CustomSpinner />;
   }
 
   if (!isOnboardingCompleted()) {
@@ -145,12 +134,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: AppColors.blackBgColor,
-  },
-  customLoadingContainer: {
-    flex: 1,
-    backgroundColor: AppColors.blackBgColor,
-    justifyContent: "center",
-    alignItems: "center",
   },
   spinner: {
     flex: 1,

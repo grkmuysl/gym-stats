@@ -10,6 +10,7 @@ import { useProfile } from "../context/ProfileContext";
 import { AppColors } from "../styles/colors";
 import { s } from "react-native-size-matters";
 import LottieView from "lottie-react-native";
+import CustomSpinner from "../components/Spinner/CustomSpinner";
 
 const StackNavigation = () => {
   const { isGuideCompleted, setGuideCompleted, isLoading } = useProfile();
@@ -31,15 +32,7 @@ const StackNavigation = () => {
           { justifyContent: "center", alignItems: "center" },
         ]}
       >
-        <View style={styles.spinner}>
-          <LottieView
-            autoPlay
-            loop
-            ref={animation}
-            style={styles.spinnerAnimation}
-            source={require("../assets/animations/spinner.json")}
-          />
-        </View>
+        <CustomSpinner />
       </View>
     );
   }
