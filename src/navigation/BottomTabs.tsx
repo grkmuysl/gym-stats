@@ -22,7 +22,7 @@ const BottomTabs = () => {
         tabBarInactiveTintColor: AppColors.lightGray,
         tabBarStyle: {
           backgroundColor: AppColors.grayBgColor,
-          height: vs(60),
+          height: vs(72),
         },
       }}
     >
@@ -101,4 +101,8 @@ const BottomTabs = () => {
 
 export default BottomTabs;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    paddingBottom: vs(30),
+  },
+});

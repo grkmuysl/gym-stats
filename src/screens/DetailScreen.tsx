@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
   },
   goBackBtn: {
     position: "relative",
-    top: 20,
-    left: 14,
+    top: s(20),
+    left: s(14),
   },
   innerContainer: {
     justifyContent: "center",
