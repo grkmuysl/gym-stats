@@ -12,12 +12,23 @@
       "resizeMode": "contain",
       "backgroundColor": "#161616"
     },
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "splash": {
+        "image": "./assets/new-icon.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#161616"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/new-icon.png",
+        "backgroundColor": "#161616"
+      },
+      "splash": {
+        "image": "./assets/new-icon.png",
+        "resizeMode": "contain",
         "backgroundColor": "#161616"
       },
       "edgeToEdgeEnabled": true
