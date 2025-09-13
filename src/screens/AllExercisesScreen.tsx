@@ -25,6 +25,7 @@ import {
 } from "../data/AllExercises";
 
 import { TextInput } from "react-native-gesture-handler";
+
 import LottieView from "lottie-react-native";
 
 type ExerciseItem = {
@@ -48,65 +49,63 @@ const AllExercisesScreen = () => {
 
   const animation = useRef<LottieView>(null);
 
-  const EXERCISE_CATEGORIES: ExerciseCategory[] = useMemo(
-    () => [
-      {
-        title: "GÖĞÜS EGZERSİZLERİ",
-        data: allChestExercises,
-        animationSource: require("../assets/animations/exerciseIconsAnimations/chest-animated.json"),
-        color: "#FF6B6B",
-      },
-      {
-        title: "SIRT EGZERSİZLERİ",
-        data: allBackExercises,
-        animationSource: require("../assets/animations/exerciseIconsAnimations/back-animated.json"),
-        color: "#4ECDC4",
-      },
-      {
-        title: "OMUZ EGZERSİZLERİ",
-        data: allShoulderExercises,
-        animationSource: require("../assets/animations/exerciseIconsAnimations/shoulder-animated.json"),
-        color: "#45B7D1",
-      },
-      {
-        title: "BACAK EGZERSİZLERİ",
-        data: allLegExercises,
-        animationSource: require("../assets/animations/exerciseIconsAnimations/leg-animated.json"),
-        color: "#96CEB4",
-      },
-      {
-        title: "ÖN KOL EGZERSİZLERİ",
-        data: allBicepsExercises,
-        animationSource: require("../assets/animations/exerciseIconsAnimations/biceps-animated.json"),
-        color: "#FECA57",
-      },
-      {
-        title: "ARKA KOL EGZERSİZLERİ",
-        data: allTricepsExercises,
-        animationSource: require("../assets/animations/exerciseIconsAnimations/triceps-animated.json"),
-        color: "#FF9FF3",
-      },
-      {
-        title: "FOREARMS EGZERSİZLERİ",
-        data: allForearmsExercises,
-        animationSource: require("../assets/animations/exerciseIconsAnimations/forearms-animated.json"),
-        color: "#ffc0b3",
-      },
-      {
-        title: "KARIN EGZERSİZLERİ",
-        data: allAbsExercises,
-        animationSource: require("../assets/animations/exerciseIconsAnimations/abs-animated.json"),
-        color: "#54A0FF",
-      },
-      {
-        title: "KARDİO EGZERSİZLERİ",
-        data: allCardioExercises,
-        animationSource: require("../assets/animations/exerciseIconsAnimations/cardio-animated.json"),
-        color: "#0df93e",
-      },
-    ],
-    []
-  );
+  const EXERCISE_CATEGORIES: ExerciseCategory[] = [
+    {
+      title: "GÖĞÜS EGZERSİZLERİ",
+      data: allChestExercises,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/chest-animated.json"),
+      color: "#FF6B6B",
+    },
+    {
+      title: "SIRT EGZERSİZLERİ",
+      data: allBackExercises,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/back-animated.json"),
+      color: "#4ECDC4",
+    },
+    {
+      title: "OMUZ EGZERSİZLERİ",
+      data: allShoulderExercises,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/shoulder-animated.json"),
+      color: "#45B7D1",
+    },
+    {
+      title: "BACAK EGZERSİZLERİ",
+      data: allLegExercises,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/leg-animated.json"),
+      color: "#96CEB4",
+    },
+    {
+      title: "ÖN KOL EGZERSİZLERİ",
+      data: allBicepsExercises,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/biceps-animated.json"),
+      color: "#FECA57",
+    },
+    {
+      title: "ARKA KOL EGZERSİZLERİ",
+      data: allTricepsExercises,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/triceps-animated.json"),
+      color: "#FF9FF3",
+    },
+    {
+      title: "FOREARMS EGZERSİZLERİ",
+      data: allForearmsExercises,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/forearms-animated.json"),
+      color: "#ffc0b3",
+    },
+    {
+      title: "KARIN EGZERSİZLERİ",
+      data: allAbsExercises,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/abs-animated.json"),
+      color: "#54A0FF",
+    },
+
+    {
+      title: "KARDİO EGZERSİZLERİ",
+      data: allCardioExercises,
+      animationSource: require("../assets/animations/exerciseIconsAnimations/cardio-animated.json"),
+      color: "#0df93e",
+    },
+  ];
 
   const filteredCategories = useMemo(() => {
     if (!searchString.trim()) {
@@ -125,7 +124,7 @@ const AllExercisesScreen = () => {
           exercise.difficulty.toLowerCase().includes(searchTerm)
       ),
     })).filter((category) => category.data.length > 0);
-  }, [searchString, EXERCISE_CATEGORIES]);
+  }, [searchString]);
 
   const renderCategory = ({
     item,
@@ -141,7 +140,7 @@ const AllExercisesScreen = () => {
         >
           <View style={styles.animationContainer}>
             <LottieView
-              autoPlay={false}
+              autoPlay
               ref={animation}
               style={styles.animation}
               source={item.animationSource}
@@ -159,15 +158,9 @@ const AllExercisesScreen = () => {
         renderItem={({ item }) => <Exercise ExerciseItem={item} />}
         keyExtractor={(item) => item.id}
         showsHorizontalScrollIndicator={false}
-        initialNumToRender={2}
-        maxToRenderPerBatch={1}
-        windowSize={3}
-        removeClippedSubviews={true}
-        updateCellsBatchingPeriod={100}
       />
     </View>
   );
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
@@ -214,9 +207,6 @@ const AllExercisesScreen = () => {
           keyExtractor={(item) => item.title}
           showsVerticalScrollIndicator={false}
           style={styles.listContainer}
-          initialNumToRender={3}
-          maxToRenderPerBatch={2}
-          removeClippedSubviews={true}
         />
       ) : (
         <View style={styles.noResultsContainer}>
@@ -233,7 +223,6 @@ const AllExercisesScreen = () => {
 
 export default AllExercisesScreen;
 
-// Styles aynı kalacak
 const styles = StyleSheet.create({
   container: {
     backgroundColor: AppColors.blackBgColor,
@@ -274,6 +263,17 @@ const styles = StyleSheet.create({
     padding: s(4),
   },
 
+  searchResultInfo: {
+    marginTop: vs(8),
+    paddingHorizontal: s(4),
+  },
+
+  searchResultText: {
+    color: AppColors.lightGray,
+    fontSize: s(14),
+    fontFamily: "Roboto-Light",
+  },
+
   listContainer: {
     paddingHorizontal: s(12),
   },
@@ -296,6 +296,13 @@ const styles = StyleSheet.create({
     fontSize: s(18),
     fontFamily: "Roboto-Medium",
     marginLeft: s(4),
+  },
+
+  exerciseCount: {
+    color: AppColors.limeGreenColor,
+    fontSize: s(14),
+    fontFamily: "Roboto-Regular",
+    marginLeft: s(8),
   },
 
   noResultsContainer: {
@@ -321,6 +328,13 @@ const styles = StyleSheet.create({
     marginBottom: vs(4),
   },
 
+  noResultsHint: {
+    color: AppColors.lightGray,
+    fontSize: s(14),
+    fontFamily: "Roboto-Light",
+    textAlign: "center",
+    opacity: 0.7,
+  },
   iconContainer: {
     width: s(56),
     height: s(56),
