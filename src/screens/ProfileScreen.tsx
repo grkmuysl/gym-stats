@@ -17,6 +17,7 @@ import CustomModal from "../components/CustomModal/CustomModal";
 import { useProfile } from "../context/ProfileContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LottieView from "lottie-react-native";
+import CustomSpinner from "../components/Spinner/CustomSpinner";
 
 const ProfileScreen: React.FC = () => {
   const {
@@ -124,16 +125,7 @@ const ProfileScreen: React.FC = () => {
   };
 
   if (isLoading) {
-    return (
-      <View style={styles.spinner}>
-        <LottieView
-          autoPlay
-          ref={animation}
-          style={styles.spinnerAnimation}
-          source={require("../assets/animations/spinner.json")}
-        />
-      </View>
-    );
+    return <CustomSpinner />;
   }
 
   return (
@@ -312,7 +304,7 @@ const ProfileScreen: React.FC = () => {
   );
 };
 
-export default ProfileScreen;
+export default React.memo(ProfileScreen);
 
 const styles = StyleSheet.create({
   container: {

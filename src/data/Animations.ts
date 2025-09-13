@@ -46,6 +46,18 @@ const animations = {
   cobras: require("../assets/animations/exerciseAnimations/cobras.json"),
   side_hip: require("../assets/animations/exerciseAnimations/side-hip.json"),
   treadmill: require("../assets/animations/exerciseAnimations/treadmill.json"),
+
+  // ICONS
+  chest: require("../assets/animations/exerciseIconsAnimations/chest-animated.json"),
+  back: require("../assets/animations/exerciseIconsAnimations/back-animated.json"),
+
+  shoulder: require("../assets/animations/exerciseIconsAnimations/shoulder-animated.json"),
+  leg: require("../assets/animations/exerciseIconsAnimations/leg-animated.json"),
+  biceps: require("../assets/animations/exerciseIconsAnimations/biceps-animated.json"),
+  triceps: require("../assets/animations/exerciseIconsAnimations/triceps-animated.json"),
+  forearms: require("../assets/animations/exerciseIconsAnimations/forearms-animated.json"),
+  abs: require("../assets/animations/exerciseIconsAnimations/abs-animated.json"),
+  cardio: require("../assets/animations/exerciseIconsAnimations/cardio-animated.json"),
 };
 
 export default animations;
