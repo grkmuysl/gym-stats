@@ -7,7 +7,8 @@ import BodyScoreGraph from "./BodyScoreGraph";
 import { useProfile } from "../../context/ProfileContext";
 
 const UserStats = () => {
-  const { profileInformation, resetGuide } = useProfile();
+  const { profileInformation, resetGuide, clearProfileInformation } =
+    useProfile();
 
   const height = profileInformation.height || "";
   const weight = profileInformation.weight || "";

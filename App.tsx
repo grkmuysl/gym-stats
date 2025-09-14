@@ -74,7 +74,7 @@ export default function App() {
   useEffect(() => {
     const prepareApp = async () => {
       try {
-        await Font.loadAsync(FONTS);
+        await Promise.all([Font.loadAsync(FONTS)]);
       } catch (error) {
         console.error("App initialization error:", error);
       } finally {
@@ -95,7 +95,6 @@ export default function App() {
     }
   }, [appIsReady]);
 
-  // Show nothing while app is preparing (Expo splash screen will be visible)
   if (!appIsReady) {
     return null;
   }

@@ -25,7 +25,7 @@ const FavouriteScreen = () => {
 
   if (isFavoritesEmpty) {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.emptyFavoriteContainer}>
         <EmptyFavoritesScreen />
       </SafeAreaView>
     );
@@ -64,6 +64,10 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: vs(40),
     paddingBottom: vs(8),
+  },
+  emptyFavoriteContainer: {
+    backgroundColor: AppColors.blackBgColor,
+    flex: 1,
   },
   flatListContainer: {
     flex: 1,

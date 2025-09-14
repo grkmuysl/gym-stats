@@ -100,9 +100,3 @@ const BottomTabs = () => {
 };
 
 export default BottomTabs;
-
-const styles = StyleSheet.create({
-  container: {
-    paddingBottom: vs(30),
-  },
-});
