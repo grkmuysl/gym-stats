@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import { AppColors } from "../styles/colors";
 import UserStats from "../components/HomeScreenComponents/UserStats";
 import AllRecords from "../components/DetailPageComponents/AllRecords";

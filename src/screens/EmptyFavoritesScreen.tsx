@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Dimensions } from "react-native";
-import React from "react";
+import React, { memo } from "react";
 import { Image } from "expo-image";
 import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../styles/colors";
@@ -10,7 +10,7 @@ import { APP_IMAGES } from "../data/AppImages";
 
 const { width, height } = Dimensions.get("screen");
 
-const EmptyFavoritesScreen = () => {
+const EmptyFavoritesScreen = memo(() => {
   const navigation = useNavigation();
 
   const goToAllExercises = () => {
@@ -34,8 +34,6 @@ const EmptyFavoritesScreen = () => {
             source={APP_IMAGES.EMPTY_GYM}
             style={styles.img}
             transition={300}
-            onLoad={() => console.log("Image loaded!")}
-            onLoadStart={() => console.log("Image loading started...")}
           />
           <View style={styles.imageBadge} />
         </View>
@@ -56,7 +54,9 @@ const EmptyFavoritesScreen = () => {
       </View>
     </View>
   );
-};
+});
+
+EmptyFavoritesScreen.displayName = "EmptyFavoritesScreen";
 export default EmptyFavoritesScreen;
 
 const styles = StyleSheet.create({
