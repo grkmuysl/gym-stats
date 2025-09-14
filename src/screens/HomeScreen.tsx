@@ -6,8 +6,12 @@ import AllRecords from "../components/DetailPageComponents/AllRecords";
 import { s, vs } from "react-native-size-matters";
 import { ScrollView } from "react-native-gesture-handler";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { useSingleImagePreloader } from "../hooks/useImagePreloader";
+import { APP_IMAGES } from "../data/AppImages";
 
 const HomeScreen = () => {
+  const { imagesLoaded } = useSingleImagePreloader(APP_IMAGES.EMPTY_GYM);
+
   return (
     <ScrollView>
       <View style={styles.container}>

@@ -7,11 +7,11 @@ import BodyScoreGraph from "./BodyScoreGraph";
 import { useProfile } from "../../context/ProfileContext";
 
 const UserStats = () => {
-  const { profileInformation } = useProfile();
+  const { profileInformation, resetGuide, clearProfileInformation } =
+    useProfile();
 
   const height = profileInformation.height || "";
   const weight = profileInformation.weight || "";
-
   return (
     <View style={styles.container}>
       <WeightGraph weight={weight} height={height} />

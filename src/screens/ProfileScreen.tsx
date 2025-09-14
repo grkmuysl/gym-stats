@@ -166,7 +166,9 @@ const ProfileScreen: React.FC = () => {
           </View>
 
           {/* Profile Card */}
-          <View style={styles.profileCard}>
+          <View
+            style={[styles.profileCard, isEditing && { marginBottom: vs(20) }]}
+          >
             {/* Kişisel Bilgiler */}
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Kişisel Bilgiler</Text>
@@ -310,6 +312,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
+    paddingTop: vs(16),
   },
   keyboardContainer: {
     flex: 1,
@@ -358,7 +361,6 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.grayBgColor || "#1C1C1E",
     borderRadius: s(20),
     padding: s(20),
-    marginBottom: vs(20),
   },
   section: {
     marginBottom: vs(12),

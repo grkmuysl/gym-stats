@@ -8,14 +8,12 @@ import AddExerciseScreen from "../screens/AddExerciseScreen";
 import { GuideModal } from "../screens/GuideModal";
 import { useProfile } from "../context/ProfileContext";
 import { AppColors } from "../styles/colors";
-import { s } from "react-native-size-matters";
-import LottieView from "lottie-react-native";
 import CustomSpinner from "../components/Spinner/CustomSpinner";
 
 const StackNavigation = () => {
   const { isGuideCompleted, setGuideCompleted, isLoading } = useProfile();
   const Stack = createStackNavigator();
-  const animation = useRef<LottieView>(null);
+
   const handleGuideComplete = async () => {
     try {
       await setGuideCompleted();
@@ -26,12 +24,7 @@ const StackNavigation = () => {
 
   if (isLoading) {
     return (
-      <View
-        style={[
-          styles.container,
-          { justifyContent: "center", alignItems: "center" },
-        ]}
-      >
+      <View style={styles.loadingContainer}>
         <CustomSpinner />
       </View>
     );
@@ -48,22 +41,20 @@ const StackNavigation = () => {
   }
 
   return (
-    <Stack.Navigator initialRouteName="BottomTabs">
-      <Stack.Screen
-        name="BottomTabs"
-        component={BottomTabs}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="DetailScreen"
-        component={DetailScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="AddExerciseScreen"
-        component={AddExerciseScreen}
-        options={{ headerShown: false }}
-      />
+    <Stack.Navigator
+      initialRouteName="BottomTabs"
+      screenOptions={{
+        headerShown: false,
+        cardStyleInterpolator: ({ current }) => ({
+          cardStyle: {
+            opacity: current.progress,
+          },
+        }),
+      }}
+    >
+      <Stack.Screen name="BottomTabs" component={BottomTabs} />
+      <Stack.Screen name="DetailScreen" component={DetailScreen} />
+      <Stack.Screen name="AddExerciseScreen" component={AddExerciseScreen} />
     </Stack.Navigator>
   );
 };
@@ -71,17 +62,10 @@ const StackNavigation = () => {
 export default StackNavigation;
 
 const styles = StyleSheet.create({
-  container: {
+  loadingContainer: {
     flex: 1,
     backgroundColor: AppColors.blackBgColor,
-  },
-  spinner: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  spinnerAnimation: {
-    width: s(120),
-    height: s(120),
   },
 });

@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: AppColors.blackBgColor,
     flex: 1,
-    paddingTop: vs(30),
+    paddingTop: vs(42),
   },
 
   searchContainer: {

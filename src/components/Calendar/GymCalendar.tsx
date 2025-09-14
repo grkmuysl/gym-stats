@@ -5,6 +5,8 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
+  Dimensions,
+  Platform,
 } from "react-native";
 import { Calendar } from "react-native-calendars";
 import Modal from "react-native-modal";
@@ -14,14 +16,49 @@ import { useNavigation } from "@react-navigation/native";
 import AppButton from "../Button/AppButton";
 import Entypo from "@expo/vector-icons/Entypo";
 
+const { width, height } = Dimensions.get("window");
+
 const GymCalendar = ({ records, removeRecord }) => {
   const [selectedDate, setSelectedDate] = useState("");
   const [isWorkoutModalVisible, setWorkoutModalVisible] = useState(false);
   const [isNoWorkoutModalVisible, setNoWorkoutModalVisible] = useState(false);
   const [workoutData, setWorkoutData] = useState({});
   const [markedDates, setMarkedDates] = useState({});
+  const [calendarHeight, setCalendarHeight] = useState(vs(350));
 
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const calculateCalendarHeight = () => {
+      const baseHeight = height * 0.45;
+      const minHeight = vs(320);
+      const maxHeight = vs(420);
+
+      let responsiveHeight;
+      if (width < 350) {
+        responsiveHeight = baseHeight * 0.85;
+      } else if (width > 400) {
+        responsiveHeight = baseHeight * 1.1;
+      } else {
+        responsiveHeight = baseHeight;
+      }
+
+      const finalHeight = Math.max(
+        minHeight,
+        Math.min(maxHeight, responsiveHeight)
+      );
+      setCalendarHeight(finalHeight);
+    };
+
+    calculateCalendarHeight();
+
+    const subscription = Dimensions.addEventListener(
+      "change",
+      calculateCalendarHeight
+    );
+
+    return () => subscription?.remove();
+  }, []);
 
   const addBtnHandle = () => {
     setWorkoutModalVisible(false);
@@ -207,13 +244,15 @@ const GymCalendar = ({ records, removeRecord }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.calendarContainer}>
+      <View style={[styles.calendarContainer, { height: calendarHeight }]}>
         <Calendar
           onDayPress={onDayPress}
           markedDates={markedDates}
           markingType={"custom"}
           monthFormat={"MMMM yyyy"}
           locale="tr"
+          hideExtraDays={false}
+          showSixWeeks={true}
           theme={{
             backgroundColor: AppColors.blackBgColor,
             calendarBackground: AppColors.grayBgColor,
@@ -235,9 +274,9 @@ const GymCalendar = ({ records, removeRecord }) => {
             textDayFontWeight: "300",
             textMonthFontWeight: "bold",
             textDayHeaderFontWeight: "300",
-            textDayFontSize: 14,
-            textMonthFontSize: 16,
-            textDayHeaderFontSize: 12,
+            textDayFontSize: width < 350 ? 12 : 14,
+            textMonthFontSize: width < 350 ? 14 : 16,
+            textDayHeaderFontSize: width < 350 ? 10 : 12,
           }}
         />
       </View>
@@ -253,11 +292,11 @@ const styles = StyleSheet.create({
     marginTop: s(12),
   },
   calendarContainer: {
-    height: vs(352),
     width: s(296),
     backgroundColor: AppColors.grayBgColor,
     overflow: "hidden",
     borderRadius: s(8),
+    // Height artık dinamik olarak set ediliyor
   },
   modal: {
     justifyContent: "center",
@@ -324,7 +363,6 @@ const styles = StyleSheet.create({
     fontSize: s(14),
     fontWeight: "bold",
   },
-  // No Workout Modal Styles
   noWorkoutIcon: {
     fontSize: s(48),
     marginBottom: vs(12),
@@ -370,7 +408,6 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     alignItems: "center",
-
     marginTop: vs(12),
   },
   addBtn: {
@@ -384,7 +421,6 @@ const styles = StyleSheet.create({
     fontSize: s(14),
     textAlign: "center",
   },
-
   deleteBtn: {
     height: vs(36),
     width: vs(36),

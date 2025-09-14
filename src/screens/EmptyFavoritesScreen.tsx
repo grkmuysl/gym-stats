@@ -1,30 +1,17 @@
 import { StyleSheet, Text, View, Dimensions } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { memo } from "react";
 import { Image } from "expo-image";
 import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../styles/colors";
 import { useNavigation } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
 import AppButton from "../components/Button/AppButton";
+import { APP_IMAGES } from "../data/AppImages";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("screen");
 
-const EmptyFavoritesScreen = () => {
+const EmptyFavoritesScreen = memo(() => {
   const navigation = useNavigation();
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  useEffect(() => {
-    const preloadImage = async () => {
-      try {
-        await Image.prefetch(require("../assets/images/empty-gym.png"));
-        setImageLoaded(true);
-      } catch (error) {
-        setImageLoaded(true);
-      }
-    };
-
-    preloadImage();
-  }, []);
 
   const goToAllExercises = () => {
     navigation.navigate("Tüm Egzersizler");
@@ -34,7 +21,7 @@ const EmptyFavoritesScreen = () => {
     <View style={styles.container}>
       <View style={styles.backgroundImageContainer}>
         <Image
-          source={require("../assets/images/empty-gym.png")}
+          source={APP_IMAGES.EMPTY_GYM}
           style={styles.backgroundImage}
           blurRadius={20}
         />
@@ -44,10 +31,9 @@ const EmptyFavoritesScreen = () => {
       <View style={styles.contentContainer}>
         <View style={styles.imageWrapper}>
           <Image
-            source={require("../assets/images/empty-gym.png")}
-            style={[styles.img, { opacity: imageLoaded ? 1 : 0 }]}
-            onLoad={() => setImageLoaded(true)}
-            transition={200}
+            source={APP_IMAGES.EMPTY_GYM}
+            style={styles.img}
+            transition={300}
           />
           <View style={styles.imageBadge} />
         </View>
@@ -68,8 +54,9 @@ const EmptyFavoritesScreen = () => {
       </View>
     </View>
   );
-};
+});
 
+EmptyFavoritesScreen.displayName = "EmptyFavoritesScreen";
 export default EmptyFavoritesScreen;
 
 const styles = StyleSheet.create({
@@ -81,15 +68,19 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    right: 0,
-    bottom: 0,
+    width: width,
+    height: height,
   },
   backgroundImage: {
-    width: "100%",
-    height: "100%",
+    width: width,
+    height: height,
   },
   overlay: {
-    ...StyleSheet.absoluteFillObject,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: width,
+    height: height,
     backgroundColor: "rgba(10, 10, 10, 0.85)",
   },
   contentContainer: {

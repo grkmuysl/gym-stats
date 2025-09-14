@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useMemo, useCallback } from "react";
+import { StyleSheet, Text, View, Animated } from "react-native";
+import React, { useMemo, useCallback, useRef, useEffect } from "react";
 import { AppColors } from "../styles/colors";
 import { s, vs } from "react-native-size-matters";
 import { useFavorites } from "../context/FavouritesContext";
@@ -10,11 +10,22 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const FavouriteScreen = () => {
   const { favorites } = useFavorites();
+  const fadeAnim = useRef(
+    new Animated.Value(favorites.length === 0 ? 1 : 0)
+  ).current;
 
   const isFavoritesEmpty = useMemo(
     () => favorites.length === 0,
     [favorites.length]
   );
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: isFavoritesEmpty ? 1 : 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  }, [isFavoritesEmpty, fadeAnim]);
 
   const renderItem = useCallback(
     ({ item }) => <Exercise ExerciseItem={item} />,
@@ -23,17 +34,38 @@ const FavouriteScreen = () => {
 
   const keyExtractor = useCallback((item) => item.id, []);
 
-  if (isFavoritesEmpty) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <EmptyFavoritesScreen />
-      </SafeAreaView>
-    );
-  }
-
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.flatListContainer}>
+    <View style={styles.container}>
+      {/* EmptyFavoritesScreen - Her zaman mount'ta kalır */}
+      <Animated.View
+        style={[
+          styles.emptyFavoriteContainer,
+          {
+            opacity: fadeAnim,
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: isFavoritesEmpty ? 1 : -1,
+          },
+        ]}
+      >
+        <SafeAreaView style={styles.emptyFavoriteContainer}>
+          <EmptyFavoritesScreen />
+        </SafeAreaView>
+      </Animated.View>
+
+      {/* Favorites List */}
+      <Animated.View
+        style={[
+          styles.flatListContainer,
+          {
+            opacity: Animated.subtract(1, fadeAnim), // 1 - fadeAnim = ters opacity
+            paddingTop: vs(40),
+          },
+        ]}
+      >
         <View style={styles.favoritesContainer}>
           <Text style={styles.titleText}>⭐ Favori Egzersizler</Text>
           <View style={styles.underline} />
@@ -51,8 +83,8 @@ const FavouriteScreen = () => {
           removeClippedSubviews={true}
           updateCellsBatchingPeriod={50}
         />
-      </View>
-    </SafeAreaView>
+      </Animated.View>
+    </View>
   );
 };
 
@@ -62,7 +94,11 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: AppColors.blackBgColor,
     flex: 1,
-    paddingVertical: vs(8),
+    paddingBottom: vs(8),
+  },
+  emptyFavoriteContainer: {
+    backgroundColor: AppColors.blackBgColor,
+    flex: 1,
   },
   flatListContainer: {
     flex: 1,

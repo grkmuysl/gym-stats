@@ -17,6 +17,8 @@ import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../styles/colors";
 import { useProfile } from "../context/ProfileContext";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { useImagePreloader } from "../hooks/useImagePreloader";
+import { APP_IMAGES } from "../data/AppImages";
 
 interface FormData {
   firstName: string;
@@ -29,6 +31,10 @@ interface FormData {
 
 const OnboardingScreen = () => {
   const { saveProfileWithData, isLoading } = useProfile();
+
+  const { imagesLoaded, loading: imageLoading } = useImagePreloader(
+    APP_IMAGES.GUIDE
+  );
 
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
@@ -111,9 +117,27 @@ const OnboardingScreen = () => {
           }).start();
         });
       } else {
-        handleComplete();
+        if (imagesLoaded) {
+          handleComplete();
+        }
       }
     }
+  };
+
+  const getButtonText = () => {
+    if (currentStep === steps.length - 1) {
+      if (imageLoading) return "Hazırlanıyor...";
+      if (!imagesLoaded) return "Yükleniyor...";
+      return "🚀 Başlayalım!";
+    }
+    return "İleri";
+  };
+
+  const isButtonDisabled = () => {
+    if (currentStep === steps.length - 1) {
+      return !imagesLoaded || isCompleting;
+    }
+    return false;
   };
 
   const handleBack = () => {
@@ -323,22 +347,26 @@ const OnboardingScreen = () => {
             )}
 
             <TouchableOpacity
-              style={styles.nextButtonWrapper}
+              style={[
+                styles.nextButtonWrapper,
+                isButtonDisabled() && styles.buttonDisabled,
+              ]}
               onPress={handleNext}
               activeOpacity={0.8}
+              disabled={isButtonDisabled()}
             >
               <LinearGradient
-                colors={[AppColors.limeGreenColor, "#4ECDC4"]}
+                colors={
+                  isButtonDisabled()
+                    ? [AppColors.lightGray, AppColors.lightGray]
+                    : [AppColors.limeGreenColor, "#4ECDC4"]
+                }
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.nextButton}
               >
                 <View style={styles.buttonContent}>
-                  <Text style={styles.nextButtonText}>
-                    {currentStep === steps.length - 1
-                      ? "🚀 Başlayalım!"
-                      : "İleri"}
-                  </Text>
+                  <Text style={styles.nextButtonText}>{getButtonText()}</Text>
                   {currentStep !== steps.length - 1 && (
                     <AntDesign
                       name="arrowright"
@@ -511,5 +539,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     marginRight: s(52),
     marginTop: s(3),
+  },
+  buttonDisabled: {
+    opacity: 0.6,
   },
 });
