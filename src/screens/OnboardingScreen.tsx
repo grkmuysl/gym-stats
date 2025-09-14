@@ -362,6 +362,7 @@ export default OnboardingScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingVertical: vs(40),
   },
   safeArea: {
     flex: 1,

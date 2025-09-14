@@ -32,7 +32,7 @@ const FavouriteScreen = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.flatListContainer}>
         <View style={styles.favoritesContainer}>
           <Text style={styles.titleText}>⭐ Favori Egzersizler</Text>
@@ -52,7 +52,7 @@ const FavouriteScreen = () => {
           updateCellsBatchingPeriod={50}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: AppColors.blackBgColor,
     flex: 1,
-    paddingVertical: vs(8),
+    paddingTop: vs(40),
+    paddingBottom: vs(8),
   },
   flatListContainer: {
     flex: 1,
