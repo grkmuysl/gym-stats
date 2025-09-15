@@ -15,10 +15,21 @@ import { s, vs } from "react-native-size-matters";
 import { useNavigation } from "@react-navigation/native";
 import AppButton from "../Button/AppButton";
 import Entypo from "@expo/vector-icons/Entypo";
+import { allExercises } from "../../data/AllExercises";
+
+interface GymCalendarProps {
+  records: any[];
+  removeRecord: (id: string) => void;
+  exercisesList: any[];
+}
 
 const { width, height } = Dimensions.get("window");
 
-const GymCalendar = ({ records, removeRecord }) => {
+const GymCalendar = ({
+  records,
+  removeRecord,
+  exercisesList,
+}: GymCalendarProps) => {
   const [selectedDate, setSelectedDate] = useState("");
   const [isWorkoutModalVisible, setWorkoutModalVisible] = useState(false);
   const [isNoWorkoutModalVisible, setNoWorkoutModalVisible] = useState(false);
@@ -153,8 +164,40 @@ const GymCalendar = ({ records, removeRecord }) => {
     return date.toLocaleDateString("tr-TR", options);
   };
 
+  const navigateExerciseDetail = ({ item }) => {
+    const exerciseName = item.exercise || item.exerciseName || item.name;
+
+    const matchedExercise = allExercises?.find(
+      (exercise) => exercise.name.toLowerCase() === exerciseName?.toLowerCase()
+    );
+
+    if (matchedExercise) {
+      setWorkoutModalVisible(false);
+      navigation.navigate("DetailScreen" as never, matchedExercise as never);
+    } else {
+      setWorkoutModalVisible(false);
+      const defaultExerciseData = {
+        name: exerciseName || "Bilinmeyen Egzersiz",
+        subtitle: "Egzersiz detayları",
+        type: "Genel",
+        difficulty: "Orta",
+        animationSource: "default",
+        inputType: "weight",
+        id: item.id || Date.now().toString(),
+      };
+
+      navigation.navigate(
+        "DetailScreen" as never,
+        defaultExerciseData as never
+      );
+    }
+  };
+
   const renderWorkoutItem = ({ item }) => (
-    <View style={styles.workoutItem}>
+    <TouchableOpacity
+      style={styles.workoutItem}
+      onPress={() => navigateExerciseDetail({ item })}
+    >
       <Text style={styles.exerciseName}>{item.exercise}</Text>
       <Text style={styles.workoutDetails}>
         {item.sets} set × {item.reps} tekrar - {item.weight}
@@ -165,7 +208,7 @@ const GymCalendar = ({ records, removeRecord }) => {
         title={<Entypo name="trash" size={24} color={AppColors.grayBgColor} />}
         style={styles.deleteBtn}
       />
-    </View>
+    </TouchableOpacity>
   );
 
   const WorkoutModal = () => (

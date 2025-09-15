@@ -4,6 +4,7 @@ import { AppColors } from "../../styles/colors";
 import { s, vs } from "react-native-size-matters";
 import GymCalendar from "../Calendar/GymCalendar";
 import { useRecords } from "../../context/ExerciseRecordsContext";
+import { allExercises } from "../../data/AllExercises";
 
 const AllRecords = ({ exerciseName = null }) => {
   const { allRecords, removeRecord } = useRecords();
@@ -36,7 +37,11 @@ const AllRecords = ({ exerciseName = null }) => {
 
   return (
     <View style={styles.container}>
-      <GymCalendar records={formattedRecords} removeRecord={removeRecord} />
+      <GymCalendar
+        records={formattedRecords}
+        removeRecord={removeRecord}
+        exerciseList={allExercises}
+      />
     </View>
   );
 };
