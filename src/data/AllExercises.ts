@@ -448,6 +448,15 @@ export const allCardioExercises = [
     animationSource: "treadmill",
     inputType: "duration",
   },
+  {
+    name: "İp Atlama",
+    subtitle: "Hızlı kalori yakımı ve koordinasyon gelişimi sağlar",
+    type: "Kardio",
+    id: "47",
+    difficulty: "Başlangıç",
+    animationSource: "skipping_rope",
+    inputType: "duration",
+  },
 ];
 
 export const exerciseTypes = [
