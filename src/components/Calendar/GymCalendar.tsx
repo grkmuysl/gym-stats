@@ -193,23 +193,45 @@ const GymCalendar = ({
     }
   };
 
-  const renderWorkoutItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.workoutItem}
-      onPress={() => navigateExerciseDetail({ item })}
-    >
-      <Text style={styles.exerciseName}>{item.exercise}</Text>
-      <Text style={styles.workoutDetails}>
-        {item.sets} set × {item.reps} tekrar - {item.weight}
-      </Text>
+  const renderWorkoutItem = ({ item }) => {
+    const exerciseName = item.exercise || item.exerciseName || item.name;
+    const matchedExercise = allExercises?.find(
+      (exercise) => exercise.name.toLowerCase() === exerciseName?.toLowerCase()
+    );
+    const inputType = matchedExercise?.inputType || "weight";
 
-      <AppButton
-        onPress={() => handleDeleteRecord(item.id)}
-        title={<Entypo name="trash" size={24} color={AppColors.grayBgColor} />}
-        style={styles.deleteBtn}
-      />
-    </TouchableOpacity>
-  );
+    // Detay metni
+    let workoutDetails;
+    let durationUnit;
+    if (inputType === "duration") {
+      exerciseName === "Koşu Bandı"
+        ? (durationUnit = "dk")
+        : (durationUnit = "sn");
+      workoutDetails = `Toplam Süre: ${item.duration || "0"} ${durationUnit}`;
+    } else if (inputType === "reps") {
+      workoutDetails = `${item.sets} set × ${item.reps} tekrar`;
+    } else {
+      workoutDetails = `${item.sets} set × ${item.reps} tekrar - ${item.weight}kg`;
+    }
+
+    return (
+      <TouchableOpacity
+        style={styles.workoutItem}
+        onPress={() => navigateExerciseDetail({ item })}
+      >
+        <Text style={styles.exerciseName}>{item.exercise}</Text>
+        <Text style={styles.workoutDetails}>{workoutDetails}</Text>
+
+        <AppButton
+          onPress={() => handleDeleteRecord(item.id)}
+          title={
+            <Entypo name="trash" size={24} color={AppColors.grayBgColor} />
+          }
+          style={styles.deleteBtn}
+        />
+      </TouchableOpacity>
+    );
+  };
 
   const WorkoutModal = () => (
     <Modal

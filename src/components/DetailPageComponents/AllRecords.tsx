@@ -27,7 +27,8 @@ const AllRecords = ({ exerciseName = null }) => {
         exercise: record.exerciseName,
         sets: record.setsCount,
         reps: record.repsCount,
-        weight: record.weight > 0 ? `${record.weight}kg` : "Bodyweight",
+        weight: record.weight,
+        duration: record.duration * record.setsCount,
         id: record.id,
       });
     });
