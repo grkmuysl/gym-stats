@@ -459,6 +459,18 @@ export const allCardioExercises = [
   },
 ];
 
+export const allExercises = [
+  ...allChestExercises,
+  ...allBackExercises,
+  ...allShoulderExercises,
+  ...allLegExercises,
+  ...allBicepsExercises,
+  ...allTricepsExercises,
+  ...allAbsExercises,
+  ...allForearmsExercises,
+  ...allCardioExercises,
+];
+
 export const exerciseTypes = [
   { label: "Göğüs", value: "Göğüs" },
   { label: "Sırt", value: "Sırt" },
