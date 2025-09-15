@@ -46,6 +46,7 @@ const animations = {
   cobras: require("../assets/animations/exerciseAnimations/cobras.json"),
   side_hip: require("../assets/animations/exerciseAnimations/side-hip.json"),
   treadmill: require("../assets/animations/exerciseAnimations/treadmill.json"),
+  skipping_rope: require("../assets/animations/exerciseAnimations/skipping-rope.json"),
 
   // ICONS
   chest: require("../assets/animations/exerciseIconsAnimations/chest-animated.json"),
