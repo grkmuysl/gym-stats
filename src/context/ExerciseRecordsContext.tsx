@@ -12,7 +12,8 @@ export type ExerciseRecordsItem = {
   exerciseName: string;
   setsCount: number;
   repsCount: number;
-  weight: number;
+  weight?: number;
+  duration?: number;
   date: string;
 };
 

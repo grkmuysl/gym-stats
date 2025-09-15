@@ -26,6 +26,7 @@ const AddExerciseScreen = () => {
   const [selectedReps, setSelectedReps] = useState<number | null>(null);
   const [selectedSets, setSelectedSets] = useState<number | null>(null);
   const [selectedWeight, setSelectedWeight] = useState<number | null>(null);
+  const [selectedDuration, setSelectedDuration] = useState<number | null>(null);
   const [availableExercises, setAvailableExercises] = useState([]);
   const [typeDropdownOpen, setTypeDropdownOpen] = useState(false);
   const [exerciseDropdownOpen, setExerciseDropdownOpen] = useState(false);
@@ -113,6 +114,7 @@ const AddExerciseScreen = () => {
       setsCount: selectedSets,
       repsCount: selectedReps,
       weight: selectedWeight || 0,
+      duration: selectedDuration || 0,
       date: date || new Date().toISOString(),
     };
 
@@ -189,11 +191,19 @@ const AddExerciseScreen = () => {
                   ) : (
                     <Text style={styles.label}>Süre</Text>
                   )}
-                  <CustomInput
-                    type="number"
-                    value={selectedWeight}
-                    onValueChange={(value) => setSelectedWeight(value)}
-                  />
+                  {selectedExerciseInputType === "weight" ? (
+                    <CustomInput
+                      type="number"
+                      value={selectedWeight}
+                      onValueChange={(value) => setSelectedWeight(value)}
+                    />
+                  ) : (
+                    <CustomInput
+                      type="number"
+                      value={selectedDuration}
+                      onValueChange={(value) => setSelectedDuration(value)}
+                    />
+                  )}
                 </View>
               )}
             </View>

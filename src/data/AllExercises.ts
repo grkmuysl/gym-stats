@@ -480,7 +480,7 @@ export const exerciseTypes = [
   { label: "Triceps", value: "Triceps" },
   { label: "Karın", value: "Karın" },
   { label: "Forearms", value: "Forearms" },
-  { label: "Cardio", value: "Cardio" },
+  { label: "Kardiyo", value: "Cardio" },
 ];
 
 export const getExercisesByType = (type) => {
