@@ -393,6 +393,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
+    paddingVertical: vs(24),
   },
   keyboardContainer: {
     flex: 1,

@@ -1,7 +1,7 @@
+import { useEffect, useCallback, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import StackNavigation from "./src/navigation/StackNavigation";
-import { useEffect, useState, useCallback } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { FavoritesProvider } from "./src/context/FavouritesContext";
@@ -68,13 +68,17 @@ const FONTS = {
 
 SplashScreen.preventAutoHideAsync();
 
+const { width, height } = Dimensions.get("window");
+
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
+  const [dimensions, setDimensions] = useState({ width, height });
 
   useEffect(() => {
     const prepareApp = async () => {
       try {
         await Promise.all([Font.loadAsync(FONTS)]);
+        await new Promise((resolve) => setTimeout(resolve, 100));
       } catch (error) {
         console.error("App initialization error:", error);
       } finally {
@@ -83,12 +87,21 @@ export default function App() {
     };
 
     prepareApp();
+
+    const subscription = Dimensions.addEventListener("change", ({ window }) => {
+      setDimensions({ width: window.width, height: window.height });
+    });
+
+    return () => subscription?.remove();
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
       try {
         await SplashScreen.hideAsync();
+        setTimeout(() => {
+          setDimensions(Dimensions.get("window"));
+        }, 50);
       } catch (error) {
         console.error("Error hiding splash screen:", error);
       }
@@ -100,7 +113,13 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
+    <View
+      style={[
+        styles.container,
+        { width: dimensions.width, height: dimensions.height },
+      ]}
+      onLayout={onLayoutRootView}
+    >
       <ProfileContextProvider>
         <RecordsProvider>
           <FavoritesProvider>
@@ -137,6 +156,7 @@ const AppContent = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: AppColors.blackBgColor,
   },
   loadingContainer: {
     flex: 1,
