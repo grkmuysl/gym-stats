@@ -73,7 +73,7 @@ const GymCalendar = ({
 
   const addBtnHandle = () => {
     setWorkoutModalVisible(false);
-    navigation.navigate("AddExerciseScreen");
+    navigation.navigate("AddExerciseScreen", { date: selectedDate });
   };
 
   useEffect(() => {
