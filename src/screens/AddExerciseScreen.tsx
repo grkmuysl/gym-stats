@@ -105,6 +105,7 @@ const AddExerciseScreen = () => {
     setSelectedReps(null);
     setSelectedSets(null);
     setSelectedWeight(null);
+    setSelectedDuration(null);
   };
 
   const addExercise = () => {

@@ -337,8 +337,8 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   iconContainer: {
-    width: s(56),
-    height: s(56),
+    width: s(52),
+    height: s(52),
     borderRadius: s(28),
     justifyContent: "center",
     alignItems: "center",
@@ -354,10 +354,10 @@ const styles = StyleSheet.create({
     marginBottom: vs(4),
   },
   animationContainer: {
-    height: vs(68),
-    width: s(68),
+    height: vs(62),
+    width: s(62),
     backgroundColor: AppColors.grayBgColor,
-    borderRadius: s(34),
+    borderRadius: s(32),
   },
   animation: {
     width: "100%",
