@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
+  Animated,
 } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../styles/colors";
@@ -16,8 +17,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import CustomModal from "../components/CustomModal/CustomModal";
 import { useProfile } from "../context/ProfileContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import LottieView from "lottie-react-native";
 import CustomSpinner from "../components/Spinner/CustomSpinner";
+import { Ionicons } from "@expo/vector-icons";
 
 const ProfileScreen: React.FC = () => {
   const {
@@ -47,7 +48,24 @@ const ProfileScreen: React.FC = () => {
     message: "",
   });
 
-  const animation = useRef<LottieView>(null);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const scaleAnim = useRef(new Animated.Value(0.95)).current;
+
+  useEffect(() => {
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+      Animated.spring(scaleAnim, {
+        toValue: 1,
+        friction: 8,
+        tension: 40,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
 
   useEffect(() => {
     setEditedProfile({
@@ -74,8 +92,39 @@ const ProfileScreen: React.FC = () => {
       showModal("error", "Hata", "Ad alanı boş olamaz!");
       return;
     }
+
     if (!editedProfile.lastName.trim()) {
       showModal("error", "Hata", "Soyad alanı boş olamaz!");
+      return;
+    }
+
+    const age = parseInt(editedProfile.age.trim());
+    if (!editedProfile.age.trim()) {
+      showModal("error", "Hata", "Yaş alanı boş olamaz!");
+      return;
+    }
+    if (isNaN(age) || age < 1 || age > 120) {
+      showModal("error", "Hata", "Lütfen geçerli bir yaş girin.");
+      return;
+    }
+
+    const weight = parseFloat(editedProfile.weight.trim());
+    if (!editedProfile.weight.trim()) {
+      showModal("error", "Hata", "Kilo alanı boş olamaz!");
+      return;
+    }
+    if (isNaN(weight) || weight < 20 || weight > 300) {
+      showModal("error", "Hata", "Lütfen geçerli bir kilo girin.");
+      return;
+    }
+
+    const height = parseInt(editedProfile.height.trim());
+    if (!editedProfile.height.trim()) {
+      showModal("error", "Hata", "Boy alanı boş olamaz!");
+      return;
+    }
+    if (isNaN(height) || height < 50 || height > 250) {
+      showModal("error", "Hata", "Lütfen geçerli bir boy girin.");
       return;
     }
 
@@ -130,170 +179,260 @@ const ProfileScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        style={styles.keyboardContainer}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      <LinearGradient
+        colors={["#131313ff", AppColors.blackBgColor]}
+        style={styles.gradientBg}
       >
-        <ScrollView
-          contentContainerStyle={styles.scrollContainer}
-          showsVerticalScrollIndicator={false}
+        <KeyboardAvoidingView
+          style={styles.keyboardContainer}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
-          {/* Header */}
-          <View style={styles.header}>
-            <View>
-              <Text style={styles.headerTitle}>Profil Bilgileri</Text>
-              {getFullName() && (
-                <Text style={styles.headerSubtitle}>{getFullName()}</Text>
-              )}
-            </View>
-
-            {!isEditing && (
-              <TouchableOpacity
-                onPress={() => setIsEditing(true)}
-                activeOpacity={0.8}
-                style={styles.editBtnContainer}
-              >
-                <LinearGradient
-                  colors={[AppColors.limeGreenColor, "#4ECDC4"]}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={[styles.editButton, styles.gradientButton]}
-                >
-                  <Text style={styles.editButtonText}>✏️ Düzenle</Text>
-                </LinearGradient>
-              </TouchableOpacity>
-            )}
-          </View>
-
-          {/* Profile Card */}
-          <View
-            style={[styles.profileCard, isEditing && { marginBottom: vs(20) }]}
+          <ScrollView
+            contentContainerStyle={styles.scrollContainer}
+            showsVerticalScrollIndicator={false}
           >
-            {/* Kişisel Bilgiler */}
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Kişisel Bilgiler</Text>
+            <Animated.View
+              style={{
+                opacity: fadeAnim,
+                transform: [{ scale: scaleAnim }],
+              }}
+            >
+              {/* Minimal Header */}
+              <View style={styles.header}>
+                <View style={styles.headerContent}>
+                  <View>
+                    <Text style={styles.headerTitle}>Profil Bilgileri</Text>
+                    {getFullName() && (
+                      <Text style={styles.headerName}>{getFullName()}</Text>
+                    )}
+                  </View>
 
-              {/* Ad */}
-              <View style={styles.inputGroup}>
-                <Text style={styles.label}>Ad</Text>
-                <TextInput
-                  style={[styles.input, !isEditing && styles.inputDisabled]}
-                  value={editedProfile.firstName}
-                  onChangeText={(text) =>
-                    setEditedProfile({ ...editedProfile, firstName: text })
-                  }
-                  placeholder="Adınızı girin"
-                  placeholderTextColor={AppColors.lightGray}
-                  editable={isEditing}
-                />
+                  {!isEditing && (
+                    <TouchableOpacity
+                      onPress={() => setIsEditing(true)}
+                      style={styles.editButton}
+                      activeOpacity={0.7}
+                    >
+                      <LinearGradient
+                        colors={[
+                          "rgba(255,255,255,0.1)",
+                          "rgba(255,255,255,0.05)",
+                        ]}
+                        style={styles.editButtonGradient}
+                      >
+                        <Ionicons
+                          name="create-outline"
+                          size={20}
+                          color="#FFF"
+                        />
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  )}
+                </View>
               </View>
 
-              {/* Soyad */}
-              <View style={styles.inputGroup}>
-                <Text style={styles.label}>Soyad</Text>
-                <TextInput
-                  style={[styles.input, !isEditing && styles.inputDisabled]}
-                  value={editedProfile.lastName}
-                  onChangeText={(text) =>
-                    setEditedProfile({ ...editedProfile, lastName: text })
-                  }
-                  placeholder="Soyadınızı girin"
-                  placeholderTextColor={AppColors.lightGray}
-                  editable={isEditing}
-                />
+              {/* Info Cards */}
+              <View style={styles.cardsContainer}>
+                {/* Personal Info Card */}
+                <View style={styles.infoCard}>
+                  <View style={styles.cardHeader}>
+                    <View style={styles.iconContainer}>
+                      <Ionicons
+                        name="person-outline"
+                        size={18}
+                        color={AppColors.limeGreenColor}
+                      />
+                    </View>
+                    <Text style={styles.cardTitle}>Kişisel Bilgiler</Text>
+                  </View>
+
+                  <View style={styles.cardContent}>
+                    {/* Ad */}
+                    <View style={styles.modernInputGroup}>
+                      <Text style={styles.modernLabel}>Ad</Text>
+                      <View style={styles.inputWrapper}>
+                        <TextInput
+                          style={[
+                            styles.modernInput,
+                            !isEditing && styles.inputDisabled,
+                          ]}
+                          value={editedProfile.firstName}
+                          onChangeText={(text) =>
+                            setEditedProfile({
+                              ...editedProfile,
+                              firstName: text,
+                            })
+                          }
+                          placeholder="Adınızı girin"
+                          placeholderTextColor="#444"
+                          editable={isEditing}
+                        />
+                      </View>
+                    </View>
+
+                    {/* Soyad */}
+                    <View style={styles.modernInputGroup}>
+                      <Text style={styles.modernLabel}>Soyad</Text>
+                      <View style={styles.inputWrapper}>
+                        <TextInput
+                          style={[
+                            styles.modernInput,
+                            !isEditing && styles.inputDisabled,
+                          ]}
+                          value={editedProfile.lastName}
+                          onChangeText={(text) =>
+                            setEditedProfile({
+                              ...editedProfile,
+                              lastName: text,
+                            })
+                          }
+                          placeholder="Soyadınızı girin"
+                          placeholderTextColor="#444"
+                          editable={isEditing}
+                        />
+                      </View>
+                    </View>
+
+                    {/* Yaş */}
+                    <View style={styles.modernInputGroup}>
+                      <Text style={styles.modernLabel}>Yaş</Text>
+                      <View style={styles.inputWrapper}>
+                        <TextInput
+                          style={[
+                            styles.modernInput,
+                            !isEditing && styles.inputDisabled,
+                          ]}
+                          value={editedProfile.age}
+                          onChangeText={(text) =>
+                            setEditedProfile({ ...editedProfile, age: text })
+                          }
+                          placeholder="Yaşınızı girin"
+                          placeholderTextColor="#444"
+                          keyboardType="numeric"
+                          editable={isEditing}
+                        />
+                      </View>
+                    </View>
+                  </View>
+                </View>
+
+                {/* Physical Info Card */}
+                <View style={styles.infoCard}>
+                  <View style={styles.cardHeader}>
+                    <View style={[styles.iconContainer, styles.physicalIcon]}>
+                      <Ionicons
+                        name="fitness-outline"
+                        size={18}
+                        color="#4ECDC4"
+                      />
+                    </View>
+                    <Text style={styles.cardTitle}>Fiziksel Özellikler</Text>
+                  </View>
+
+                  <View style={styles.cardContent}>
+                    {/* Kilo */}
+                    <View style={styles.modernInputGroup}>
+                      <Text style={styles.modernLabel}>Kilo</Text>
+                      <View style={styles.inputWrapper}>
+                        <TextInput
+                          style={[
+                            styles.modernInput,
+                            !isEditing && styles.inputDisabled,
+                          ]}
+                          value={editedProfile.weight}
+                          onChangeText={(text) =>
+                            setEditedProfile({
+                              ...editedProfile,
+                              weight: text,
+                            })
+                          }
+                          placeholder="Kilonuzu girin"
+                          placeholderTextColor="#444"
+                          keyboardType="numeric"
+                          editable={isEditing}
+                        />
+                        {editedProfile.weight !== "" && (
+                          <Text style={styles.unitText}>kg</Text>
+                        )}
+                      </View>
+                    </View>
+
+                    {/* Boy */}
+                    <View style={styles.modernInputGroup}>
+                      <Text style={styles.modernLabel}>Boy</Text>
+                      <View style={styles.inputWrapper}>
+                        <TextInput
+                          style={[
+                            styles.modernInput,
+                            !isEditing && styles.inputDisabled,
+                          ]}
+                          value={editedProfile.height}
+                          onChangeText={(text) =>
+                            setEditedProfile({
+                              ...editedProfile,
+                              height: text,
+                            })
+                          }
+                          placeholder="Boyunuzu girin"
+                          placeholderTextColor="#444"
+                          keyboardType="numeric"
+                          editable={isEditing}
+                        />
+                        {editedProfile.height !== "" && (
+                          <Text style={styles.unitText}>cm</Text>
+                        )}
+                      </View>
+                    </View>
+                  </View>
+                </View>
               </View>
 
-              {/* Yaş */}
-              <View style={styles.inputGroup}>
-                <Text style={styles.label}>Yaş</Text>
-                <TextInput
-                  style={[styles.input, !isEditing && styles.inputDisabled]}
-                  value={editedProfile.age}
-                  onChangeText={(text) =>
-                    setEditedProfile({ ...editedProfile, age: text })
-                  }
-                  placeholder="Yaşınızı girin"
-                  placeholderTextColor={AppColors.lightGray}
-                  keyboardType="numeric"
-                  editable={isEditing}
-                />
-              </View>
-            </View>
-
-            {/* Fiziksel Özellikler */}
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Fiziksel Özellikler</Text>
-
-              {/* Kilo */}
-              <View style={styles.inputGroup}>
-                <Text style={styles.label}>Kilo (kg)</Text>
-                <TextInput
-                  style={[styles.input, !isEditing && styles.inputDisabled]}
-                  value={editedProfile.weight}
-                  onChangeText={(text) =>
-                    setEditedProfile({ ...editedProfile, weight: text })
-                  }
-                  placeholder="Kilonuzu girin"
-                  placeholderTextColor={AppColors.lightGray}
-                  keyboardType="numeric"
-                  editable={isEditing}
-                />
-              </View>
-
-              {/* Boy */}
-              <View style={styles.inputGroup}>
-                <Text style={styles.label}>Boy (cm)</Text>
-                <TextInput
-                  style={[styles.input, !isEditing && styles.inputDisabled]}
-                  value={editedProfile.height}
-                  onChangeText={(text) =>
-                    setEditedProfile({ ...editedProfile, height: text })
-                  }
-                  placeholder="Boyunuzu girin"
-                  placeholderTextColor={AppColors.lightGray}
-                  keyboardType="numeric"
-                  editable={isEditing}
-                />
-              </View>
-            </View>
-          </View>
-
-          {/* Action Buttons */}
-          {isEditing && (
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={styles.buttonWrapper}
-                onPress={handleCancel}
-                activeOpacity={0.8}
-              >
-                <LinearGradient
-                  colors={["#FF6B6B", "#ff534aff"]}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={[styles.button, styles.gradientButton]}
+              {/* Action Buttons */}
+              {isEditing && (
+                <Animated.View
+                  style={[
+                    styles.actionButtons,
+                    {
+                      opacity: fadeAnim,
+                      transform: [
+                        {
+                          translateY: fadeAnim.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: [20, 0],
+                          }),
+                        },
+                      ],
+                    },
+                  ]}
                 >
-                  <Text style={styles.buttonText}>❌ İptal</Text>
-                </LinearGradient>
-              </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.actionButton}
+                    onPress={handleCancel}
+                    activeOpacity={0.8}
+                  >
+                    <View style={styles.cancelButton}>
+                      <Text style={styles.cancelButtonText}>İptal</Text>
+                    </View>
+                  </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.buttonWrapper}
-                onPress={handleSaveImproved}
-                activeOpacity={0.8}
-              >
-                <LinearGradient
-                  colors={[AppColors.limeGreenColor, "#4ECDC4"]}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={[styles.button, styles.gradientButton]}
-                >
-                  <Text style={styles.buttonText}>💾 Kaydet</Text>
-                </LinearGradient>
-              </TouchableOpacity>
-            </View>
-          )}
-        </ScrollView>
-      </KeyboardAvoidingView>
+                  <TouchableOpacity
+                    style={[styles.actionButton, styles.saveButton]}
+                    onPress={handleSaveImproved}
+                    activeOpacity={0.8}
+                  >
+                    <LinearGradient
+                      colors={[AppColors.limeGreenColor, "#4ECDC4"]}
+                      style={styles.gradientSaveButton}
+                    >
+                      <Text style={styles.saveButtonText}>Kaydet</Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                </Animated.View>
+              )}
+            </Animated.View>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </LinearGradient>
 
       <CustomModal
         visible={modalVisible}
@@ -314,128 +453,163 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     paddingTop: vs(16),
   },
+  gradientBg: {
+    flex: 1,
+  },
   keyboardContainer: {
     flex: 1,
   },
   scrollContainer: {
-    padding: s(20),
+    paddingBottom: vs(30),
   },
 
+  // Minimal Header
   header: {
+    paddingHorizontal: s(20),
+    paddingTop: vs(20),
+    paddingBottom: vs(30),
+  },
+  headerContent: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "flex-start",
-    marginBottom: vs(12),
+    alignItems: "center",
   },
   headerTitle: {
-    fontSize: s(22),
-    position: "relative",
-    top: s(6),
+    fontSize: s(28),
     fontFamily: "Roboto-Bold",
-    color: AppColors.whiteColor,
+    color: "#FFF",
+    marginBottom: vs(4),
   },
-  headerSubtitle: {
+  headerName: {
     fontSize: s(16),
     fontFamily: "Roboto-Regular",
-    color: AppColors.lightGray,
-    marginTop: vs(12),
+    color: "#666",
   },
   editButton: {
-    width: s(112),
-    height: vs(40),
-    borderRadius: s(12),
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  editBtnContainer: {
-    position: "absolute",
-    right: 10,
-    top: 16,
-  },
-  editButtonText: {
-    color: AppColors.whiteColor,
-    fontSize: s(14),
-    fontFamily: "Roboto-Medium",
-  },
-  profileCard: {
-    backgroundColor: AppColors.grayBgColor || "#1C1C1E",
     borderRadius: s(20),
-    padding: s(20),
   },
-  section: {
-    marginBottom: vs(12),
-  },
-  sectionTitle: {
-    fontSize: s(18),
-    fontFamily: "Roboto-Bold",
-    color: AppColors.whiteColor,
-    marginBottom: vs(15),
-  },
-  inputGroup: {
-    marginBottom: vs(15),
-  },
-  label: {
-    fontSize: s(14),
-    fontFamily: "Roboto-Medium",
-    color: AppColors.lightGray,
-    marginBottom: vs(6),
-  },
-  input: {
-    backgroundColor: "#000",
-    borderRadius: s(12),
-    padding: s(15),
-    fontSize: s(16),
-    color: AppColors.whiteColor,
-    fontFamily: "Roboto-Regular",
+  editButtonGradient: {
+    width: s(40),
+    height: s(40),
+    borderRadius: s(20),
+    justifyContent: "center",
+    alignItems: "center",
     borderWidth: 1,
-    borderColor: AppColors.lightGray || "#333",
-  },
-  inputDisabled: {
-    backgroundColor: AppColors.grayBgColor || "#2C2C2E",
-    color: AppColors.whiteColor || "#999",
-    borderColor: "white",
-    borderWidth: s(0.5),
+    borderColor: "rgba(255,255,255,0.1)",
   },
 
-  buttonContainer: {
-    flexDirection: "row",
-    gap: s(15),
+  // Cards
+  cardsContainer: {
+    paddingHorizontal: s(20),
+    gap: vs(16),
   },
-  button: {
-    flex: 1,
-    paddingVertical: vs(15),
+  infoCard: {
+    backgroundColor: "rgba(255,255,255,0.03)",
+    borderRadius: s(16),
+    padding: s(20),
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.06)",
+  },
+  cardHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: vs(20),
+  },
+  iconContainer: {
+    width: s(32),
+    height: s(32),
+    borderRadius: s(8),
+    backgroundColor: "rgba(255,255,255,0.05)",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: s(12),
+  },
+  physicalIcon: {
+    backgroundColor: "rgba(78,205,196,0.1)",
+  },
+  cardTitle: {
+    fontSize: s(16),
+    fontFamily: "Roboto-Medium",
+    color: "#FFF",
+  },
+  cardContent: {
+    gap: vs(16),
+  },
+
+  // Modern Inputs
+  modernInputGroup: {
+    gap: vs(6),
+  },
+  modernLabel: {
+    fontSize: s(12),
+    fontFamily: "Roboto-Regular",
+    color: "#666",
+    marginLeft: s(2),
+  },
+  inputWrapper: {
+    position: "relative",
+  },
+  modernInput: {
+    backgroundColor: "rgba(255,255,255,0.05)",
     borderRadius: s(12),
+    paddingHorizontal: s(16),
+    paddingVertical: vs(14),
+    fontSize: s(16),
+    color: "#FFF",
+    fontFamily: "Roboto-Regular",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.08)",
+  },
+  inputDisabled: {
+    backgroundColor: "transparent",
+    borderColor: "rgba(255,255,255,0.05)",
+  },
+  unitText: {
+    position: "absolute",
+    right: s(16),
+    top: "50%",
+    transform: [{ translateY: -10 }],
+    fontSize: s(14),
+    color: "#444",
+    fontFamily: "Roboto-Regular",
+  },
+
+  // Action Buttons
+  actionButtons: {
+    flexDirection: "row",
+    paddingHorizontal: s(20),
+    marginTop: vs(24),
+    gap: s(12),
+  },
+  actionButton: {
+    flex: 1,
+  },
+  cancelButton: {
     alignItems: "center",
     justifyContent: "center",
+    paddingVertical: vs(16),
+    borderRadius: s(12),
+    backgroundColor: "rgba(255,255,255,0.05)",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.08)",
   },
-  buttonText: {
+  cancelButtonText: {
+    fontSize: s(16),
+    fontFamily: "Roboto-Medium",
+    color: "#999",
+  },
+  saveButton: {
+    flex: 1.5,
+  },
+  gradientSaveButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: vs(16),
+    borderRadius: s(12),
+  },
+  saveButtonText: {
     fontSize: s(16),
     fontFamily: "Roboto-Bold",
-    color: AppColors.whiteColor,
-  },
-  buttonWrapper: {
-    flex: 1,
-    borderRadius: s(16),
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
-  },
-  gradientButton: {
-    backgroundColor: "transparent",
-    borderWidth: 0,
-  },
-  spinner: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  spinnerAnimation: {
-    width: s(120),
-    height: s(120),
+    color: "#FFF",
   },
 });
