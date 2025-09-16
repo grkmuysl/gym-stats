@@ -1,12 +1,12 @@
 import {
-  FlatList,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState, useCallback, memo } from "react";
+import { FlashList } from "@shopify/flash-list";
 import Exercise from "../components/Exercise/Exercise";
 import { AppColors } from "../styles/colors";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
@@ -44,69 +44,106 @@ type ExerciseCategory = {
   color: string;
 };
 
+// EXERCISE_CATEGORIES'i component dışına taşıyın (sabit veri)
+const EXERCISE_CATEGORIES: ExerciseCategory[] = [
+  {
+    title: "GÖĞÜS EGZERSİZLERİ",
+    data: allChestExercises,
+    animationSource: "chest",
+    color: AppColors.chestColor,
+  },
+  {
+    title: "SIRT EGZERSİZLERİ",
+    data: allBackExercises,
+    animationSource: "back",
+    color: AppColors.backColor,
+  },
+  {
+    title: "OMUZ EGZERSİZLERİ",
+    data: allShoulderExercises,
+    animationSource: "shoulder",
+    color: AppColors.shoulderColor,
+  },
+  {
+    title: "BACAK EGZERSİZLERİ",
+    data: allLegExercises,
+    animationSource: "leg",
+    color: AppColors.legColor,
+  },
+  {
+    title: "ÖN KOL EGZERSİZLERİ",
+    data: allBicepsExercises,
+    animationSource: "biceps",
+    color: AppColors.bicepsColor,
+  },
+  {
+    title: "ARKA KOL EGZERSİZLERİ",
+    data: allTricepsExercises,
+    animationSource: "triceps",
+    color: AppColors.tricepsColor,
+  },
+  {
+    title: "FOREARMS EGZERSİZLERİ",
+    data: allForearmsExercises,
+    animationSource: "forearms",
+    color: AppColors.forearmsColor,
+  },
+  {
+    title: "KARIN EGZERSİZLERİ",
+    data: allAbsExercises,
+    animationSource: "abs",
+    color: AppColors.absColor,
+  },
+  {
+    title: "KARDİO EGZERSİZLERİ",
+    data: allCardioExercises,
+    animationSource: "cardio",
+    color: AppColors.cardioColor,
+  },
+];
+
+// CategoryItem'ı memo ile optimize edin
+const CategoryItem = memo(({ category }: { category: ExerciseCategory }) => {
+  const animation = useRef<LottieView>(null);
+
+  return (
+    <View style={styles.categoryContainer}>
+      <View style={styles.categoryHeader}>
+        <View
+          style={[
+            styles.iconContainer,
+            { backgroundColor: category.color + "90" },
+          ]}
+        >
+          <View style={styles.animationContainer}>
+            <LottieView
+              autoPlay
+              ref={animation}
+              style={styles.animation}
+              source={animations[category.animationSource]}
+            />
+          </View>
+        </View>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>{category.title}</Text>
+          <View
+            style={[styles.underline, { backgroundColor: category.color }]}
+          />
+        </View>
+      </View>
+
+      <View style={styles.exerciseListContainer}>
+        {category.data.map((exercise) => (
+          <Exercise key={exercise.id} ExerciseItem={exercise} />
+        ))}
+      </View>
+    </View>
+  );
+});
+
 const AllExercisesScreen = () => {
   const [searchString, setSearchString] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-
-  const animation = useRef<LottieView>(null);
-
-  const EXERCISE_CATEGORIES: ExerciseCategory[] = [
-    {
-      title: "GÖĞÜS EGZERSİZLERİ",
-      data: allChestExercises,
-      animationSource: "chest",
-      color: AppColors.chestColor,
-    },
-    {
-      title: "SIRT EGZERSİZLERİ",
-      data: allBackExercises,
-      animationSource: "back",
-      color: AppColors.backColor,
-    },
-    {
-      title: "OMUZ EGZERSİZLERİ",
-      data: allShoulderExercises,
-      animationSource: "shoulder",
-      color: AppColors.shoulderColor,
-    },
-    {
-      title: "BACAK EGZERSİZLERİ",
-      data: allLegExercises,
-      animationSource: "leg",
-      color: AppColors.legColor,
-    },
-    {
-      title: "ÖN KOL EGZERSİZLERİ",
-      data: allBicepsExercises,
-      animationSource: "biceps",
-      color: AppColors.bicepsColor,
-    },
-    {
-      title: "ARKA KOL EGZERSİZLERİ",
-      data: allTricepsExercises,
-      animationSource: "triceps",
-      color: AppColors.tricepsColor,
-    },
-    {
-      title: "FOREARMS EGZERSİZLERİ",
-      data: allForearmsExercises,
-      animationSource: "forearms",
-      color: AppColors.forearmsColor,
-    },
-    {
-      title: "KARIN EGZERSİZLERİ",
-      data: allAbsExercises,
-      animationSource: "abs",
-      color: AppColors.absColor,
-    },
-
-    {
-      title: "KARDİO EGZERSİZLERİ",
-      data: allCardioExercises,
-      animationSource: "cardio",
-      color: AppColors.cardioColor,
-    },
-  ];
 
   const filteredCategories = useMemo(() => {
     if (!searchString.trim()) {
@@ -127,41 +164,50 @@ const AllExercisesScreen = () => {
     })).filter((category) => category.data.length > 0);
   }, [searchString]);
 
-  const renderCategory = ({
-    item,
-    index,
-  }: {
-    item: ExerciseCategory;
-    index: number;
-  }) => (
-    <View style={styles.categoryContainer}>
-      <View style={styles.categoryHeader}>
-        <View
-          style={[styles.iconContainer, { backgroundColor: item.color + "90" }]}
-        >
-          <View style={styles.animationContainer}>
-            <LottieView
-              autoPlay
-              ref={animation}
-              style={styles.animation}
-              source={animations[item.animationSource]}
-            />
-          </View>
-        </View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>{item.title}</Text>
-          <View style={[styles.underline, { backgroundColor: item.color }]} />
-        </View>
-      </View>
-
-      <FlatList
-        data={item.data}
-        renderItem={({ item }) => <Exercise ExerciseItem={item} />}
-        keyExtractor={(item) => item.id}
-        showsHorizontalScrollIndicator={false}
-      />
-    </View>
+  // renderCategory'yi useCallback ile optimize edin
+  const renderCategory = useCallback(
+    ({ item }: { item: ExerciseCategory }) => <CategoryItem category={item} />,
+    []
   );
+
+  // keyExtractor'ı useCallback ile optimize edin
+  const categoryKeyExtractor = useCallback(
+    (item: ExerciseCategory) => item.title,
+    []
+  );
+
+  // Event handler'ları useCallback ile optimize edin
+  const handleSearchFocus = useCallback(() => setIsFocused(true), []);
+  const handleSearchBlur = useCallback(() => setIsFocused(false), []);
+  const handleClearSearch = useCallback(() => setSearchString(""), []);
+
+  // Kategori yüksekliğini hesapla
+  const getItemLayout = useCallback((data: any, index: number) => {
+    // Her egzersiz için tahmini yükseklik (Exercise component'inin yüksekliği)
+    const EXERCISE_HEIGHT = 80;
+    const HEADER_HEIGHT = 80;
+    const CONTAINER_PADDING = 24;
+
+    let offset = 0;
+    for (let i = 0; i < index; i++) {
+      const categoryData = data[i];
+      offset +=
+        HEADER_HEIGHT +
+        categoryData.data.length * EXERCISE_HEIGHT +
+        CONTAINER_PADDING +
+        vs(24); // marginBottom
+    }
+
+    const currentCategory = data[index];
+    const length =
+      HEADER_HEIGHT +
+      currentCategory.data.length * EXERCISE_HEIGHT +
+      CONTAINER_PADDING +
+      vs(24);
+
+    return { length, offset, index };
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
@@ -187,13 +233,13 @@ const AllExercisesScreen = () => {
             onChangeText={setSearchString}
             placeholder="Egzersiz ara..."
             placeholderTextColor={AppColors.lightGray}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            onFocus={handleSearchFocus}
+            onBlur={handleSearchBlur}
           />
           {searchString.length > 0 && (
             <TouchableOpacity
               style={styles.clearButton}
-              onPress={() => setSearchString("")}
+              onPress={handleClearSearch}
             >
               <EvilIcons name="close" size={24} color={AppColors.lightGray} />
             </TouchableOpacity>
@@ -202,13 +248,18 @@ const AllExercisesScreen = () => {
       </View>
 
       {filteredCategories.length > 0 ? (
-        <FlatList
-          data={filteredCategories}
-          renderItem={renderCategory}
-          keyExtractor={(item) => item.title}
-          showsVerticalScrollIndicator={false}
-          style={styles.listContainer}
-        />
+        <View style={styles.listWrapper}>
+          <FlashList
+            data={filteredCategories}
+            renderItem={renderCategory}
+            keyExtractor={categoryKeyExtractor}
+            showsVerticalScrollIndicator={false}
+            estimatedItemSize={400}
+            contentContainerStyle={styles.listContentContainer}
+            extraData={searchString}
+            getItemType={(item) => "category"}
+          />
+        </View>
       ) : (
         <View style={styles.noResultsContainer}>
           <EvilIcons name="search" size={64} color={AppColors.lightGray} />
@@ -275,8 +326,13 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Light",
   },
 
-  listContainer: {
+  listWrapper: {
+    flex: 1,
     paddingHorizontal: s(12),
+  },
+
+  listContentContainer: {
+    paddingBottom: vs(20),
   },
 
   categoryContainer: {
@@ -290,6 +346,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: vs(12),
+  },
+
+  exerciseListContainer: {
+    // İçerik kadar yükseklik alacak
   },
 
   title: {
