@@ -24,36 +24,37 @@ const BodyScoreGraph = () => {
 
   let primaryColor, secondaryColor, bgGradient, iconName;
   if (body_score_description === "Mükemmel") {
-    primaryColor = "#667eea";
-    secondaryColor = "#764ba2";
-    bgGradient = ["#667eea", "#764ba2"];
+    primaryColor = "#8B5CF6";
+    secondaryColor = "#7C3AED";
+    bgGradient = ["#8B5CF6", "#7C3AED"];
     iconName = "star";
   } else if (body_score_description === "Çok İyi") {
-    primaryColor = "#11998e";
-    secondaryColor = "#38ef7d";
-    bgGradient = ["#11998e", "#38ef7d"];
+    primaryColor = "#10B981";
+    secondaryColor = "#059669";
+    bgGradient = ["#10B981", "#059669"];
     iconName = "trending-up";
   } else if (body_score_description === "İyi") {
-    primaryColor = "#f093fb";
-    secondaryColor = "#f5576c";
-    bgGradient = ["#f093fb", "#f5576c"];
+    primaryColor = "#3B82F6";
+    secondaryColor = "#2563EB";
+    bgGradient = ["#3B82F6", "#2563EB"];
     iconName = "thumb-up";
   } else if (body_score_description === "Normal") {
-    primaryColor = "#F2BE8F";
-    secondaryColor = "#E3743C";
-    bgGradient = ["#F2BE8F", "#E3743C"];
-    iconName = "balance";
+    primaryColor = "#6B7280";
+    secondaryColor = "#4B5563";
+    bgGradient = ["#6B7280", "#4B5563"];
+    iconName = "check-circle";
   } else if (body_score_description === "Kötü") {
-    primaryColor = "#ff9a9e";
-    secondaryColor = "#fecfef";
-    bgGradient = ["#ff9a9e", "#fecfef"];
+    primaryColor = "#EF4444";
+    secondaryColor = "#DC2626";
+    bgGradient = ["#EF4444", "#DC2626"];
     iconName = "warning";
   } else {
-    primaryColor = "#56AAA7";
-    secondaryColor = "#E1839F";
-    bgGradient = ["#56AAA7", "#E1839F"];
-    iconName = "help";
+    primaryColor = "#991B1B";
+    secondaryColor = "#7F1D1D";
+    bgGradient = ["#991B1B", "#7F1D1D"];
+    iconName = "error";
   }
+
   const scorePercentage = Math.min((score / 100) * 100, 100);
 
   return (
@@ -79,6 +80,7 @@ const BodyScoreGraph = () => {
           {
             borderLeftColor: primaryColor,
             shadowColor: primaryColor,
+            borderColor: `${primaryColor}70`,
           },
         ]}
       >
@@ -198,7 +200,7 @@ const styles = StyleSheet.create({
 
   scoreCard: {
     flexDirection: "row",
-    backgroundColor: "#121715", // koyu kart zemini
+    backgroundColor: "#121715",
     borderRadius: s(20),
     padding: s(20),
     borderLeftWidth: s(6),
@@ -289,6 +291,7 @@ const styles = StyleSheet.create({
     borderRadius: s(16),
     width: s(100),
     backgroundColor: "#18221F",
+    justifyContent: "center",
   },
 
   statusDot: {
