@@ -22,6 +22,54 @@ const DetailScreen = ({ route }) => {
   const animation = useRef<LottieView>(null);
   const animationKey = route.params?.animationSource;
 
+  const ANIMATION_SIZES = {
+    verySmall: [
+      "One-Arm Row",
+      "Hip Thrust",
+      "Dağ Tırmanışı",
+      "Incline Biceps Curl",
+    ],
+    small: [
+      "Deadlift",
+      "Pec Deck",
+      "Cable Crossover",
+      "Bent Over Row",
+      "Cable Row",
+      "Bulgarian Split Squat",
+      "Triceps Extension",
+      "Wrist Hammer Curl",
+      "Mekik",
+      "Koşu Bandı",
+      "Preacher Biceps Curl",
+    ],
+    big: [
+      "Şınav",
+      "Barfiks",
+      "Shoulder Press Machine",
+      "Squat",
+      "Leg Press",
+      "Paralel Bar Dips",
+      "Crunch",
+      "Russian Twist",
+    ],
+  };
+
+  const STYLE_MAP = {
+    verySmall: styles.verySmallAnimation,
+    small: styles.smallAnim,
+    big: styles.bigAnimation,
+    mid: styles.midAnim,
+  };
+
+  const getAnimationStyle = (name: string) => {
+    for (const [size, exercises] of Object.entries(ANIMATION_SIZES)) {
+      if (exercises.includes(name)) {
+        return STYLE_MAP[size as keyof typeof STYLE_MAP];
+      }
+    }
+    return STYLE_MAP.mid;
+  };
+
   useFocusEffect(
     useCallback(() => {
       refreshRecords();
@@ -52,7 +100,7 @@ const DetailScreen = ({ route }) => {
           <LottieView
             autoPlay
             ref={animation}
-            style={styles.animation}
+            style={getAnimationStyle(exerciseName)}
             source={animations[animationKey]}
           />
         </View>
@@ -138,9 +186,21 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.grayBgColor,
     borderRadius: s(16),
   },
-  animation: {
+  bigAnimation: {
     width: "100%",
     height: "100%",
+  },
+  smallAnim: {
+    width: "70%",
+    height: "70%",
+  },
+  verySmallAnimation: {
+    width: "60%",
+    height: "60%",
+  },
+  midAnim: {
+    width: "80%",
+    height: "80%",
   },
   spinner: {
     flex: 1,
