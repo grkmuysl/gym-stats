@@ -34,7 +34,6 @@ const WeightGraph = ({ weight, height }) => {
     bgGradient = ["#DC2626", "#B91C1C"];
     iconName = "error";
   } else {
-    // Unknown / fallback
     primaryColor = "#8B5CF6";
     secondaryColor = "#7C3AED";
     bgGradient = ["#8B5CF6", "#7C3AED"];
@@ -88,6 +87,7 @@ const WeightGraph = ({ weight, height }) => {
           {
             borderLeftColor: primaryColor,
             shadowColor: primaryColor,
+            borderColor: `${primaryColor}70`,
           },
         ]}
       >
@@ -300,11 +300,11 @@ const styles = StyleSheet.create({
   statusBadge: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: s(10),
     paddingVertical: s(8),
     borderRadius: s(12),
-    width: s(110),
+    width: s(100),
     backgroundColor: "#18221F",
+    justifyContent: "center",
   },
 
   categoryText: {

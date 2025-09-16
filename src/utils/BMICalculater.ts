@@ -93,7 +93,7 @@ export const getBodyScoreDescription = (score: number): string => {
   if (score >= 70) return "İyi";
   if (score >= 60) return "Normal";
   if (score >= 20) return "Kötü";
-  return "Very Bad";
+  return "Çok Kötü";
 };
 
 export const getBodyScoreEmoji = (score: number): string => {
