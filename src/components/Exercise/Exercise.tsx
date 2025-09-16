@@ -38,7 +38,7 @@ const Exercise: React.FC<ExerciseProps> = ({ ExerciseItem }) => {
         <Text style={styles.subTitle}>{ExerciseItem.subtitle}</Text>
       </View>
 
-      <View style={styles.buttonContainer}>
+      <View>
         <AppButton
           title={isFavorite ? "💔 Sil" : "❤️ Ekle"}
           onPress={toggleFavorite}
@@ -54,13 +54,13 @@ export default React.memo(Exercise);
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: vs(82),
+    height: vs(72),
     borderRadius: s(16),
     backgroundColor: AppColors.grayBgColor,
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
-    padding: s(12),
+    paddingHorizontal: s(12),
     marginTop: vs(8),
     marginBottom: vs(6),
   },
@@ -69,11 +69,9 @@ const styles = StyleSheet.create({
     marginLeft: s(2),
     marginRight: s(2),
   },
-  buttonContainer: {
-    minWidth: s(100),
-  },
+
   favoriteBtn: {
-    width: s(92),
+    width: s(82),
     height: vs(36),
   },
   difficulty: {
@@ -92,5 +90,9 @@ const styles = StyleSheet.create({
     color: AppColors.lightGray,
     fontFamily: "Roboto-Regular",
     marginTop: vs(2),
+  },
+  subTitleText: {
+    color: AppColors.whiteColor,
+    fontFamily: "Roboto-Regular",
   },
 });

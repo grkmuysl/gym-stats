@@ -23,7 +23,7 @@ const PrevRecords = ({ exerciseName, inputType }) => {
     }));
   } else if (inputType === "duration") {
     lineChartData = filteredAndSortedRecords.map((record) => ({
-      value: record.weight * record.setsCount,
+      value: record.duration * record.setsCount,
       hideDataPoint: true,
     }));
   } else {

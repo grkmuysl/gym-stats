@@ -1,8 +1,7 @@
 export const allChestExercises = [
   {
     name: "Bench Press",
-    subtitle:
-      "Göğüs kuvveti geliştirmek için bileşik (çok eklemli) bir egzersiz",
+    subtitle: "Göğüs, Ön Omuz, Triceps",
     type: "Göğüs",
     id: "0",
     difficulty: "İleri",
@@ -11,7 +10,7 @@ export const allChestExercises = [
   },
   {
     name: "Incline Bench Press",
-    subtitle: "Göğüs kaslarının üst bölümünü hedefler",
+    subtitle: "Üst Göğüs, Ön Omuz, Triceps",
     type: "Göğüs",
     id: "1",
     difficulty: "İleri",
@@ -20,7 +19,7 @@ export const allChestExercises = [
   },
   {
     name: "Decline Bench Press",
-    subtitle: "Alt göğüs kaslarına odaklanır",
+    subtitle: "Alt Göğüs, Triceps",
     type: "Göğüs",
     id: "2",
     difficulty: "Orta",
@@ -29,7 +28,7 @@ export const allChestExercises = [
   },
   {
     name: "Dumbbell Bench Press",
-    subtitle: "Dumbbelllarla yapılan göğüs geliştirme egzersizi",
+    subtitle: "Göğüs, Ön Omuz, Triceps",
     type: "Göğüs",
     id: "27",
     difficulty: "Orta",
@@ -38,7 +37,7 @@ export const allChestExercises = [
   },
   {
     name: "Dumbbell Fly",
-    subtitle: "Göğüs kaslarını izole eden açma-kapama hareketi",
+    subtitle: "Göğüs, Ön Omuz",
     type: "Göğüs",
     id: "28",
     difficulty: "Orta",
@@ -47,7 +46,7 @@ export const allChestExercises = [
   },
   {
     name: "Pec Deck",
-    subtitle: "Makinede yapılan göğüs izolasyon egzersizi",
+    subtitle: "Göğüs, Ön Omuz",
     type: "Göğüs",
     id: "29",
     difficulty: "Başlangıç",
@@ -56,7 +55,7 @@ export const allChestExercises = [
   },
   {
     name: "Chest Press Machine",
-    subtitle: "Makine ile güvenli göğüs geliştirme egzersizi",
+    subtitle: "Göğüs, Ön Omuz, Triceps",
     type: "Göğüs",
     id: "30",
     difficulty: "Başlangıç",
@@ -65,7 +64,7 @@ export const allChestExercises = [
   },
   {
     name: "Şınav",
-    subtitle: "Vücut ağırlığıyla yapılan temel bir üst vücut egzersizi",
+    subtitle: "Göğüs, Ön Omuz, Triceps, Core",
     type: "Göğüs",
     id: "3",
     difficulty: "Başlangıç",
@@ -74,7 +73,7 @@ export const allChestExercises = [
   },
   {
     name: "Cable Crossover",
-    subtitle: "Kablo direnciyle göğüs kaslarını izole eder",
+    subtitle: "Alt Göğüs, Orta Göğüs",
     type: "Göğüs",
     id: "4",
     difficulty: "Orta",
@@ -86,7 +85,7 @@ export const allChestExercises = [
 export const allBackExercises = [
   {
     name: "Barfiks",
-    subtitle: "Sırt ve kol kuvveti için zorlayıcı bir egzersiz",
+    subtitle: "Sırt, Biceps",
     type: "Sırt",
     id: "5",
     difficulty: "İleri",
@@ -95,7 +94,7 @@ export const allBackExercises = [
   },
   {
     name: "Deadlift",
-    subtitle: "Sırt ve bacaklara odaklanan tam vücut egzersizi",
+    subtitle: "Alt Sırt, Glutes, Hamstring, Trapez",
     type: "Sırt",
     id: "6",
     difficulty: "İleri",
@@ -104,7 +103,7 @@ export const allBackExercises = [
   },
   {
     name: "Bent Over Row",
-    subtitle: "Sırt ve dengeleyici kasları güçlendirir",
+    subtitle: "Sırt, Arka Omuz, Biceps",
     type: "Sırt",
     id: "7",
     difficulty: "Orta",
@@ -113,7 +112,7 @@ export const allBackExercises = [
   },
   {
     name: "Cable Row",
-    subtitle: "Kablo sistemiyle sırt kaslarını güçlendirir",
+    subtitle: "Sırt, Arka Omuz, Biceps",
     type: "Sırt",
     id: "35",
     difficulty: "Orta",
@@ -122,7 +121,7 @@ export const allBackExercises = [
   },
   {
     name: "One-Arm Row",
-    subtitle: "Tek kolla yapılan sırt izolasyon egzersizi",
+    subtitle: "Sırt, Arka Omuz, Biceps",
     type: "Sırt",
     id: "31",
     difficulty: "Orta",
@@ -131,7 +130,7 @@ export const allBackExercises = [
   },
   {
     name: "Lat Pull Down",
-    subtitle: "Kanat kaslarını geliştirir ve barfiks kuvvetini artırır",
+    subtitle: "Sırt, Biceps",
     type: "Sırt",
     id: "8",
     difficulty: "Başlangıç",
@@ -140,7 +139,7 @@ export const allBackExercises = [
   },
   {
     name: "Face Pull",
-    subtitle: "Arka omuz ve üst sırt kaslarını hedefler",
+    subtitle: "Arka Omuz, Sırt",
     type: "Sırt",
     id: "9",
     difficulty: "Orta",
@@ -152,7 +151,7 @@ export const allBackExercises = [
 export const allShoulderExercises = [
   {
     name: "Shoulder Press",
-    subtitle: "Omuz kuvveti ve stabilitesini geliştirir",
+    subtitle: "Ön Omuz, Yan Omuz, Triceps",
     type: "Omuz",
     id: "10",
     difficulty: "İleri",
@@ -161,7 +160,7 @@ export const allShoulderExercises = [
   },
   {
     name: "Shoulder Press Machine",
-    subtitle: "Makinede güvenli ve kontrollü omuz geliştirme",
+    subtitle: "Ön Omuz, Yan Omuz, Triceps",
     type: "Omuz",
     id: "34",
     difficulty: "Başlangıç",
@@ -170,7 +169,7 @@ export const allShoulderExercises = [
   },
   {
     name: "Yana Açış",
-    subtitle: "Omuz genişliği için yan deltoidleri hedefler",
+    subtitle: "Yan Omuz",
     type: "Omuz",
     id: "12",
     difficulty: "Başlangıç",
@@ -179,7 +178,7 @@ export const allShoulderExercises = [
   },
   {
     name: "Öne Kaldırış",
-    subtitle: "Omuz hattı için ön deltoidleri hedefler",
+    subtitle: "Ön Omuz",
     type: "Omuz",
     id: "13",
     difficulty: "Başlangıç",
@@ -191,7 +190,7 @@ export const allShoulderExercises = [
 export const allLegExercises = [
   {
     name: "Squat",
-    subtitle: "Alt vücut kuvveti için temel bir egzersiz",
+    subtitle: "Ön Bacak, Kalça, Arka Bacak, Core",
     type: "Bacak",
     id: "14",
     difficulty: "İleri",
@@ -200,7 +199,7 @@ export const allLegExercises = [
   },
   {
     name: "Ağırlıklı Squat",
-    subtitle: "Ağırlık ile alt vücut kuvvetini maksimize eder",
+    subtitle: "Ön Bacak, Kalça, Arka Bacak, Core",
     type: "Bacak",
     id: "23",
     difficulty: "İleri",
@@ -209,7 +208,7 @@ export const allLegExercises = [
   },
   {
     name: "Leg Press",
-    subtitle: "Kontrollü hareketle quadriceps ve glute kuvveti kazandırır",
+    subtitle: "Ön Bacak, Kalça, Arka Bacak",
     type: "Bacak",
     id: "15",
     difficulty: "Orta",
@@ -218,7 +217,7 @@ export const allLegExercises = [
   },
   {
     name: "Lunge",
-    subtitle: "Dengeyi geliştirir ve bacakları güçlendirir",
+    subtitle: "Ön Bacak, Kalça, Arka Bacak, Core",
     type: "Bacak",
     id: "16",
     difficulty: "Başlangıç",
@@ -227,7 +226,7 @@ export const allLegExercises = [
   },
   {
     name: "Bulgarian Split Squat",
-    subtitle: "Kuvvet ve denge için tek taraflı bir bacak egzersizi",
+    subtitle: "Ön Bacak, Kalça, Arka Bacak",
     type: "Bacak",
     id: "17",
     difficulty: "İleri",
@@ -236,7 +235,7 @@ export const allLegExercises = [
   },
   {
     name: "Hip Thrust",
-    subtitle: "Glute kaslarını güçlendiren etkili kalça egzersizi",
+    subtitle: "Kalça, Arka Bacak, Core",
     type: "Bacak",
     id: "32",
     difficulty: "Orta",
@@ -248,7 +247,7 @@ export const allLegExercises = [
 export const allBicepsExercises = [
   {
     name: "Barbell Curl",
-    subtitle: "Barbell direnciyle biceps kuvveti kazandırır",
+    subtitle: "Biceps, Forearms",
     type: "Biceps",
     id: "18",
     difficulty: "Orta",
@@ -257,7 +256,7 @@ export const allBicepsExercises = [
   },
   {
     name: "Dumbbell Curl",
-    subtitle: "Kontrollü kuvvet gelişimi için biceps’i izole eder",
+    subtitle: "Biceps, Forearms",
     type: "Biceps",
     id: "19",
     difficulty: "Başlangıç",
@@ -266,7 +265,7 @@ export const allBicepsExercises = [
   },
   {
     name: "Hammer Curl",
-    subtitle: "Biceps ve brachialis kaslarını hedefler",
+    subtitle: "Biceps, Brachialis, Forearms",
     type: "Biceps",
     id: "20",
     difficulty: "Başlangıç",
@@ -275,7 +274,7 @@ export const allBicepsExercises = [
   },
   {
     name: "Incline Biceps Curl",
-    subtitle: "Eğimli pozisyonda biceps'in tam gerilimini sağlar",
+    subtitle: "Biceps, Forearms",
     type: "Biceps",
     id: "33",
     difficulty: "Orta",
@@ -284,7 +283,7 @@ export const allBicepsExercises = [
   },
   {
     name: "Preacher Biceps Curl",
-    subtitle: "Preacher bench ile biceps'i tam izole eder",
+    subtitle: "Biceps, Forearms",
     type: "Biceps",
     id: "38",
     difficulty: "Orta",
@@ -296,7 +295,7 @@ export const allBicepsExercises = [
 export const allTricepsExercises = [
   {
     name: "Paralel Bar Dips",
-    subtitle: "Vücut ağırlığıyla triceps’i güçlendirir",
+    subtitle: "Triceps, Alt Göğüs, Ön Omuz",
     type: "Triceps",
     id: "21",
     difficulty: "Orta",
@@ -305,7 +304,7 @@ export const allTricepsExercises = [
   },
   {
     name: "Triceps Extension",
-    subtitle: "Baş üstü ekstansiyonla triceps’i izole eder",
+    subtitle: "Triceps",
     type: "Triceps",
     id: "22",
     difficulty: "İleri",
@@ -314,7 +313,7 @@ export const allTricepsExercises = [
   },
   {
     name: "Triceps Pushdown",
-    subtitle: "Kablo sistemiyle triceps'i etkili şekilde izole eder",
+    subtitle: "Triceps",
     type: "Triceps",
     id: "36",
     difficulty: "Başlangıç",
@@ -323,7 +322,7 @@ export const allTricepsExercises = [
   },
   {
     name: "High Pulley",
-    subtitle: "Yüksek makara ile triceps kuvvet geliştirme",
+    subtitle: "Triceps",
     type: "Triceps",
     id: "37",
     difficulty: "Orta",
@@ -335,7 +334,7 @@ export const allTricepsExercises = [
 export const allAbsExercises = [
   {
     name: "Plank",
-    subtitle: "Karın ve bel (alt sırt) için merkez stabilite egzersizi",
+    subtitle: "Core, Alt Sırt, Omuzlar",
     type: "Karın",
     id: "23",
     difficulty: "Başlangıç",
@@ -344,7 +343,7 @@ export const allAbsExercises = [
   },
   {
     name: "Mekik",
-    subtitle: "Üst karın kaslarını hedefler",
+    subtitle: "Üst Karın, Hip Flexors",
     type: "Karın",
     id: "24",
     difficulty: "Başlangıç",
@@ -353,7 +352,7 @@ export const allAbsExercises = [
   },
   {
     name: "Russian Twist",
-    subtitle: "Merkez kuvveti ve rotasyonel stabiliteyi artırır",
+    subtitle: "Yan Karın, Core",
     type: "Karın",
     id: "25",
     difficulty: "Orta",
@@ -362,7 +361,7 @@ export const allAbsExercises = [
   },
   {
     name: "Dağ Tırmanışı",
-    subtitle: "Dinamik bir core ve kardiyo egzersizi",
+    subtitle: "Core, Omuzlar, Quadriceps",
     type: "Karın",
     id: "26",
     difficulty: "Orta",
@@ -371,7 +370,7 @@ export const allAbsExercises = [
   },
   {
     name: "Crunch",
-    subtitle: "Kontrollü hareketle üst karın kaslarını izole eder",
+    subtitle: "Üst Karın",
     type: "Karın",
     id: "42",
     difficulty: "Başlangıç",
@@ -380,7 +379,7 @@ export const allAbsExercises = [
   },
   {
     name: "Bridge",
-    subtitle: "Kalça ve alt sırt kaslarını güçlendirir",
+    subtitle: "Glutes, Hamstring, Alt Sırt",
     type: "Karın",
     id: "43",
     difficulty: "Başlangıç",
@@ -389,17 +388,16 @@ export const allAbsExercises = [
   },
   {
     name: "Cobras",
-    subtitle: "Sırt ekstansörlerini güçlendirir ve duruş düzeltir",
+    subtitle: "Alt Sırt, Glutes",
     type: "Karın",
     id: "44",
     difficulty: "Başlangıç",
     animationSource: "cobras",
     inputType: "reps",
   },
-
   {
     name: "Side Hip",
-    subtitle: "Yan yatış pozisyonunda kalça ve yan karın güçlendirir",
+    subtitle: "Yan Karın, Hip Abductors",
     type: "Karın",
     id: "45",
     difficulty: "Orta",
@@ -411,7 +409,7 @@ export const allAbsExercises = [
 export const allForearmsExercises = [
   {
     name: "Seated Wrist Curl",
-    subtitle: "Oturarak bilek flexor kaslarını güçlendirir",
+    subtitle: "Forearm Flexors, Bilek",
     type: "Forearms",
     id: "39",
     difficulty: "Başlangıç",
@@ -420,7 +418,7 @@ export const allForearmsExercises = [
   },
   {
     name: "Ulnar Deviation",
-    subtitle: "Bilek yan hareketiyle forearm stabilizasyonu sağlar",
+    subtitle: "Forearms, Bilek Stabilizatörleri",
     type: "Forearms",
     id: "40",
     difficulty: "Başlangıç",
@@ -429,7 +427,7 @@ export const allForearmsExercises = [
   },
   {
     name: "Wrist Hammer Curl",
-    subtitle: "Hammer pozisyonunda bilek ve forearm kuvvetlendirir",
+    subtitle: "Forearms, Brachioradialis",
     type: "Forearms",
     id: "41",
     difficulty: "Orta",
@@ -441,7 +439,7 @@ export const allForearmsExercises = [
 export const allCardioExercises = [
   {
     name: "Koşu Bandı",
-    subtitle: "Kardiyovasküler dayanıklılık ve kalori yakımı sağlar",
+    subtitle: "Kalp, Bacaklar, Core",
     type: "Kardio",
     id: "46",
     difficulty: "Başlangıç",
@@ -450,7 +448,7 @@ export const allCardioExercises = [
   },
   {
     name: "İp Atlama",
-    subtitle: "Hızlı kalori yakımı ve koordinasyon gelişimi sağlar",
+    subtitle: "Kalp, Baldır, Koordinasyon",
     type: "Kardio",
     id: "47",
     difficulty: "Başlangıç",

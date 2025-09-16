@@ -18,7 +18,6 @@ const LastChanges = ({ exerciseName, inputType }) => {
   const data_size = sortedData.length;
 
   let lastData = 0;
-  let totalReps = 0;
   let firstRecord = 0;
   let minValue = 0;
   let penultimate = 0;
@@ -40,7 +39,7 @@ const LastChanges = ({ exerciseName, inputType }) => {
         return sets * reps;
       } else {
         const sets = record.setsCount || 1;
-        const duration = record.weight;
+        const duration = record.duration;
         return sets * duration;
       }
     };
@@ -76,7 +75,7 @@ const LastChanges = ({ exerciseName, inputType }) => {
     } else {
       // DURATION
       formattedNumber = Math.round(value).toString();
-      unit = "sn";
+      exerciseName === "Koşu Bandı" ? (unit = "dk") : (unit = "sn");
     }
 
     return (
