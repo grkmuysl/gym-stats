@@ -21,12 +21,14 @@ const AppLineChart = ({ data }) => {
       return {
         values: [0, currentValue],
         labels: ["", ""],
+        hidePointsAtIndex: [0],
       };
     }
 
     return {
       values: [0, ...values],
       labels: ["", ...values.map((_, index) => `${index + 1}`)],
+      hidePointsAtIndex: [0],
     };
   };
 
@@ -54,7 +56,10 @@ const AppLineChart = ({ data }) => {
       borderRadius: 16,
     },
     propsForDots: {
-      r: "0",
+      r: "4",
+      strokeWidth: "2",
+      stroke: AppColors.blackBgColor,
+      fill: AppColors.limeGreenColor,
     },
     fillShadowGradient: AppColors.limeGreenColor,
     fillShadowGradientOpacity: 0.3,
@@ -68,8 +73,9 @@ const AppLineChart = ({ data }) => {
         height={vs(180)}
         chartConfig={chartConfig}
         style={styles.chart}
-        withDots={false}
+        withDots={true}
         withShadow={true}
+        hidePointsAtIndex={processedData.hidePointsAtIndex}
       />
     </View>
   );
