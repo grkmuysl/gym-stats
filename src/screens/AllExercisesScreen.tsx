@@ -255,7 +255,6 @@ const AllExercisesScreen = () => {
             keyExtractor={categoryKeyExtractor}
             showsVerticalScrollIndicator={false}
             estimatedItemSize={400}
-            contentContainerStyle={styles.listContentContainer}
             extraData={searchString}
             getItemType={(item) => "category"}
           />
@@ -329,10 +328,6 @@ const styles = StyleSheet.create({
   listWrapper: {
     flex: 1,
     paddingHorizontal: s(12),
-  },
-
-  listContentContainer: {
-    paddingBottom: vs(20),
   },
 
   categoryContainer: {

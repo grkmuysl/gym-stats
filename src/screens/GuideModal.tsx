@@ -75,10 +75,7 @@ export const GuideModal = ({ visible, onClose, navigation }) => {
       animationType="fade"
       presentationStyle="fullScreen"
       onRequestClose={onClose}
-      statusBarTranslucent={true}
     >
-      <StatusBar backgroundColor="transparent" barStyle="light-content" />
-
       <LinearGradient
         colors={pages[currentPage].colors}
         style={styles.container}

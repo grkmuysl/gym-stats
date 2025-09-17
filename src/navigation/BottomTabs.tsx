@@ -20,9 +20,11 @@ const BottomTabs = () => {
       screenOptions={{
         tabBarActiveTintColor: AppColors.whiteColor,
         tabBarInactiveTintColor: AppColors.lightGray,
+        tabBarHideOnKeyboard: true,
         tabBarStyle: {
           backgroundColor: AppColors.grayBgColor,
           height: vs(72),
+          borderTopWidth: 0,
         },
       }}
     >

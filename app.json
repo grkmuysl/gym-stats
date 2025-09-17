@@ -4,32 +4,30 @@
     "slug": "gym-log-spor-gunlugu",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/new-icon.png",
+    "icon": "./assets/last-icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/new-icon.png",
+      "image": "./assets/last-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "splash": {
-        "image": "./assets/new-icon.png",
+        "image": "./assets/last-icon.png",
         "resizeMode": "contain",
         "backgroundColor": "#ffffff"
       }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/new-icon.png",
+        "foregroundImage": "./assets/last-icon.png",
         "backgroundColor": "#ffffff"
       },
       "splash": {
-        "image": "./assets/new-icon.png",
+        "image": "./assets/last-icon.png",
         "resizeMode": "contain",
         "backgroundColor": "#ffffff"
       },
