@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
   },
   chart: {
     borderRadius: s(10),
+    marginTop: vs(16),
   },
   title: {
     color: AppColors.whiteColor,
