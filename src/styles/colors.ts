@@ -1,6 +1,6 @@
 export const AppColors = {
   blackBgColor: "#161616",
-  grayBgColor: "#393939",
+  grayBgColor: "#2A2A2A",
   limeGreenColor: "#0df93e",
   whiteColor: "#ffffff",
   lightGray: "#b2afafff",
