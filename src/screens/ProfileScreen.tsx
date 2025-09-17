@@ -475,7 +475,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   headerTitle: {
-    fontSize: s(28),
+    fontSize: s(24),
     fontFamily: "Roboto-Bold",
     color: "#FFF",
     marginBottom: vs(4),
@@ -570,7 +570,7 @@ const styles = StyleSheet.create({
     top: "50%",
     transform: [{ translateY: -10 }],
     fontSize: s(14),
-    color: "#444",
+    color: "#999",
     fontFamily: "Roboto-Regular",
   },
 
@@ -596,7 +596,7 @@ const styles = StyleSheet.create({
   cancelButtonText: {
     fontSize: s(16),
     fontFamily: "Roboto-Medium",
-    color: "#999",
+    color: "#d6d6d6",
   },
   saveButton: {
     flex: 1.5,
