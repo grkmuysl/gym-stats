@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "splash": {
@@ -41,6 +43,7 @@
       "eas": {
         "projectId": "d8b38638-199c-4a52-b2fa-b715f917620e"
       }
-    }
+    },
+    "owner": "gorkemuysal"
   }
 }
