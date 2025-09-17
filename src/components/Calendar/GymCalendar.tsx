@@ -361,7 +361,6 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.grayBgColor,
     overflow: "hidden",
     borderRadius: s(8),
-    // Height artık dinamik olarak set ediliyor
   },
   modal: {
     justifyContent: "center",

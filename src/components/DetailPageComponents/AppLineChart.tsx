@@ -46,9 +46,9 @@ const AppLineChart = ({ data }) => {
   };
 
   const chartConfig = {
-    backgroundColor: "#414141",
-    backgroundGradientFrom: "#414141",
-    backgroundGradientTo: "#414141",
+    backgroundColor: AppColors.grayBgColor,
+    backgroundGradientFrom: AppColors.grayBgColor,
+    backgroundGradientTo: AppColors.grayBgColor,
     decimalPlaces: 0,
     color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
     labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -86,7 +86,7 @@ export default AppLineChart;
 const styles = StyleSheet.create({
   container: {
     marginVertical: vs(10),
-    backgroundColor: "#414141",
+    backgroundColor: AppColors.grayBgColor,
     borderRadius: s(10),
     width: s(316),
     height: vs(200),
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
   },
   chart: {
     borderRadius: s(10),
+    marginTop: vs(16),
   },
   title: {
     color: AppColors.whiteColor,
