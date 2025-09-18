@@ -522,7 +522,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     paddingHorizontal: s(24),
-    paddingBottom: vs(20),
+    paddingBottom: vs(12),
     gap: s(12),
   },
   backButton: {
