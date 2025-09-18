@@ -139,8 +139,8 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     position: "absolute",
-    top: vs(50),
-    right: s(20),
+    top: vs(32),
+    right: s(12),
     zIndex: 1000,
     width: s(40),
     height: s(40),
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: vs(80),
+    paddingTop: vs(64),
     paddingBottom: vs(40),
   },
 
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,0.1)",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: vs(20),
+    marginBottom: vs(16),
   },
   image: {
     width: s(280),
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     fontSize: s(22),
     fontWeight: "bold",
     color: "white",
-    marginBottom: vs(12),
+    marginBottom: vs(4),
     lineHeight: vs(28),
     paddingHorizontal: s(10),
   },
@@ -199,7 +199,6 @@ const styles = StyleSheet.create({
     paddingBottom: vs(24),
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: vs(20),
   },
   indicators: {
     flexDirection: "row",

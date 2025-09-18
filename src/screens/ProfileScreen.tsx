@@ -451,7 +451,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: vs(16),
+    paddingTop: vs(24),
   },
   gradientBg: {
     flex: 1,

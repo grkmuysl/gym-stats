@@ -44,7 +44,6 @@ type ExerciseCategory = {
   color: string;
 };
 
-// EXERCISE_CATEGORIES'i component dışına taşıyın (sabit veri)
 const EXERCISE_CATEGORIES: ExerciseCategory[] = [
   {
     title: "GÖĞÜS EGZERSİZLERİ",
@@ -102,7 +101,6 @@ const EXERCISE_CATEGORIES: ExerciseCategory[] = [
   },
 ];
 
-// CategoryItem'ı memo ile optimize edin
 const CategoryItem = memo(({ category }: { category: ExerciseCategory }) => {
   const animation = useRef<LottieView>(null);
 
@@ -132,7 +130,7 @@ const CategoryItem = memo(({ category }: { category: ExerciseCategory }) => {
         </View>
       </View>
 
-      <View style={styles.exerciseListContainer}>
+      <View>
         {category.data.map((exercise) => (
           <Exercise key={exercise.id} ExerciseItem={exercise} />
         ))}
@@ -164,49 +162,19 @@ const AllExercisesScreen = () => {
     })).filter((category) => category.data.length > 0);
   }, [searchString]);
 
-  // renderCategory'yi useCallback ile optimize edin
   const renderCategory = useCallback(
     ({ item }: { item: ExerciseCategory }) => <CategoryItem category={item} />,
     []
   );
 
-  // keyExtractor'ı useCallback ile optimize edin
   const categoryKeyExtractor = useCallback(
     (item: ExerciseCategory) => item.title,
     []
   );
 
-  // Event handler'ları useCallback ile optimize edin
   const handleSearchFocus = useCallback(() => setIsFocused(true), []);
   const handleSearchBlur = useCallback(() => setIsFocused(false), []);
   const handleClearSearch = useCallback(() => setSearchString(""), []);
-
-  // Kategori yüksekliğini hesapla
-  const getItemLayout = useCallback((data: any, index: number) => {
-    // Her egzersiz için tahmini yükseklik (Exercise component'inin yüksekliği)
-    const EXERCISE_HEIGHT = 80;
-    const HEADER_HEIGHT = 80;
-    const CONTAINER_PADDING = 24;
-
-    let offset = 0;
-    for (let i = 0; i < index; i++) {
-      const categoryData = data[i];
-      offset +=
-        HEADER_HEIGHT +
-        categoryData.data.length * EXERCISE_HEIGHT +
-        CONTAINER_PADDING +
-        vs(24); // marginBottom
-    }
-
-    const currentCategory = data[index];
-    const length =
-      HEADER_HEIGHT +
-      currentCategory.data.length * EXERCISE_HEIGHT +
-      CONTAINER_PADDING +
-      vs(24);
-
-    return { length, offset, index };
-  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -341,10 +309,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: vs(12),
-  },
-
-  exerciseListContainer: {
-    // İçerik kadar yükseklik alacak
   },
 
   title: {

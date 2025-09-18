@@ -16,6 +16,7 @@ import {
   ExerciseRecordsItem,
   useRecords,
 } from "../context/ExerciseRecordsContext";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const AddExerciseScreen = () => {
   const [selectedExerciseType, setSelectedExerciseType] = useState(null);
@@ -124,7 +125,7 @@ const AddExerciseScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <GoBackButton style={styles.goBackBtn} />
 
       <View style={styles.contentContainer}>
@@ -237,7 +238,7 @@ const AddExerciseScreen = () => {
           )}
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -250,14 +251,14 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    paddingTop: vs(40),
+    paddingTop: vs(32),
     paddingHorizontal: s(12),
     paddingBottom: vs(50),
   },
   goBackBtn: {
     position: "absolute",
-    left: s(20),
-    top: vs(50),
+    left: s(24),
+    top: vs(68),
     zIndex: 6000,
   },
   title: {

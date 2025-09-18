@@ -36,7 +36,6 @@ const FavouriteScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* EmptyFavoritesScreen - Her zaman mount'ta kalır */}
       <Animated.View
         style={[
           styles.emptyFavoriteContainer,

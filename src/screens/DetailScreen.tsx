@@ -12,6 +12,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 import animations from "../data/Animations";
 import CustomSpinner from "../components/Spinner/CustomSpinner";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const DetailScreen = ({ route }) => {
   const exerciseName = route.params?.name;
@@ -90,8 +91,8 @@ const DetailScreen = ({ route }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
         <GoBackButton style={styles.goBackBtn} />
 
         <Text style={styles.pageTitle}>{route.params.name}</Text>
@@ -131,7 +132,7 @@ const DetailScreen = ({ route }) => {
           <AllRecords exerciseName={exerciseName} />
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -141,9 +142,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: AppColors.blackBgColor,
-  },
-  scrollView: {
-    marginTop: vs(16),
   },
   goBackBtn: {
     position: "relative",
