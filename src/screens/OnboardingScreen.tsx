@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,6 +11,7 @@ import {
   Platform,
   Animated,
   Alert,
+  Keyboard,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { s, vs } from "react-native-size-matters";
@@ -32,9 +33,27 @@ interface FormData {
 const OnboardingScreen = () => {
   const { saveProfileWithData, isLoading } = useProfile();
 
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
   const { imagesLoaded, loading: imageLoading } = useImagePreloader(
     APP_IMAGES.GUIDE
   );
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => setKeyboardVisible(true)
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => setKeyboardVisible(false)
+    );
+
+    return () => {
+      keyboardDidHideListener?.remove();
+      keyboardDidShowListener?.remove();
+    };
+  }, []);
 
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
@@ -329,56 +348,58 @@ const OnboardingScreen = () => {
           </ScrollView>
 
           {/* Navigation Buttons */}
-          <View style={styles.buttonContainer}>
-            {currentStep > 0 && (
-              <TouchableOpacity
-                style={styles.backButton}
-                onPress={handleBack}
-                activeOpacity={0.8}
-              >
-                <AntDesign
-                  name="arrowleft"
-                  size={18}
-                  color={AppColors.lightGray}
-                  style={styles.backIcon}
-                />
-                <Text style={styles.backButtonText}>Geri</Text>
-              </TouchableOpacity>
-            )}
+          {!keyboardVisible && (
+            <View style={styles.buttonContainer}>
+              {currentStep > 0 && (
+                <TouchableOpacity
+                  style={styles.backButton}
+                  onPress={handleBack}
+                  activeOpacity={0.8}
+                >
+                  <AntDesign
+                    name="arrowleft"
+                    size={18}
+                    color={AppColors.lightGray}
+                    style={styles.backIcon}
+                  />
+                  <Text style={styles.backButtonText}>Geri</Text>
+                </TouchableOpacity>
+              )}
 
-            <TouchableOpacity
-              style={[
-                styles.nextButtonWrapper,
-                isButtonDisabled() && styles.buttonDisabled,
-              ]}
-              onPress={handleNext}
-              activeOpacity={0.8}
-              disabled={isButtonDisabled()}
-            >
-              <LinearGradient
-                colors={
-                  isButtonDisabled()
-                    ? [AppColors.lightGray, AppColors.lightGray]
-                    : [AppColors.limeGreenColor, "#4ECDC4"]
-                }
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={styles.nextButton}
+              <TouchableOpacity
+                style={[
+                  styles.nextButtonWrapper,
+                  isButtonDisabled() && styles.buttonDisabled,
+                ]}
+                onPress={handleNext}
+                activeOpacity={0.8}
+                disabled={isButtonDisabled()}
               >
-                <View style={styles.buttonContent}>
-                  <Text style={styles.nextButtonText}>{getButtonText()}</Text>
-                  {currentStep !== steps.length - 1 && (
-                    <AntDesign
-                      name="arrowright"
-                      size={18}
-                      color="white"
-                      style={styles.iconStlye}
-                    />
-                  )}
-                </View>
-              </LinearGradient>
-            </TouchableOpacity>
-          </View>
+                <LinearGradient
+                  colors={
+                    isButtonDisabled()
+                      ? [AppColors.lightGray, AppColors.lightGray]
+                      : [AppColors.limeGreenColor, "#4ECDC4"]
+                  }
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={styles.nextButton}
+                >
+                  <View style={styles.buttonContent}>
+                    <Text style={styles.nextButtonText}>{getButtonText()}</Text>
+                    {currentStep !== steps.length - 1 && (
+                      <AntDesign
+                        name="arrowright"
+                        size={18}
+                        color="white"
+                        style={styles.iconStlye}
+                      />
+                    )}
+                  </View>
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          )}
         </KeyboardAvoidingView>
       </SafeAreaView>
     </LinearGradient>

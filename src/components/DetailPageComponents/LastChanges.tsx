@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     borderRadius: s(12),
-    padding: s(16),
+    padding: s(12),
     minHeight: vs(100),
     justifyContent: "space-between",
     borderWidth: 1,
@@ -315,6 +315,7 @@ const styles = StyleSheet.create({
   cardHeader: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     marginBottom: vs(8),
   },
 
@@ -338,7 +339,6 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Bold",
     fontSize: s(22),
     textAlign: "center",
-    marginVertical: vs(4),
   },
 
   dateText: {
