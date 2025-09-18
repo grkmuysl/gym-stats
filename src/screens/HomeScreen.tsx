@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   headerCard: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: s(16),
     paddingVertical: s(8),
     borderRadius: s(20),

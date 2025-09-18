@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     paddingTop: vs(40),
-    paddingHorizontal: s(20),
+    paddingHorizontal: s(12),
     paddingBottom: vs(50),
   },
   goBackBtn: {
