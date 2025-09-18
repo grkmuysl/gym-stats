@@ -18,7 +18,7 @@
       "splash": {
         "image": "./assets/last-icon.png",
         "resizeMode": "contain",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#161616"
       }
     },
     "android": {
